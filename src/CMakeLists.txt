@@ -33,7 +33,7 @@ if(CMAKE_COMPILER_IS_GNUCXX)
 	SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")
 endif(CMAKE_COMPILER_IS_GNUCXX)
 add_executable(ctutest ctutest/ctutest.cpp)
-target_link_libraries(ctutest gtest)
+target_link_libraries(ctutest gtest jsoncpp)
 
 # Build main ctu executable
 add_executable(ctu ctu/main.cpp)
