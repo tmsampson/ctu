@@ -8,7 +8,9 @@ cd build/intermediate
 cmake ../../src
 
 # Build ctu using g++
+if (( $? == 0 )); then
 make
+fi
 
 # Return to original directory
 cd ../../
