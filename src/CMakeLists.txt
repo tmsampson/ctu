@@ -5,13 +5,6 @@ set(CTU_ROOT "${CMAKE_CURRENT_SOURCE_DIR}/..")
 set(EXECUTABLE_OUTPUT_PATH ${CTU_ROOT}/build)
 set(LIBRARY_OUTPUT_PATH ${CTU_ROOT}/build)
 
-# Detection test
-if(MSVC)
-	MESSAGE("This is Windows")
-elseif(CMAKE_COMPILER_IS_GNUCXX)
-	MESSAGE("This is Linux")
-endif()
-
 # Build Google Test Framework
 set(GTEST_ROOT "third_party/gtest")
 include_directories("${GTEST_ROOT}")
@@ -26,7 +19,9 @@ add_library(gtest STATIC
 set_target_properties(gtest PROPERTIES PREFIX "lib")
 
 # Build ctutest unit tests
-SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")
+if(CMAKE_COMPILER_IS_GNUCXX)
+	SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")
+endif(CMAKE_COMPILER_IS_GNUCXX)
 add_executable(ctutest ctutest/ctutest.cpp)
 target_link_libraries(ctutest gtest)
 
