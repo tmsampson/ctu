@@ -9,3 +9,6 @@ cmake ../../src
 
 # Build ctu using g++
 make
+
+# Return to original directory
+cd ../../
