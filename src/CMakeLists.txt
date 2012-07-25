@@ -26,6 +26,7 @@ add_library(gtest STATIC
 set_target_properties(gtest PROPERTIES PREFIX "lib")
 
 # Build ctutest unit tests
+SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")
 add_executable(ctutest ctutest/ctutest.cpp)
 target_link_libraries(ctutest gtest)
 
