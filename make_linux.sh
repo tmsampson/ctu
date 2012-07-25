@@ -12,5 +12,13 @@ if (( $? == 0 )); then
 make
 fi
 
+:: Run unit tests
+clear
+echo =====================================================
+echo = R U N N I N G   U N I T   T E S T S
+echo =====================================================
+cd ../
+./ctutest
+
 # Return to original directory
 cd ../../
