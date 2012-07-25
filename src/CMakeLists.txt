@@ -25,5 +25,9 @@ add_library(gtest STATIC
             ${GTEST_ROOT}/src/gtest-test-part.cc)
 set_target_properties(gtest PROPERTIES PREFIX "lib")
 
+# Build ctutest unit tests
+add_executable(ctutest ctutest/ctutest.cpp)
+target_link_libraries(ctutest gtest)
+
 # Build main ctu executable
 add_executable(ctu ctu/main.cpp)
