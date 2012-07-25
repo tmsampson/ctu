@@ -9,3 +9,6 @@ cmake ../../src
 
 :: Build ctu using msbuild
 msbuild ctu.sln
+
+:: Return to original directory
+cd ../../
