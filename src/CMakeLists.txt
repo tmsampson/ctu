@@ -5,7 +5,7 @@ set(CTU_ROOT "${CMAKE_CURRENT_SOURCE_DIR}/..")
 set(EXECUTABLE_OUTPUT_PATH ${CTU_ROOT}/build)
 set(LIBRARY_OUTPUT_PATH ${CTU_ROOT}/build)
 
-# Build Google Test Framework
+# Build Google Test Framework (libgtest)
 set(GTEST_ROOT "third_party/gtest")
 include_directories("${GTEST_ROOT}")
 include_directories("${GTEST_ROOT}/include")
@@ -17,6 +17,16 @@ add_library(gtest STATIC
             ${GTEST_ROOT}/src/gtest-filepath.cc
             ${GTEST_ROOT}/src/gtest-test-part.cc)
 set_target_properties(gtest PROPERTIES PREFIX "lib")
+
+# Build jsoncpp (libjsoncpp)
+set(JSON_ROOT "third_party/jsoncpp")
+include_directories("${JSON_ROOT}")
+include_directories("${JSON_ROOT}/include")
+add_library(jsoncpp STATIC
+            ${JSON_ROOT}/src/json_reader.cpp
+            ${JSON_ROOT}/src/json_value.cpp
+            ${JSON_ROOT}/src/json_writer.cpp)
+set_target_properties(jsoncpp PROPERTIES PREFIX "lib")
 
 # Build ctutest unit tests
 if(CMAKE_COMPILER_IS_GNUCXX)
