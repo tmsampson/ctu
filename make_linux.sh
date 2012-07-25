@@ -17,8 +17,7 @@ clear
 echo =====================================================
 echo = R U N N I N G   U N I T   T E S T S
 echo =====================================================
-cd ../
-./ctutest
+../ctutest
 
 # Return to original directory
 cd ../../
