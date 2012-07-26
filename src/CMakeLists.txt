@@ -29,20 +29,21 @@ add_library(jsoncpp STATIC
 set_target_properties(jsoncpp PROPERTIES PREFIX "lib")
 
 # Build ctulib
-set(CTULIB_ROOT "ctulib")
-include_directories("${CTULIB_ROOT}")
-include_directories("${CTULIB_ROOT}/include")
-add_library(ctulib STATIC
-            ${CTULIB_ROOT}/src/ctulib.cpp)
-target_link_libraries(ctulib jsoncpp)
+set(LIBCTU_ROOT "libctu")
+include_directories("${LIBCTU_ROOT}")
+include_directories("${LIBCTU_ROOT}/include")
+add_library(libctu STATIC
+            ${LIBCTU_ROOT}/src/libctu.cpp)
+target_link_libraries(libctu jsoncpp)
+set_target_properties(libctu PROPERTIES PREFIX "")
 
 # Build ctutest unit tests
 if(CMAKE_COMPILER_IS_GNUCXX)
 	SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")
 endif(CMAKE_COMPILER_IS_GNUCXX)
 add_executable(ctutest ctutest/ctutest.cpp)
-target_link_libraries(ctutest ctulib gtest)
+target_link_libraries(ctutest libctu gtest)
 
 # Build main ctu executable
 add_executable(ctu ctu/main.cpp)
-target_link_libraries(ctu ctulib)
+target_link_libraries(ctu libctu)
