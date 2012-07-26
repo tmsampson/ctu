@@ -9,10 +9,14 @@ cmake ../../src
 
 # Build ctu using g++
 if (( $? == 0 )); then
-make
+	make
+else
+	# Return to original directory
+	cd ../../
+	exit
 fi
 
-:: Run unit tests
+# Run unit tests
 clear
 echo =====================================================
 echo = R U N N I N G   U N I T   T E S T S
