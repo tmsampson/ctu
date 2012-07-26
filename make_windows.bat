@@ -9,9 +9,7 @@ cmake ../../src
 IF NOT %ERRORLEVEL%==0 GOTO finish
 
 :: Build ctu using msbuild
-msbuild ctu.sln
-
-pause
+msbuild ctu.slns
 
 :: Run unit tests
 cls

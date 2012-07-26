@@ -35,7 +35,6 @@ include_directories("${CTULIB_ROOT}/include")
 add_library(ctulib STATIC
             ${CTULIB_ROOT}/src/ctulib.cpp)
 target_link_libraries(ctulib jsoncpp)
-set_target_properties(ctulib PROPERTIES PREFIX "lib")
 
 # Build ctutest unit tests
 if(CMAKE_COMPILER_IS_GNUCXX)
