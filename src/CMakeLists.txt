@@ -28,12 +28,12 @@ add_library(jsoncpp STATIC
             ${JSON_ROOT}/src/json_writer.cpp)
 set_target_properties(jsoncpp PROPERTIES PREFIX "lib")
 
-# Build ctulib
+# Build libctu
 set(LIBCTU_ROOT "libctu")
 include_directories("${LIBCTU_ROOT}")
 include_directories("${LIBCTU_ROOT}/include")
 add_library(libctu STATIC
-            ${LIBCTU_ROOT}/src/libctu.cpp)
+            ${LIBCTU_ROOT}/libctu.cpp)
 target_link_libraries(libctu jsoncpp)
 set_target_properties(libctu PROPERTIES PREFIX "")
 
