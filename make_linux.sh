@@ -7,14 +7,15 @@ cd build/intermediate
 # Generate ctu g++ makefile
 cmake ../../src
 
-# Build ctu using g++
-if (( $? == 0 )); then
-	make
-else
+# Exit early if cmake fails
+if ! (( $? == 0 )); then
 	# Return to original directory
 	cd ../../
 	exit
 fi
+
+# Build ctu using g++
+make
 
 # Run unit tests
 clear
