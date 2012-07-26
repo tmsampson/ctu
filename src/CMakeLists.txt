@@ -45,3 +45,4 @@ target_link_libraries(ctutest ctulib gtest)
 
 # Build main ctu executable
 add_executable(ctu ctu/main.cpp)
+target_link_libraries(ctu ctulib)
