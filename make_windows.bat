@@ -11,6 +11,8 @@ IF NOT %ERRORLEVEL%==0 GOTO finish
 :: Build ctu using msbuild
 msbuild ctu.sln
 
+pause
+
 :: Run unit tests
 cls
 echo #####################################################
