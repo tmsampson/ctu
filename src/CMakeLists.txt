@@ -2,8 +2,9 @@
 project(ctu)
 cmake_minimum_required(VERSION 2.8.7)
 set(CTU_ROOT "${CMAKE_CURRENT_SOURCE_DIR}/..")
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG "../")
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_DEBUG "../")
+if(MSVC)
+      set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG "../")
+endif()
 
 # Build Google Test Framework (libgtest)
 set(GTEST_ROOT "third_party/gtest")
@@ -40,7 +41,7 @@ set_target_properties(libctu PROPERTIES PREFIX "")
 # Build ctutest unit tests
 if(CMAKE_COMPILER_IS_GNUCXX)
 	SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")
-endif(CMAKE_COMPILER_IS_GNUCXX)
+endif()
 add_executable(ctutest ctutest/ctutest.cpp)
 target_link_libraries(ctutest libctu gtest)
 
