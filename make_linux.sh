@@ -2,7 +2,7 @@
 
 function exit_if_failed
 {
-	# Exit early if cmake fails
+	# Exit early if previous command failed
 	if ! (( $? == 0 )); then
 	cd ../../ # Return to original directory
 	exit
