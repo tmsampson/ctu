@@ -17,7 +17,7 @@ cls
 echo =====================================================
 echo = R U N N I N G   U N I T   T E S T S
 echo =====================================================
-call ..\Debug\ctutest
+call ..\ctutest
 
 :: Return to original directory
 :finish
