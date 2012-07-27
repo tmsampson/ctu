@@ -24,7 +24,7 @@ exit_if_failed
 # Run unit tests
 clear
 echo =====================================================
-echo = R U N N I N G   U N I T   T E S T S
+echo = R U N N I N G = U N I T = T E S T S
 echo =====================================================
 ../ctutest
 
