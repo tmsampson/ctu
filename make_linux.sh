@@ -1,21 +1,25 @@
 #!/bin/bash
 
+function exit_if_failed
+{
+	# Exit early if cmake fails
+	if ! (( $? == 0 )); then
+	cd ../../ # Return to original directory
+	exit
+	fi
+}
+
 # Create and move to intermediate build directory
 mkdir -p build/intermediate
 cd build/intermediate
 
 # Generate ctu g++ makefile
 cmake ../../src
-
-# Exit early if cmake fails
-if ! (( $? == 0 )); then
-	# Return to original directory
-	cd ../../
-	exit
-fi
+exit_if_failed
 
 # Build ctu using g++
 make
+exit_if_failed
 
 # Run unit tests
 clear
