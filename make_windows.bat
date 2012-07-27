@@ -10,6 +10,7 @@ IF NOT %ERRORLEVEL%==0 GOTO finish
 
 :: Build ctu using msbuild
 msbuild ctu.sln
+IF NOT %ERRORLEVEL%==0 GOTO finish
 
 :: Run unit tests
 cls
