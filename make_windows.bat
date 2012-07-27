@@ -14,9 +14,9 @@ IF NOT %ERRORLEVEL%==0 GOTO finish
 
 :: Run unit tests
 cls
-echo #####################################################
-echo # R U N N I N G   U N I T   T E S T S
-echo #####################################################
+echo =====================================================
+echo = R U N N I N G   U N I T   T E S T S
+echo =====================================================
 call ..\Debug\ctutest
 
 :: Return to original directory
