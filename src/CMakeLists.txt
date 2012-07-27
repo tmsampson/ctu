@@ -2,8 +2,8 @@
 project(ctu)
 cmake_minimum_required(VERSION 2.8.7)
 set(CTU_ROOT "${CMAKE_CURRENT_SOURCE_DIR}/..")
-set(EXECUTABLE_OUTPUT_PATH ${CTU_ROOT}/build)
-set(LIBRARY_OUTPUT_PATH ${CTU_ROOT}/build)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG "../")
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_DEBUG "../")
 
 # Build Google Test Framework (libgtest)
 set(GTEST_ROOT "third_party/gtest")
