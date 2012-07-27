@@ -44,6 +44,9 @@ target_link_libraries(libctu jsoncpp)
 set_target_properties(libctu PROPERTIES PREFIX "")
 
 # Build ctutest unit tests
+set(CTUTEST_ROOT "ctutest")
+include_directories("${CTUTEST_ROOT}")
+include_directories("${CTUTEST_ROOT}/include")
 if(CMAKE_COMPILER_IS_GNUCXX)
 	SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")
 endif()

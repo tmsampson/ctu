@@ -1,4 +1,5 @@
 #include <gtest/gtest.h>
+#include "tests/dummyTest.h"
 
 int main(int argc, char* argv[])
 {
