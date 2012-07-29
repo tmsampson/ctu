@@ -9,11 +9,8 @@ JSONFile::JSONFile(const std::string& path)
 	std::string fileContents("");
 
 	// if the file opens, read the contents into fileContents, otherwise error
-		if (!inputFile.is_open())
-		{
-			std::cout << "Failed to open the file at " << m_path << std::endl;
+	if (!inputFile.is_open())
 		return;
-	}
 
 	m_isLoaded = true;
 
