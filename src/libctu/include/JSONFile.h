@@ -16,16 +16,13 @@ class JSONFile
 		bool Save();
 
 		template <typename T>
-		void Add(const std::string& key, const T& value, bool saveImmediate = false);
-
-		void Remove(const std::string& key, bool saveImmediate = false);
-
-		template <typename T>
 		void Set(const std::string& key, const T& value, bool saveImmediate = false);
 
 		template <typename T>
 		T Get(const std::string& key, const T& defaultValue);
-		
+
+		void Remove(const std::string& key, bool saveImmediate = false);
+
 	private:
 		std::string m_path;
 		Json::Value m_root;
@@ -34,5 +31,4 @@ class JSONFile
 };
 
 #include "JSONFile.inl"
-
 #endif
