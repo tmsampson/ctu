@@ -1,2 +1,2 @@
 #include "dummy.h"
-#include "propertiesFile.h"
+#include "PropertiesFile.h"
