@@ -20,23 +20,21 @@ public:
 		std::string fileContents("");
 
 		// if the file opens, read the contents into fileContents, otherwise error
-  		if (inputFile.is_open())
+  		if (!inputFile.is_open())
   		{
-  			std::string line("");
-
-  			while (inputFile.good())
-		    {
-		      std::getline(inputFile, line);
-		      fileContents += line;
-		    }
-
-		    inputFile.close();
-		}
-		else
-		{
-			std::cout << "Failed to open the file at " << m_path << std::endl;
+  			std::cout << "Failed to open the file at " << m_path << std::endl;
 			return;
 		}
+
+		std::string line("");
+
+		while (inputFile.good())
+		{
+			std::getline(inputFile, line);
+			fileContents += line;
+		}
+
+		inputFile.close();
 
 		// parse the file contents, error if it fails
 		if (!m_reader.parse(fileContents, m_root))
@@ -61,16 +59,15 @@ public:
 		
 		// open the output file
 		std::ofstream outputFile(m_path);
-		if (outputFile.is_open())
-		{
-			// write the data out
-			outputFile << outputString;
-			outputFile.close();
-		}
-		else
+		if (!outputFile.is_open())
 		{
 			std::cout << "Failed to open the file at " << m_path << std::endl;
+			return;
 		}
+
+		// write the data out
+		outputFile << outputString;
+		outputFile.close();
 	}
 
 	template <typename T>
