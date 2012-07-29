@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "dummy.h"
+#include "Dummy.h"
 #include "PropertiesFile.h"
 
 int main(int argc, char* argv[])

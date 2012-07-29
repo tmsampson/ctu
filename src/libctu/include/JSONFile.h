@@ -8,29 +8,29 @@
 
 class JSONFile
 {
-private:
-	std::string m_path;
-	Json::Value m_root;
-	Json::Reader m_reader;
-	bool m_isLoaded;
+	public:
+		JSONFile(const std::string& path);
+		~JSONFile();
 
-public:
-	JSONFile(const std::string& path);
-	~JSONFile();
+		bool IsLoaded() const;
+		bool Save();
 
-	bool IsLoaded() const;
-	bool Save();
+		template <typename T>
+		void Add(const std::string& key, const T& value, bool saveImmediate = false);
 
-	template <typename T>
-	void Add(const std::string& key, const T& value, bool saveImmediate = false);
+		void Remove(const std::string& key, bool saveImmediate = false);
 
-	void Remove(const std::string& key, bool saveImmediate = false);
+		template <typename T>
+		void Set(const std::string& key, const T& value, bool saveImmediate = false);
 
-	template <typename T>
-	void Set(const std::string& key, const T& value, bool saveImmediate = false);
-
-	template <typename T>
-	T Get(const std::string& key, const T& defaultValue);
+		template <typename T>
+		T Get(const std::string& key, const T& defaultValue);
+		
+	private:
+		std::string m_path;
+		Json::Value m_root;
+		Json::Reader m_reader;
+		bool m_isLoaded;
 };
 
 #include "JSONFile.inl"

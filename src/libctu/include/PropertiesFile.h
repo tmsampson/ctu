@@ -8,8 +8,8 @@ public:
 		: JSONFile(path)
 	{
 		// add two values
-		Add<int>("andrew", 22);
-		Add<std::string>("hello", "world");
+		Set<int>("andrew", 22);
+		Set<std::string>("hello", "world");
 
 		// check if they have been added
 		std::cout << "Andrew is " << Get<int>("andrew", 0) << " years old" << std::endl;
