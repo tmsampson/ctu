@@ -1,11 +1,11 @@
-#include "dataStore.h"
+#include "JSONFile.h"
 #include <iostream>
 
-class PropertiesFile : public DataStore
+class PropertiesFile : public JSONFile
 {
 public:
 	PropertiesFile(std::string path)
-		: DataStore(path)
+		: JSONFile(path)
 	{
 		// add two values
 		Add<int>("andrew", 22);
@@ -17,6 +17,7 @@ public:
 
 		// remove one
 		Remove("andrew");
+		Set("hello", "andrew");
 
 		// check them again, "andrew" should now be 0 years old
 		std::cout << "Andrew is " << Get<int>("andrew", 0) << " years old" << std::endl;

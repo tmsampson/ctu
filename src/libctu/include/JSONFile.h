@@ -3,7 +3,7 @@
 #include <fstream>
 #include <string>
 
-class DataStore
+class JSONFile
 {
 private:
 	std::string m_path;
@@ -11,7 +11,7 @@ private:
 	Json::Reader m_reader;
 
 public:
-	DataStore(std::string path)
+	JSONFile(std::string path)
 		: m_path(path)
 	{
 		// open the input file
@@ -47,7 +47,7 @@ public:
 		}
 	}
 
-	~DataStore()
+	~JSONFile()
 	{
 		// save by default on destruction
 		Save();
@@ -76,12 +76,18 @@ public:
 	template <typename T>
 	void Add(std::string key, T value)
 	{
-		m_root[key] = value;
+		Set<T>(key, value);
 	}
 
 	void Remove(std::string key)
 	{
 		m_root.removeMember(key);
+	}
+
+	template <typename T>
+	void Set(std::string key, T value)
+	{
+		m_root[key] = value;
 	}
 
 	// template specialisations for getting values
