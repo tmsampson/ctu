@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include "tests/TDummyTest.h"
+#include "tests/TJSONFile.h"
 
 int main(int argc, char* argv[])
 {
