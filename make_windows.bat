@@ -13,7 +13,7 @@ msbuild ctu.sln
 IF NOT %ERRORLEVEL%==0 GOTO finish
 
 :: Run unit tests
-cls
+::cls
 echo =====================================================
 echo = R U N N I N G = U N I T = T E S T S
 echo =====================================================
