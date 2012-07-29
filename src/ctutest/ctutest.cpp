@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include "tests/dummyTest.h"
+#include "tests/TDummyTest.h"
 
 int main(int argc, char* argv[])
 {
