@@ -53,10 +53,7 @@ bool JSONFile::Save()
 	// open the output file
 	std::ofstream outputFile(m_path);
 	if (!outputFile.is_open())
-	{
-		std::cout << "Failed to open the file at " << m_path << std::endl;
 		return false;
-	}
 
 	// write the data out
 	outputFile << outputString;
