@@ -49,9 +49,9 @@ bool JSONFile::IsLoaded() const
 
 bool JSONFile::Save()
 {
-	// Make a new JSON document for the configuration. Preserve original comments.
+	// create a JSON stylised output string
 	Json::StyledWriter writer;
-	std::string outputString = writer.write( m_root );
+	std::string outputString = writer.write(m_root);
 	
 	// open the output file
 	std::ofstream outputFile(m_path);
