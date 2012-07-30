@@ -58,6 +58,7 @@ bool JSONFile::Save()
 	// write the data out
 	outputFile << outputString;
 	outputFile.close();
+	m_isLoaded = true;
 
 	return true;
 }

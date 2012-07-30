@@ -17,7 +17,7 @@ cls
 echo =====================================================
 echo = R U N N I N G = U N I T = T E S T S
 echo =====================================================
-cd ..\
+cd ../
 mkdir unit_test_resources
 call ctutest
 rd /s /q unit_test_resources
