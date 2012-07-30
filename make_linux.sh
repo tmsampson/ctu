@@ -26,7 +26,10 @@ clear
 echo =====================================================
 echo = R U N N I N G = U N I T = T E S T S
 echo =====================================================
-../ctutest
+cd ../
+mkdir unit_test_resources
+./ctutest
+rm -r unit_test_resources
 
 # Return to original directory
-cd ../../
+cd ../

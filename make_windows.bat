@@ -13,12 +13,15 @@ msbuild /verbosity:quiet ctu.sln
 IF NOT %ERRORLEVEL%==0 GOTO finish
 
 :: Run unit tests
-::cls
+cls
 echo =====================================================
 echo = R U N N I N G = U N I T = T E S T S
 echo =====================================================
-call ..\ctutest
+cd ..\
+mkdir unit_test_resources
+call ctutest
+rd /s /q unit_test_resources
 
 :: Return to original directory
 :finish
-cd ../../
+cd ../
