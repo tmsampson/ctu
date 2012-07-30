@@ -4,7 +4,7 @@ JSONFile::JSONFile(const std::string& path)
 	: m_path(path), m_isLoaded(false)
 {
 	// open the input file
-	std::ifstream inputFile(m_path);
+	std::ifstream inputFile(m_path.c_str());
 	// used to hold the contents of the file, if it opens and if its not empty
 	std::string fileContents("");
 
@@ -51,7 +51,7 @@ bool JSONFile::Save()
 	std::string outputString = writer.write(m_root);
 	
 	// open the output file
-	std::ofstream outputFile(m_path);
+	std::ofstream outputFile(m_path.c_str());
 	if (!outputFile.is_open())
 		return false;
 
