@@ -16,6 +16,7 @@ static const char*  CREATE_NEW_FILE         = "ctutest_resources/create-new-file
 static const char*  SCOPED_SAVE             = "ctutest_resources/scoped-save";
 static const char*  IS_LOADED_TEST1         = "ctutest_resources/is-loaded";
 static const char*  EXISTING_FILE           = "ctutest_resources/existing-file";
+static const char*  MODIFIED_FILE           = "ctutest_resources/modified-file";
 static const char*  EXISTING_MALFORMED_FILE = "ctutest_resources/existing-malfomed-file";
 static const float  PI                      = 3.14159f;
 static const double PI_ACCURATE             = 3.1415926535897932384626433832795028841;
@@ -156,6 +157,30 @@ TEST_F(TJSONFile, Set_OverWriteExistingValue_GetReturnsNewValue)
 	ASSERT_EQ("Bar", jfile.Get<std::string>("myString"));
 }
 
+TEST_F(TJSONFile, Set_ModifyValueSaveImmediate_NewValueSavedToFile)
+{
+	JSONFile jfile(MODIFIED_FILE);
+	ASSERT_TRUE(jfile.Get<bool>("myBool"));
+	jfile.Set<bool>("myBool", false, true);
+	ASSERT_FALSE(JSONFile(MODIFIED_FILE).Get<bool>("myBool"));
+}
+
+TEST_F(TJSONFile, Set_NewKeySaveImmediate_NewKeySavedToFile)
+{
+	JSONFile jfile(MODIFIED_FILE);
+	ASSERT_FALSE(jfile.ContainsKey("newkey"));
+	jfile.Set<int>("newKey", 100, true);
+	ASSERT_EQ(100, JSONFile(MODIFIED_FILE).Get<int>("newKey"));
+}
+
+TEST_F(TJSONFile, Set_RemoveKeySaveImmediate_KeyRemovedFromFile)
+{
+	JSONFile jfile(MODIFIED_FILE);
+	ASSERT_TRUE(jfile.ContainsKey("myBool"));
+	jfile.Remove("myBool", true);
+	ASSERT_FALSE(JSONFile(MODIFIED_FILE).ContainsKey("myBool"));
+}
+
 // ************************************************
 // JSONFile::ContainsKey<T> Tests
 // ************************************************
@@ -202,5 +227,146 @@ TEST_F(TJSONFile, Get_SupplyDefaultStringVal_ReturnDefaultStringVal)
 {
 	JSONFile jfile(EMPTY_STRING);
 	ASSERT_EQ("Norris", jfile.Get<std::string>("Chuck", "Norris"));
+}
+
+TEST_F(TJSONFile, Get_SupplyDefaultInt_DefaultValueIgnored)
+{
+	JSONFile jfile(EXISTING_FILE);
+	ASSERT_EQ(-2, jfile.Get<s32>("myInt", 100));
+}
+
+TEST_F(TJSONFile, Get_SupplyDefaultString_DefaultValueIgnored)
+{
+	JSONFile jfile(EXISTING_FILE);
+	ASSERT_EQ("Foo", jfile.Get<std::string>("myString", "Bar"));
+}
+
+// ************************************************
+// JSONFile::Get<T> Type Cast Tests
+// ************************************************
+TEST_F(TJSONFile, Get_IntAsBool_ReturnTrue)
+{
+	JSONFile jfile(EXISTING_FILE);
+	ASSERT_TRUE(jfile.Get<bool>("myInt"));
+}
+
+TEST_F(TJSONFile, Get_UIntAsBool_ReturnTrue)
+{
+	JSONFile jfile(EXISTING_FILE);
+	ASSERT_TRUE(jfile.Get<bool>("myUInt"));
+}
+
+TEST_F(TJSONFile, Get_BoolAsInt_Return1)
+{
+	JSONFile jfile(EXISTING_FILE);
+	ASSERT_EQ(1, jfile.Get<s32>("myBool"));
+}
+
+TEST_F(TJSONFile, Get_UIntAsInt_Return41)
+{
+	JSONFile jfile(EXISTING_FILE);
+	ASSERT_EQ(41, jfile.Get<s32>("myUInt"));
+}
+
+TEST_F(TJSONFile, Get_FloatAsInt_Return3)
+{
+	JSONFile jfile(EXISTING_FILE);
+	ASSERT_EQ(3, jfile.Get<s32>("myFloat"));
+}
+
+TEST_F(TJSONFile, Get_StringAsInt_Return2468)
+{
+	JSONFile jfile(EXISTING_FILE);
+	ASSERT_EQ(2468, jfile.Get<s32>("myStringInt"));
+}
+
+TEST_F(TJSONFile, Get_BoolAsUInt_ReturnOne)
+{
+	JSONFile jfile(EXISTING_FILE);
+	ASSERT_EQ(1, jfile.Get<u32>("myBool"));
+}
+
+TEST_F(TJSONFile, Get_FloatAsUInt_Return3)
+{
+	JSONFile jfile(EXISTING_FILE);
+	ASSERT_EQ(3, jfile.Get<u32>("myFloat"));
+}
+
+TEST_F(TJSONFile, Get_StringAsUInt_Return2468)
+{
+	JSONFile jfile(EXISTING_FILE);
+	ASSERT_EQ(2468, jfile.Get<u32>("myStringInt"));
+}
+
+TEST_F(TJSONFile, Get_IntAsString_ReturnValidString)
+{
+	JSONFile jfile(EXISTING_FILE);
+	ASSERT_EQ("-2", jfile.Get<std::string>("myInt"));
+}
+
+TEST_F(TJSONFile, Get_UIntAsString_ReturnValidString)
+{
+	JSONFile jfile(EXISTING_FILE);
+	ASSERT_EQ("41", jfile.Get<std::string>("myUInt"));
+}
+
+TEST_F(TJSONFile, Get_BoolAsString_ReturnValidString)
+{
+	JSONFile jfile(EXISTING_FILE);
+	ASSERT_EQ("true", jfile.Get<std::string>("myBool"));
+}
+
+TEST_F(TJSONFile, Get_FloatAsString_ReturnValidString)
+{
+	JSONFile jfile(EXISTING_FILE);
+	ASSERT_EQ("3.141590", jfile.Get<std::string>("myFloat"));
+}
+
+TEST_F(TJSONFile, Get_DoubleAsString_ReturnValidTruncatedString)
+{
+	JSONFile jfile(EXISTING_FILE);
+	ASSERT_EQ("3.141592653589793", jfile.Get<std::string>("myDouble"));
+}
+
+// ************************************************
+// JSONFile::Remove Tests
+// ************************************************
+TEST_F(TJSONFile, Remove_EmptyKey_ReturnFalse)
+{
+	JSONFile jfile(EMPTY_STRING);
+	ASSERT_FALSE(jfile.Remove(""));
+}
+
+TEST_F(TJSONFile, Remove_NoneExistentKey_ReturnFalse)
+{
+	JSONFile jfile(EMPTY_STRING);
+	ASSERT_FALSE(jfile.Remove("non-existent-key"));
+}
+
+TEST_F(TJSONFile, Remove_ExistingKey_ReturnTrue)
+{
+	JSONFile jfile(EMPTY_STRING);
+	jfile.Set<s32>("existing-key", 0);
+	ASSERT_TRUE(jfile.Remove("existing-key"));
+	ASSERT_FALSE(jfile.ContainsKey("existing-key"));
+}
+
+TEST_F(TJSONFile, Remove_RemoveAndSave_ValueRemovedFromFile)
+{
+	JSONFile jfile(EXISTING_FILE);
+	ASSERT_TRUE(jfile.ContainsKey("myString"));
+	ASSERT_TRUE(jfile.Remove("myString"));
+	jfile.Save();
+	ASSERT_FALSE(JSONFile(EXISTING_FILE).ContainsKey("myString"));
+}
+
+TEST_F(TJSONFile, Remove_RemoveAndOutOfScope_ValueRemovedFromFile)
+{
+	{
+		JSONFile jfile(EXISTING_FILE);
+		ASSERT_TRUE(jfile.ContainsKey("myDouble"));
+		ASSERT_TRUE(jfile.Remove("myDouble"));
+	}
+	ASSERT_FALSE(JSONFile(EXISTING_FILE).ContainsKey("myDouble"));
 }
 #endif
