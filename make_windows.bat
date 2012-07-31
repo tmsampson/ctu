@@ -21,7 +21,8 @@ cd ../
 mkdir unit_test_resources
 call ctutest
 rd /s /q unit_test_resources
+cd intermediate
 
 :: Return to original directory
 :finish
-cd ../
+cd ../../
