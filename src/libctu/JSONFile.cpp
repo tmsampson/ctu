@@ -22,11 +22,7 @@ JSONFile::JSONFile(const std::string& path)
 
 	// Parse JSON string
 	if (!m_reader.parse(fileContents, m_root))
-	{
-		std::cout << "Failed to parse file at " << path << std::endl;
-		std::cout << "Error: " << m_reader.getFormattedErrorMessages();
 		return;
-	}
 
 	m_isLoaded = true;
 }
