@@ -1,0 +1,6 @@
+{
+    "myBool"  : true,
+    "myInt"   : 41,
+    "myUInt"  : -2,
+    "myFloat" : 3.14159
+}
