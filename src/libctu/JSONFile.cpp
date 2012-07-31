@@ -32,11 +32,6 @@ JSONFile::~JSONFile()
 	Save(); // Save by default on destruction
 }
 
-bool JSONFile::IsLoaded() const
-{
-	return m_isLoaded;
-}
-
 bool JSONFile::Save()
 {
 	// Create a JSON "stylised" output string
@@ -54,6 +49,16 @@ bool JSONFile::Save()
 
 	m_isLoaded = true;
 	return true;
+}
+
+bool JSONFile::IsLoaded() const
+{
+	return m_isLoaded;
+}
+
+bool JSONFile::ContainsKey(const std::string& key) const
+{
+	return m_root.isMember(key);
 }
 
 void JSONFile::Remove(const std::string& key, bool saveImmediate)
