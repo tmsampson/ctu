@@ -12,8 +12,9 @@ class JSONFile
 		JSONFile(const std::string& path);
 		~JSONFile();
 
-		bool IsLoaded() const;
 		bool Save();
+		bool IsLoaded() const;
+		bool ContainsKey(const std::string& key) const;
 
 		template <typename T>
 		T Get(const std::string& key, const T& defaultValue);
@@ -25,11 +26,16 @@ class JSONFile
 		}
 
 		template <typename T>
-		void Set(const std::string& key, const T& value, bool saveImmediate = false)
+		bool Set(const std::string& key, const T& value, bool saveImmediate = false)
 		{
+			if(key.empty())
+				return false;
+
 			m_root[key] = value;
 			if (saveImmediate)
-				Save();
+				return Save();
+
+			return true;
 		}
 
 		void Remove(const std::string& key, bool saveImmediate = false);
