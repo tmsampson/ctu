@@ -1,6 +1,8 @@
 {
-    "myBool"  : true,
-    "myInt"   : 41,
-    "myUInt"  : -2,
-    "myFloat" : 3.14159
+    "myBool"   : true,
+    "myInt"    : -2,
+    "myUInt"   : 41,
+    "myFloat"  : 3.14159,
+    "myDouble" : 3.1415926535897932384626433832795028841,
+    "myString" : "Foo"
 }
