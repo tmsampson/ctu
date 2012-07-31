@@ -1,4 +1,5 @@
 #include "JSONFile.h"
+#include "BasicTypes.h"
 
 JSONFile::JSONFile(const std::string& path)
 	: m_path(path), m_isLoaded(false)
@@ -66,9 +67,9 @@ void JSONFile::Remove(const std::string& key, bool saveImmediate)
 		Save();
 }
 
-// ************************************************
-// Template specialisations for getting values
-// ************************************************
+// **********************************************************************
+// Template specialisations for getting values WITH default value
+// **********************************************************************
 template <typename T>
 T JSONFile::Get(const std::string& key, const T& defaultValue)
 {
@@ -82,13 +83,13 @@ bool JSONFile::Get<bool>(const std::string& key, const bool& defaultValue)
 }
 
 template <>
-int JSONFile::Get<int>(const std::string& key, const int& defaultValue)
+s32 JSONFile::Get<s32>(const std::string& key, const s32& defaultValue)
 {
 	return m_root.get(key, defaultValue).asInt();
 }
 
 template <>
-unsigned int JSONFile::Get<unsigned int>(const std::string& key, const unsigned int& defaultValue)
+u32 JSONFile::Get<u32>(const std::string& key, const u32& defaultValue)
 {
 	return m_root.get(key, defaultValue).asUInt();
 }

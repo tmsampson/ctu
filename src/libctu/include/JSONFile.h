@@ -19,6 +19,12 @@ class JSONFile
 		T Get(const std::string& key, const T& defaultValue);
 
 		template <typename T>
+		T Get(const std::string& key)
+		{
+			return JSONFile::Get<T>(key, T());
+		}
+
+		template <typename T>
 		void Set(const std::string& key, const T& value, bool saveImmediate = false)
 		{
 			m_root[key] = value;
