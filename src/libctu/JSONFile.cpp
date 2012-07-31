@@ -3,40 +3,36 @@
 JSONFile::JSONFile(const std::string& path)
 	: m_path(path), m_isLoaded(false)
 {
-	// open the input file
 	std::ifstream inputFile(m_path.c_str());
-	// used to hold the contents of the file, if it opens and if its not empty
-	std::string fileContents("");
+	std::string fileContents;
 
-	// if the file opens, read the contents into fileContents, otherwise error
+	// Did the file specified by "path" open correctly?
 	if (!inputFile.is_open())
 		return;
 
-	m_isLoaded = true;
-
+	// Read JSON file contents
 	std::string line("");
-
 	while (inputFile.good())
 	{
 		std::getline(inputFile, line);
 		fileContents += line;
 	}
-
 	inputFile.close();
 
-	// parse the file contents, error if it fails
+	// Parse JSON string
 	if (!m_reader.parse(fileContents, m_root))
 	{
 		std::cout << "Failed to parse file at " << path << std::endl;
 		std::cout << "Error: " << m_reader.getFormattedErrorMessages();
 		return;
 	}
+
+	m_isLoaded = true;
 }
 
 JSONFile::~JSONFile()
 {
-	// save by default on destruction
-	Save();
+	Save(); // Save by default on destruction
 }
 
 bool JSONFile::IsLoaded() const
@@ -46,33 +42,33 @@ bool JSONFile::IsLoaded() const
 
 bool JSONFile::Save()
 {
-	// create a JSON stylised output string
+	// Create a JSON "stylised" output string
 	Json::StyledWriter writer;
 	std::string outputString = writer.write(m_root);
 	
-	// open the output file
+	// Open the output file for writing
 	std::ofstream outputFile(m_path.c_str());
 	if (!outputFile.is_open())
 		return false;
 
-	// write the data out
+	// Write the JSON string to file
 	outputFile << outputString;
 	outputFile.close();
-	m_isLoaded = true;
 
+	m_isLoaded = true;
 	return true;
 }
 
 void JSONFile::Remove(const std::string& key, bool saveImmediate)
 {
 	m_root.removeMember(key);
-
 	if (saveImmediate)
 		Save();
 }
 
-// template specialisations for getting values
-
+// ************************************************
+// Template specialisations for getting values
+// ************************************************
 template <typename T>
 T JSONFile::Get(const std::string& key, const T& defaultValue)
 {
