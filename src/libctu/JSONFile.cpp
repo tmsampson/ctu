@@ -22,7 +22,11 @@ JSONFile::JSONFile(const std::string& path)
 
 	// Parse JSON string
 	if (!m_reader.parse(fileContents, m_root))
+	{
+		// Do not allow partial parses
+		m_root.clear();
 		return;
+	}
 
 	m_isLoaded = true;
 }
@@ -61,11 +65,15 @@ bool JSONFile::ContainsKey(const std::string& key) const
 	return m_root.isMember(key);
 }
 
-void JSONFile::Remove(const std::string& key, bool saveImmediate)
+bool JSONFile::Remove(const std::string& key, bool saveImmediate)
 {
+	if(!ContainsKey(key))
+		return false;
+
 	m_root.removeMember(key);
 	if (saveImmediate)
-		Save();
+		return Save();
+	return true;
 }
 
 // **********************************************************************

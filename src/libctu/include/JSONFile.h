@@ -38,7 +38,7 @@ class JSONFile
 			return true;
 		}
 
-		void Remove(const std::string& key, bool saveImmediate = false);
+		bool Remove(const std::string& key, bool saveImmediate = false);
 
 	private:
 		std::string m_path;
