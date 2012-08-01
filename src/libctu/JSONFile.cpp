@@ -76,6 +76,11 @@ bool JSONFile::Remove(const std::string& key, bool saveImmediate)
 	return true;
 }
 
+std::string JSONFile::GetLastError()
+{
+	return m_reader.getFormattedErrorMessages();
+}
+
 // **********************************************************************
 // Template specialisations for getting values WITH default value
 // **********************************************************************
