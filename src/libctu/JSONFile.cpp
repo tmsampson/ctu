@@ -77,8 +77,10 @@ bool JSONFile::Remove(const std::string& key, bool saveImmediate)
 		return false;
 
 	m_root.removeMember(key);
+
 	if (saveImmediate)
 		return Save();
+	
 	return true;
 }
 
