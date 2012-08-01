@@ -8,20 +8,34 @@
 #include "BasicTypes.h"
 
 class TJSONFile : public ::testing::Test { };
-static const char*  EMPTY_STRING            = "";
-static const char*  BAD_PATH                = "<>|,...";
-static const char*  NONE_EXISTENT_FILE      = "ctutest_resources/none-existent-file";
-static const char*  SAVE_NEW_FILE           = "ctutest_resources/save-new-file";
-static const char*  CREATE_NEW_FILE         = "ctutest_resources/create-new-file";
-static const char*  SCOPED_SAVE             = "ctutest_resources/scoped-save";
-static const char*  IS_LOADED_TEST1         = "ctutest_resources/is-loaded";
-static const char*  EXISTING_FILE           = "ctutest_resources/existing-file";
-static const char*  MODIFIED_FILE           = "ctutest_resources/modified-file";
-static const char*  EXISTING_MALFORMED_FILE = "ctutest_resources/existing-malfomed-file";
-static const float  PI                      = 3.14159f;
-static const double PI_ACCURATE             = 3.1415926535897932384626433832795028841;
-static const double MAX_DOUBLE              = std::numeric_limits<double>::max();
+static const char*  EMPTY_STRING                     = "";
+static const char*  BAD_PATH                         = "<>|,...";
+static const char*  NONE_EXISTENT_FILE               = "ctutest_resources/none-existent-file";
+static const char*  SAVE_NEW_FILE                    = "ctutest_resources/save-new-file";
+static const char*  CREATE_NEW_FILE                  = "ctutest_resources/create-new-file";
+static const char*  SCOPED_SAVE                      = "ctutest_resources/scoped-save";
+static const char*  IS_LOADED_TEST1                  = "ctutest_resources/is-loaded";
+static const char*  EXISTING_FILE                    = "ctutest_resources/existing-file";
+static const char*  MODIFIED_FILE                    = "ctutest_resources/modified-file";
+static const char*  EXISTING_MALFORMED_FILE          = "ctutest_resources/existing-malformed-file";
+static const u32    EXISTING_MALFORMED_FILE_SIZE     = 29;
+static const char*  EXISTING_MALFORMED_FILE_CONTENTS = "I am clearly not a JSON file!";
+static const float  PI                               = 3.14159f;
+static const double PI_ACCURATE                      = 3.1415926535897932384626433832795028841;
+static const double MAX_DOUBLE                       = std::numeric_limits<double>::max();
 
+bool MalformedFileIsUnchanged()
+{
+	// Note: Read contents and file size to ensure
+	//       no change to file on disk.
+	std::ifstream fstream(EXISTING_MALFORMED_FILE);
+	std::string contents(""); std::getline(fstream, contents);
+	fstream.seekg(0, std::ios::end);
+	std::streamoff fileSize = fstream.tellg();
+
+	return (fileSize == EXISTING_MALFORMED_FILE_SIZE &&
+	        contents ==  EXISTING_MALFORMED_FILE_CONTENTS);
+}
 
 // ************************************************
 // JSONFile Constructor Tests
@@ -65,6 +79,25 @@ TEST_F(TJSONFile, Destructor_OutOfScopeWihtoutSaving_FileExists)
 		JSONFile jfile(SCOPED_SAVE);
 	}
 	ASSERT_TRUE(std::ifstream(SCOPED_SAVE).is_open());
+}
+
+TEST_F(TJSONFile, Destructor_OutOfScopeMalformedFile_FileUnchanged)
+{
+	{
+		JSONFile jfile(EXISTING_MALFORMED_FILE);
+	}
+
+	ASSERT_TRUE(MalformedFileIsUnchanged());
+}
+
+// ************************************************
+// JSONFile Save Tests
+// ************************************************
+TEST_F(TJSONFile, Save_MalformedFile_FileUnchanged)
+{
+	JSONFile jfile(EXISTING_MALFORMED_FILE);
+	jfile.Save();
+	ASSERT_TRUE(MalformedFileIsUnchanged());
 }
 
 // ************************************************

@@ -2,18 +2,21 @@
 #include "BasicTypes.h"
 
 JSONFile::JSONFile(const std::string& path)
-	: m_path(path), m_isLoaded(false)
+	: m_path(path), m_bLoadFailed(false), m_bParseFailed(false)
 {
 	std::ifstream inputFile(m_path.c_str());
 	std::string fileContents;
 
 	// Did the file specified by "path" open correctly?
-	if (!inputFile.is_open())
+	if(!inputFile.is_open())
+	{
+		m_bLoadFailed = true;
 		return;
+	}
 
 	// Read JSON file contents
 	std::string line("");
-	while (inputFile.good())
+	while(inputFile.good())
 	{
 		std::getline(inputFile, line);
 		fileContents += line;
@@ -21,14 +24,14 @@ JSONFile::JSONFile(const std::string& path)
 	inputFile.close();
 
 	// Parse JSON string
-	if (!m_reader.parse(fileContents, m_root))
+	if(!m_reader.parse(fileContents, m_root))
 	{
 		// Do not allow partial parses
 		m_root.clear();
+		m_bLoadFailed = m_bParseFailed = true;
+		printf("PARSE FAIL");
 		return;
 	}
-
-	m_isLoaded = true;
 }
 
 JSONFile::~JSONFile()
@@ -38,26 +41,30 @@ JSONFile::~JSONFile()
 
 bool JSONFile::Save()
 {
+	// Make sure not to overwrite non-JSON files
+	if(m_bParseFailed)
+		return false;
+
 	// Create a JSON "stylised" output string
 	Json::StyledWriter writer;
 	std::string outputString = writer.write(m_root);
 	
 	// Open the output file for writing
 	std::ofstream outputFile(m_path.c_str());
-	if (!outputFile.is_open())
+	if(!outputFile.is_open())
 		return false;
 
 	// Write the JSON string to file
 	outputFile << outputString;
 	outputFile.close();
 
-	m_isLoaded = true;
+	m_bLoadFailed = false;
 	return true;
 }
 
 bool JSONFile::IsLoaded() const
 {
-	return m_isLoaded;
+	return !m_bLoadFailed;
 }
 
 bool JSONFile::ContainsKey(const std::string& key) const
