@@ -29,7 +29,6 @@ JSONFile::JSONFile(const std::string& path)
 		// Do not allow partial parses
 		m_root.clear();
 		m_bLoadFailed = m_bParseFailed = true;
-		printf("PARSE FAIL");
 		return;
 	}
 }
