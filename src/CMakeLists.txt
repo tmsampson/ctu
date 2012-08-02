@@ -39,7 +39,8 @@ set(LIBCTU_ROOT "libctu")
 include_directories("${LIBCTU_ROOT}")
 include_directories("${LIBCTU_ROOT}/include")
 add_library(libctu STATIC
-            ${LIBCTU_ROOT}/JSONFile.cpp)
+            ${LIBCTU_ROOT}/JSONFile.cpp
+            ${LIBCTU_ROOT}/Utils.cpp)
 target_link_libraries(libctu jsoncpp)
 set_target_properties(libctu PROPERTIES PREFIX "")
 
