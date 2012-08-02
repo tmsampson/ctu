@@ -1,5 +1,14 @@
 #include <gtest/gtest.h>
+
+// Tests
+#include "tests/TUtils.h"
 #include "tests/TJSONFile.h"
+
+const char*  EMPTY_STRING            = "";
+const char*  BAD_PATH                = "<>|,.../";
+const char*  BAD_FILENAME            = BAD_PATH;
+const char*  NONE_EXISTENT_FILE      = "ctutest_resources/none-existent-file";
+const char*  NONE_EXISTENT_DIRECTORY = "ctutest_resources/none-existent-dir";
 
 int main(int argc, char* argv[])
 {
