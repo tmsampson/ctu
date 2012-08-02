@@ -1,8 +1,10 @@
 #include "Utils.h"
 
+#include <stdio.h>
+#include <fstream>
+
 #ifdef _WIN32
 	#include <windows.h>
-	#include <fstream>
 	#include <shlobj.h>
 	#include <direct.h>
 #else
