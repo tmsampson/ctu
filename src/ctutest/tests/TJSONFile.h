@@ -9,7 +9,7 @@
 
 class TJSONFile : public ::testing::Test { };
 static const char*  EMPTY_STRING                     = "";
-static const char*  BAD_PATH                         = "<>|,...";
+static const char*  BAD_PATH                         = "<>|,.../";
 static const char*  NONE_EXISTENT_FILE               = "ctutest_resources/none-existent-file";
 static const char*  SAVE_NEW_FILE                    = "ctutest_resources/save-new-file";
 static const char*  CREATE_NEW_FILE                  = "ctutest_resources/create-new-file";
