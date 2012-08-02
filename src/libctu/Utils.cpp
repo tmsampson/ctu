@@ -9,7 +9,7 @@ namespace Utils
 {
 	std::string GetDefaultTaskListDirectory()
 	{
-		#ifdef _WIN32
+		#if defined(_WIN32)
 			char pathResult[MAX_PATH];
 			HRESULT result = SHGetFolderPath(NULL, CSIDL_PERSONAL, NULL, SHGFP_TYPE_CURRENT, pathResult);
 			if(result != S_OK)
