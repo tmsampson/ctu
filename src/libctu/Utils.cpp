@@ -48,12 +48,12 @@ namespace Utils
 
 	bool FileExists(const std::string& path)
 	{
-		return std::ifstream(path).is_open();
+		return std::ifstream(path.c_str()).is_open();
 	}
 
 	s64 GetFileSize(const std::string& path)
 	{
-		std::ifstream fstream(path);
+		std::ifstream fstream(path.c_str());
 		fstream.seekg(0, std::ios::end);
 		return fstream.tellg();
 	}
