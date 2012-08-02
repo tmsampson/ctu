@@ -25,7 +25,7 @@ namespace Utils
 		#endif
 
 		static char pathResult[FILENAME_MAX];
-		if(GetCurrentDirFunc(pathResult, sizeof(pathResult) / sizeof(TCHAR)))
+		if(GetCurrentDirFunc(pathResult, FILENAME_MAX))
 			return pathResult;
 
 		return "";
@@ -57,7 +57,7 @@ namespace Utils
 			return GetFileAttributes(path.c_str()) != INVALID_FILE_ATTRIBUTES;
 		#else
 			struct stat sb;
-			return (stat(pathname, &sb) == 0 && S_ISDIR(sb.st_mode));
+			return (stat(path.c_str(), &sb) == 0 && S_ISDIR(sb.st_mode));
 		#endif
 	}
 }
