@@ -1,8 +1,12 @@
 #include "Utils.h"
 
 #ifdef _WIN32
-#include <windows.h>
-#include <shlobj.h>
+	#include <windows.h>
+	#include <shlobj.h>
+#else
+	#include <unistd.h>
+	#include <sys/types.h>
+	#include <pwd.h>
 #endif
 
 namespace Utils
@@ -16,7 +20,8 @@ namespace Utils
 				return "";
 			return pathResult;
 		#else
-			return "foo";
+			struct passwd *pw = getpwuid(getuid());
+			return pw->pw_dir;
 		#endif
 	}
 }
