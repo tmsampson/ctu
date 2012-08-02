@@ -9,6 +9,7 @@ const char*  BAD_PATH                = "<>|,.../";
 const char*  BAD_FILENAME            = BAD_PATH;
 const char*  NONE_EXISTENT_FILE      = "ctutest_resources/none-existent-file";
 const char*  NONE_EXISTENT_DIRECTORY = "ctutest_resources/none-existent-dir";
+const char*  EXISTING_FILE           = "ctutest_resources/existing-file";
 
 int main(int argc, char* argv[])
 {

@@ -7,7 +7,10 @@
 #include <fstream>
 
 class TUtils : public ::testing::Test { };
-static const char*  TEMP_FILE = "ctutest_resources/temp";
+static const char*  TEMP_FILE          = "ctutest_resources/temp";
+static const char*  FS_TEST_FILE1      = "ctutest_resources/fs1";
+static const char*  FS_TEST_FILE2      = "ctutest_resources/fs2";
+static const char*  FS_TEST_FILE3      = "ctutest_resources/fs3";
 
 // ************************************************
 //  Utils::GetCurrentDir Tests
@@ -32,9 +35,35 @@ TEST_F(TUtils, FileExists_PassBadFilename_ReturnFalse)
 
 TEST_F(TUtils, FileExists_PassValidFile_ReturnTrue)
 {
-	std::ofstream temp(TEMP_FILE);
-	ASSERT_TRUE(temp.is_open()); temp.close();
-	ASSERT_TRUE(Utils::FileExists(TEMP_FILE));
+	ASSERT_TRUE(Utils::FileExists(EXISTING_FILE));
+}
+
+// ************************************************
+//  Utils::GetFileSize Tests
+// ************************************************
+TEST_F(TUtils, GetFileSize_PassEmptyString_Return0)
+{
+	ASSERT_EQ(-1, Utils::GetFileSize(""));
+}
+
+TEST_F(TUtils, GetFileSize_PassBadFilename_Return0)
+{
+	ASSERT_EQ(-1, Utils::GetFileSize(BAD_FILENAME));
+}
+
+TEST_F(TUtils, GetFileSize_TestFile1_Return64)
+{
+	ASSERT_EQ(64, Utils::GetFileSize(FS_TEST_FILE1));
+}
+
+TEST_F(TUtils, GetFileSize_TestFile2_Return128)
+{
+	ASSERT_EQ(128, Utils::GetFileSize(FS_TEST_FILE2));
+}
+
+TEST_F(TUtils, GetFileSize_TestFile3_Return1024)
+{
+	ASSERT_EQ(1024, Utils::GetFileSize(FS_TEST_FILE3));
 }
 
 // ************************************************

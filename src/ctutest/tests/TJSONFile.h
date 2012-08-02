@@ -12,7 +12,6 @@ static const char*  SAVE_NEW_FILE                    = "ctutest_resources/save-n
 static const char*  CREATE_NEW_FILE                  = "ctutest_resources/create-new-file";
 static const char*  SCOPED_SAVE                      = "ctutest_resources/scoped-save";
 static const char*  IS_LOADED_TEST1                  = "ctutest_resources/is-loaded";
-static const char*  EXISTING_FILE                    = "ctutest_resources/existing-file";
 static const char*  MODIFIED_FILE                    = "ctutest_resources/modified-file";
 static const char*  EXISTING_MALFORMED_FILE          = "ctutest_resources/existing-malformed-file";
 static const u32    EXISTING_MALFORMED_FILE_SIZE     = 29;
@@ -27,8 +26,7 @@ bool MalformedFileIsUnchanged()
 	//       no change to file on disk.
 	std::ifstream fstream(EXISTING_MALFORMED_FILE);
 	std::string contents(""); std::getline(fstream, contents);
-	fstream.seekg(0, std::ios::end);
-	std::streamoff fileSize = fstream.tellg();
+	std::streamoff fileSize = Utils::GetFileSize(EXISTING_MALFORMED_FILE);
 
 	return (fileSize == EXISTING_MALFORMED_FILE_SIZE &&
 	        contents ==  EXISTING_MALFORMED_FILE_CONTENTS);
@@ -64,7 +62,7 @@ TEST_F(TJSONFile, Constructor_SaveNewFile_SaveReturnsTrue)
 TEST_F(TJSONFile, Constructor_CreateNewFile_NewFileExists)
 {
 	JSONFile jfile(CREATE_NEW_FILE); jfile.Save();
-	ASSERT_TRUE(std::ifstream(CREATE_NEW_FILE).is_open());
+	ASSERT_TRUE(Utils::FileExists(CREATE_NEW_FILE));
 }
 
 // ************************************************
@@ -75,7 +73,7 @@ TEST_F(TJSONFile, Destructor_OutOfScopeWihtoutSaving_FileExists)
 	{
 		JSONFile jfile(SCOPED_SAVE);
 	}
-	ASSERT_TRUE(std::ifstream(SCOPED_SAVE).is_open());
+	ASSERT_TRUE(Utils::FileExists(SCOPED_SAVE));
 }
 
 TEST_F(TJSONFile, Destructor_OutOfScopeMalformedFile_FileUnchanged)
