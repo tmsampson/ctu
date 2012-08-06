@@ -48,23 +48,21 @@ namespace Utils
 			{
 				return pResult;
 			}
+		#elif defined(__APPLE__)
+			static u32 uTemp = uSize;
+			if(_NSGetExecutablePath(pResult, &uTemp) == 0)
+			{
+				static char pResolved[uSize];
+				if(realpath(pResult, pResolved) != NULL)
+					return dirname(pResolved);
+			}
 		#else
-			#if defined(__APPLE__)
-				static u32 uTemp = uSize;
-				if(_NSGetExecutablePath(pResult, &uTemp) == 0)
-				{
-					static char pResolved[uSize];
-					if(realpath(pResult, pResolved) != NULL)
-						return dirname(pResolved);
-				}
-			#else
 			if(readlink("/proc/self/exe", pResult, uSize)        != -1 ||
 			   readlink("/proc/curproc/file", pResult, uSize)    != -1 ||
 			   readlink("/proc/self/path/a.out", pResult, uSize) != -1)
 			{
 				return dirname(pResult);
 			}
-			#endif
 		#endif
 		return ""; // Unsupported platform
 	}
