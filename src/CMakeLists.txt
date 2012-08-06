@@ -60,6 +60,6 @@ target_link_libraries(ctutest libctu gtest)
 # Build main ctu executable
 set(CTU_ROOT "ctu")
 include_directories("${CTU_ROOT}/include")
-add_executable(ctu ${CTU_ROOT}/ctu.cpp
+add_executable(ctu ${CTU_ROOT}/CTU.cpp
                    ${CTU_ROOT}/main.cpp)
 target_link_libraries(ctu libctu)
