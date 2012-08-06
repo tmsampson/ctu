@@ -35,6 +35,7 @@ namespace Utils
 	extern char PATH_SEPARATOR;
 
 	extern std::string StringTrim(std::string str);
+	extern std::string StringTrim(std::string str, const char* trimChars);
 }
 
 #endif

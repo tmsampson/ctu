@@ -180,8 +180,7 @@ TEST_F(TUtils, StringTrim_NoWhiteSpacePresent_StringUnchanged)
 
 TEST_F(TUtils, StringTrim_WhiteSpacePresent_WhiteSpaceStripped)
 {
-	std::string str = "Hello World!   ";
-	std::string trimmedStr = Utils::StringTrim(str);
+	std::string trimmedStr = Utils::StringTrim("Hello World!   ");
 	ASSERT_EQ("Hello World!", trimmedStr);
 }
 
@@ -194,9 +193,48 @@ TEST_F(TUtils, StringTrim_EmptyStringPassed_StringUnchanged)
 
 TEST_F(TUtils, StringTrim_OnlyWhiteSpacePresent_ReturnsEmptyString)
 {
-	std::string str = "   ";
-	std::string trimmedStr = Utils::StringTrim(str);
+	std::string trimmedStr = Utils::StringTrim("   ");
 	ASSERT_EQ("", trimmedStr);
+}
+
+TEST_F(TUtils, StringTrim_EmptyTrimChars_StringUnchanged)
+{
+	std::string str = "Hello World!";
+	char *trimChars = "";
+	std::string trimmedStr = Utils::StringTrim(str, trimChars);
+	ASSERT_EQ(str, trimmedStr);
+}
+
+TEST_F(TUtils, StringTrim_EmptyStringWithTrimChars_ReturnsEmptyString)
+{
+	std::string str = "";
+	char *trimChars = "! ";
+	std::string trimmedStr = Utils::StringTrim(str, trimChars);
+	ASSERT_EQ(str, trimmedStr);
+}
+
+TEST_F(TUtils, StringTrim_WhiteSpaceTrimChar_WhiteSpaceTrimmed)
+{
+	std::string str = "Hello World!   ";
+	char *trimChars = " ";
+	std::string trimmedStr = Utils::StringTrim(str, trimChars);
+	ASSERT_EQ("Hello World!", trimmedStr);
+}
+
+TEST_F(TUtils, StringTrim_MultipleTrimCharsInLogicalOrder_CharsTrimmed)
+{
+	std::string str = "Hello World!   ";
+	char *trimChars = "! ";
+	std::string trimmedStr = Utils::StringTrim(str, trimChars);
+	ASSERT_EQ("Hello World", trimmedStr);
+}
+
+TEST_F(TUtils, StringTrim_MultipleTrimCharsInReverseOrder_CharsTrimmed)
+{
+	std::string str = "Hello World!   ";
+	char *trimChars = " !";
+	std::string trimmedStr = Utils::StringTrim(str, trimChars);
+	ASSERT_EQ("Hello World", trimmedStr);
 }
 
 #endif
