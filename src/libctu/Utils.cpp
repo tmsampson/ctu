@@ -13,6 +13,7 @@
 	#include <sys/types.h>
 	#include <pwd.h>
 	#include <sys/stat.h>
+	#include <libgen.h>
 #endif
 
 namespace Utils
@@ -47,7 +48,7 @@ namespace Utils
 			   readlink("/proc/curproc/file", pResult, FILENAME_MAX)    != -1 ||
 			   readlink("/proc/self/path/a.out", pResult, FILENAME_MAX) != -1)
 			{
-				return pResult;
+				return dirname(pResult);
 			}
 			return "";
 		#endif
