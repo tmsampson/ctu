@@ -14,7 +14,7 @@
 	#include <pwd.h>
 	#include <sys/stat.h>
 	#include <libgen.h>
-	#ifdef APPLE
+	#ifdef __APPLE__
 		#include <stdlib.h>
 	#endif
 #endif
@@ -48,7 +48,7 @@ namespace Utils
 				return pResult;
 			}
 		#else
-			#if defined(APPLE)
+			#if defined(__APPLE__)
 				if(_NSGetExecutablePath(pResult, &uSize) == 0)
 				{
 					static char pResolved[uSize];
