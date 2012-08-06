@@ -10,10 +10,10 @@ namespace Utils
 	{
 		enum Enum
 		{
-			RED    = 31,
-			GREEN  = 32,
-			YELLOW = 33,
-			BLUE   = 34,
+			RED    = 0,
+			GREEN  = 1,
+			YELLOW = 2,
+			BLUE   = 3,
 		};
 	}
 
