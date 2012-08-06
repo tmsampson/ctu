@@ -55,7 +55,7 @@ namespace Utils
 				{
 					static char pResolved[uSize];
 					if(realpath(pResult, pResolved) != NULL)
-						return pResolved;
+						return dirname(pResolved);
 				}
 			#else
 			if(readlink("/proc/self/exe", pResult, uSize)        != -1 ||
