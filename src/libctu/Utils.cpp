@@ -36,7 +36,7 @@ namespace Utils
 	void Print(EColour::Enum colour, const char* formatString, ...)
 	{
 		#ifndef _WIN32
-		printf("\033[1:%dm", colour); // Set console/terminal colour
+		printf("\033[1;%dm", colour); // Set console/terminal colour
 		#endif
 
 		va_list arglist;
