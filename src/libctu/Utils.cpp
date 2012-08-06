@@ -14,6 +14,9 @@
 	#include <pwd.h>
 	#include <sys/stat.h>
 	#include <libgen.h>
+	#ifdef APPLE
+		#include <stdlib.h>
+	#endif
 #endif
 
 namespace Utils
@@ -36,22 +39,32 @@ namespace Utils
 
 	std::string GetExecutableDir()
 	{
-		static char pResult[FILENAME_MAX];
+		static const u32 uSize = FILENAME_MAX;
+		static char pResult[uSize];
 		#if defined(_WIN32)
-			if(!GetModuleFileName(NULL, pResult, FILENAME_MAX))
-				return "";
-			if(!PathRemoveFileSpec(pResult))
-				return "";
-			return pResult;
+			if(GetModuleFileName(NULL, pResult, uSize) &&
+			   PathRemoveFileSpec(pResult))
+			{
+				return pResult;
+			}
 		#else
-			if(readlink("/proc/self/exe", pResult, FILENAME_MAX)        != -1 ||
-			   readlink("/proc/curproc/file", pResult, FILENAME_MAX)    != -1 ||
-			   readlink("/proc/self/path/a.out", pResult, FILENAME_MAX) != -1)
+			#if defined(APPLE)
+				if(_NSGetExecutablePath(pResult, &uSize) == 0)
+				{
+					static char pResolved[uSize];
+					if(realpath(pResult, pResolved) != NULL)
+						return pResolved;
+				}
+			#else
+			if(readlink("/proc/self/exe", pResult, uSize)        != -1 ||
+			   readlink("/proc/curproc/file", pResult, uSize)    != -1 ||
+			   readlink("/proc/self/path/a.out", pResult, uSize) != -1)
 			{
 				return dirname(pResult);
 			}
-			return "";
+			#endif
 		#endif
+		return ""; // Unsupported platform
 	}
 
 	std::string GetDefaultTaskListDirectory()
