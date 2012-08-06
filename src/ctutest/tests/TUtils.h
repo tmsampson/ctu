@@ -43,6 +43,16 @@ TEST_F(TUtils, FileExists_PassBadFilename_ReturnFalse)
 	ASSERT_FALSE(Utils::FileExists(BAD_FILENAME));
 }
 
+TEST_F(TUtils, FileExists_PassNoneExistenDir_ReturnFalse)
+{
+	ASSERT_FALSE(Utils::FileExists(NONE_EXISTENT_DIRECTORY));
+}
+
+TEST_F(TUtils, FileExists_PassExistingDir_ReturnFalse)
+{
+	ASSERT_FALSE(Utils::FileExists(Utils::GetCurrentDir()));
+}
+
 TEST_F(TUtils, FileExists_PassValidFile_ReturnTrue)
 {
 	ASSERT_TRUE(Utils::FileExists(EXISTING_FILE));
@@ -89,13 +99,24 @@ TEST_F(TUtils, DirectoryExists_PassBadPath_ReturnFalse)
 	ASSERT_FALSE(Utils::DirectoryExists(BAD_PATH));
 }
 
-TEST_F(TUtils, DirectoryExists_PassNoneExistenDir_ReturnFalse)
+TEST_F(TUtils, DirectoryExists_PassNoneExistentDir_ReturnFalse)
 {
 	ASSERT_FALSE(Utils::DirectoryExists(NONE_EXISTENT_DIRECTORY));
 }
 
+TEST_F(TUtils, DirectoryExists_PassNoneExistentFile_ReturnFalse)
+{
+	ASSERT_FALSE(Utils::DirectoryExists(NONE_EXISTENT_FILE));
+}
+
+TEST_F(TUtils, DirectoryExists_PassExistingFile_ReturnFalse)
+{
+	ASSERT_FALSE(Utils::DirectoryExists(EXISTING_FILE));
+}
+
 TEST_F(TUtils, DirectoryExists_PassExistingDir_ReturnTrue)
 {
+	printf("%s\r\n", Utils::GetCurrentDir().c_str());
 	ASSERT_TRUE(Utils::DirectoryExists(Utils::GetCurrentDir()));
 }
 
