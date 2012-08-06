@@ -194,11 +194,12 @@ namespace Utils
 
 	std::string StringTrim(std::string str)
 	{
+		// Early out
 		if (str.size() == 0)
 			return str;
 
-		u32 size(str.size());
-		u32 trimSize(0);
+		u32 size = str.size();
+		u32 trimSize = 0;
 
 		while (size > 0)
 		{
@@ -214,6 +215,42 @@ namespace Utils
 			return "";
 
 		// Trim the white space
+		return str.erase(str.size() - trimSize + 1, trimSize);
+	}
+
+	std::string StringTrim(std::string str, const char* trimChars)
+	{
+		// Early outs
+		if (str.size() == 0)
+			return str;
+
+		if (strlen(trimChars) == 0)
+			return str;
+
+		u32 trimCharCount = strlen(trimChars);
+		u32 size = str.size();
+		u32 trimSize = 0;
+
+		while (size > 0)
+		{
+			--size;
+
+			// If there is a trim char, increase the trim size
+			for (u32 i = 0; i < trimCharCount; ++i)
+			{
+				if (str[size] == trimChars[i])
+				{
+					++trimSize;
+					break;
+				}
+			}
+		}
+
+		// Return a empty string if the entire string was made up of the trim chars
+		if (str.size() == trimSize)
+			return "";
+
+		// Trim the chars
 		return str.erase(str.size() - trimSize + 1, trimSize);
 	}
 }
