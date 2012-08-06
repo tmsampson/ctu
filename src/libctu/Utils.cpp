@@ -25,17 +25,33 @@
 
 namespace Utils
 {
+	// Global variables
+	#if defined(_WIN32)
+		HANDLE hstdout = GetStdHandle(STD_OUTPUT_HANDLE);
+		CONSOLE_SCREEN_BUFFER_INFO csbi;
+	#endif
+
 	void SetConsoleColour(EColour::Enum colour)
 	{
-		#ifndef _WIN32
-		printf("\033[1;%dm", colour);
+		#if defined(_WIN32)
+		static int lookup[] = { FOREGROUND_RED,
+		                        FOREGROUND_GREEN,
+		                        FOREGROUND_RED | FOREGROUND_GREEN,
+		                        FOREGROUND_BLUE
+		                      };
+		GetConsoleScreenBufferInfo(hstdout, &csbi);
+		SetConsoleTextAttribute(hstdout, lookup[colour]);
+		#else
+			printf("\033[1;%dm", colour + 31);
 		#endif
 	}
 
 	void ResetConsoleColour()
 	{
-		#ifndef _WIN32
-		printf("\033[0m");
+		#if defined(_WIN32)
+			SetConsoleTextAttribute(hstdout, csbi.wAttributes);
+		#else
+			printf("\033[0m");
 		#endif
 	}
 
