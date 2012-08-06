@@ -50,7 +50,11 @@ TEST_F(TUtils, FileExists_PassNoneExistenDir_ReturnFalse)
 
 TEST_F(TUtils, FileExists_PassExistingDir_ReturnFalse)
 {
+	// Note: On Linux/Unix directories CAN legitimately
+	//       be opened as files
+	#if defined(_WIN32)
 	ASSERT_FALSE(Utils::FileExists(Utils::GetCurrentDir()));
+	#endif
 }
 
 TEST_F(TUtils, FileExists_PassValidFile_ReturnTrue)
