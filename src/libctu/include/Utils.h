@@ -6,6 +6,9 @@
 
 namespace Utils
 {
+	extern void Print(const char* formatString, ...);
+	extern void PrintLine(const char* formatString, ...);
+	
 	extern std::string GetCurrentDir();
 	extern std::string GetExecutableDir();
 

@@ -24,6 +24,23 @@
 
 namespace Utils
 {
+	void Print(const char* formatString, ...)
+	{
+		va_list arglist;
+		va_start(arglist, formatString);
+		vfprintf(stdout, formatString, arglist);
+		va_end(arglist);
+	}
+
+	void PrintLine(const char* formatString, ...)
+	{
+		va_list arglist;
+		va_start(arglist, formatString);
+		std::string fs = std::string(formatString) + "\r\n";
+		vfprintf(stdout, fs.c_str(), arglist);
+		va_end(arglist);
+	}
+
 	std::string GetCurrentDir()
 	{
 		#if defined(_WIN32)
