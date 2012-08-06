@@ -50,8 +50,8 @@ namespace Utils
 			}
 		#else
 			#if defined(__APPLE__)
-				static u32 uResult;
-				if(_NSGetExecutablePath(pResult, &uResult) == 0)
+				static u32 uTemp = uSize;
+				if(_NSGetExecutablePath(pResult, &uTemp) == 0)
 				{
 					static char pResolved[uSize];
 					if(realpath(pResult, pResolved) != NULL)
