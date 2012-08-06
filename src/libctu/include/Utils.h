@@ -6,7 +6,7 @@
 
 namespace Utils
 {
-	namespace EPrintColour
+	namespace EColour
 	{
 		enum Enum
 		{
@@ -18,7 +18,7 @@ namespace Utils
 	}
 
 	extern void Print(const char* formatString, ...);
-	extern void Print(EPrintColour::Enum colour, const char* formatString, ...);
+	extern void Print(EColour::Enum colour, const char* formatString, ...);
 	extern void PrintLine(const char* formatString, ...);
 
 	extern std::string GetCurrentDir();
