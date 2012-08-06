@@ -21,6 +21,16 @@ TEST_F(TUtils, GetCurrentDir_NormalCall_ReturnNonEmptyString)
 }
 
 // ************************************************
+//  Utils::GetExecutableDir Tests
+// ************************************************
+TEST_F(TUtils, GetExecutableDir_NormalCall_ReturnCurrentDir)
+{
+	// Note: When unit tests execute, executable directory
+	//       should be same as working directory
+	ASSERT_EQ(Utils::GetCurrentDir(), Utils::GetExecutableDir());
+}
+
+// ************************************************
 //  Utils::FileExists Tests
 // ************************************************
 TEST_F(TUtils, FileExists_PassEmptyString_ReturnFalse)
