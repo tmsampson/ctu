@@ -6,6 +6,7 @@
 #ifdef _WIN32
 	#include <windows.h>
 	#include <shlobj.h>
+	#include <shlwapi.h>
 	#include <direct.h>
 #else
 	#include <unistd.h>
@@ -30,6 +31,26 @@ namespace Utils
 
 		return "";
 		#undef GetCurrentDirFunc
+	}
+
+	std::string GetExecutableDir()
+	{
+		static char pResult[FILENAME_MAX];
+		#if defined(_WIN32)
+			if(!GetModuleFileName(NULL, pResult, FILENAME_MAX))
+				return "";
+			if(!PathRemoveFileSpec(pResult))
+				return "";
+			return pResult;
+		#else
+			if(readlink("/proc/self/exe", pResult, FILENAME_MAX)        != -1 ||
+			   readlink("/proc/curproc/file", pResult, FILENAME_MAX)    != -1 ||
+			   readlink("/proc/self/path/a.out", pResult, FILENAME_MAX) != -1)
+			{
+				return pResult;
+			}
+			return "";
+		#endif
 	}
 
 	std::string GetDefaultTaskListDirectory()
