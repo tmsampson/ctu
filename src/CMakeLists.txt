@@ -40,7 +40,8 @@ include_directories("${LIBCTU_ROOT}")
 include_directories("${LIBCTU_ROOT}/include")
 add_library(libctu STATIC
             ${LIBCTU_ROOT}/JSONFile.cpp
-            ${LIBCTU_ROOT}/Utils.cpp)
+            ${LIBCTU_ROOT}/Utils.cpp
+            ${LIBCTU_ROOT}/CTU.cpp)
 target_link_libraries(libctu jsoncpp)
 if(MSVC)
       target_link_libraries(libctu shlwapi.lib)
@@ -54,12 +55,9 @@ include_directories("${CTUTEST_ROOT}/include")
 if(CMAKE_COMPILER_IS_GNUCXX)
       SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")
 endif()
-add_executable(ctutest ctutest/ctutest.cpp)
+add_executable(ctutest ${CTUTEST_ROOT}/ctutest.cpp)
 target_link_libraries(ctutest libctu gtest)
 
 # Build main ctu executable
-set(CTU_ROOT "ctu")
-include_directories("${CTU_ROOT}/include")
-add_executable(ctu ${CTU_ROOT}/CTU.cpp
-                   ${CTU_ROOT}/main.cpp)
+add_executable(ctu ctu/main.cpp)
 target_link_libraries(ctu libctu)
