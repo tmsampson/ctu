@@ -7,6 +7,7 @@
 namespace Utils
 {
 	extern std::string GetCurrentDir();
+	extern std::string GetExecutableDir();
 	extern std::string GetDefaultTaskListDirectory();
 
 	extern bool FileExists(const std::string& path);

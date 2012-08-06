@@ -3,6 +3,6 @@
 
 int main(int argc, char* argv[])
 {
-	printf("result = %s", Utils::GetCurrentDir().c_str());
+	printf("result = %s", Utils::GetExecutableDir().c_str());
 	return 1;
 }
