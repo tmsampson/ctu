@@ -15,6 +15,7 @@
 	#include <pwd.h>
 	#include <sys/stat.h>
 	#include <libgen.h>
+	#include <stdarg.h>
 	char Utils::PATH_SEPARATOR = '/';
 	#ifdef __APPLE__
 		#include <mach-o/dyld.h>
