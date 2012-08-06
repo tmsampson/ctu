@@ -33,6 +33,8 @@ namespace Utils
 	extern bool TouchFile(const std::string& path);
 	extern bool DirectoryExists(const std::string& path);
 	extern char PATH_SEPARATOR;
+
+	extern std::string StringTrim(std::string str);
 }
 
 #endif

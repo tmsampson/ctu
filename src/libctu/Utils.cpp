@@ -191,4 +191,29 @@ namespace Utils
 			return (stat(path.c_str(), &sb) == 0 && S_ISDIR(sb.st_mode));
 		#endif
 	}
+
+	std::string StringTrim(std::string str)
+	{
+		if (str.size() == 0)
+			return str;
+
+		u32 size(str.size());
+		u32 trimSize(0);
+
+		while (size > 0)
+		{
+			--size;
+
+			// If there is whitespace, increase the trim size
+			if (str[size] == ' ')
+				++trimSize;
+		}
+
+		// Return a empty string if the entire string was whitespace
+		if (str.size() == trimSize)
+			return "";
+
+		// Trim the white space
+		return str.erase(str.size() - trimSize + 1, trimSize);
+	}
 }

@@ -168,4 +168,35 @@ TEST_F(TUtils, GetDefaultTaskListDirectory_Call_ValidPathReturned)
 	ASSERT_TRUE(Utils::DirectoryExists(path));
 }
 
+// ************************************************
+//  Utils::StringTrim Tests
+// ************************************************
+TEST_F(TUtils, StringTrim_NoWhiteSpacePresent_StringUnchanged)
+{
+	std::string str = "Hello World!";
+	std::string trimmedStr = Utils::StringTrim(str);
+	ASSERT_EQ("Hello World!", trimmedStr);
+}
+
+TEST_F(TUtils, StringTrim_WhiteSpacePresent_WhiteSpaceStripped)
+{
+	std::string str = "Hello World!   ";
+	std::string trimmedStr = Utils::StringTrim(str);
+	ASSERT_EQ("Hello World!", trimmedStr);
+}
+
+TEST_F(TUtils, StringTrim_EmptyStringPassed_StringUnchanged)
+{
+	std::string str = "";
+	std::string trimmedStr = Utils::StringTrim(str);
+	ASSERT_EQ("", trimmedStr);
+}
+
+TEST_F(TUtils, StringTrim_OnlyWhiteSpacePresent_ReturnsEmptyString)
+{
+	std::string str = "   ";
+	std::string trimmedStr = Utils::StringTrim(str);
+	ASSERT_EQ("", trimmedStr);
+}
+
 #endif
