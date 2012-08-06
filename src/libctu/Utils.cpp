@@ -8,7 +8,7 @@
 	#include <shlobj.h>
 	#include <shlwapi.h>
 	#include <direct.h>
-	char Utils::PATH_SEPARATOR = '\\';
+	
 #else
 	#include <unistd.h>
 	#include <sys/types.h>
@@ -16,7 +16,6 @@
 	#include <sys/stat.h>
 	#include <libgen.h>
 	#include <stdarg.h>
-	char Utils::PATH_SEPARATOR = '/';
 	#ifdef __APPLE__
 		#include <mach-o/dyld.h>
 		#include <stdlib.h>
@@ -29,6 +28,9 @@ namespace Utils
 	#if defined(_WIN32)
 		HANDLE hstdout = GetStdHandle(STD_OUTPUT_HANDLE);
 		CONSOLE_SCREEN_BUFFER_INFO csbi;
+		char PATH_SEPARATOR = '\\';
+	#else
+		char PATH_SEPARATOR = '/';
 	#endif
 
 	void SetConsoleColour(EColour::Enum colour)
