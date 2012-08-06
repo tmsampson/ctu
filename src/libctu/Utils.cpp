@@ -33,6 +33,22 @@ namespace Utils
 		va_end(arglist);
 	}
 
+	void Print(EPrintColour::Enum colour, const char* formatString, ...)
+	{
+		#ifndef(_WIN32)
+		printf("\033[1:%dm", colour); // Set console/terminal colour
+		#endif
+
+		va_list arglist;
+		va_start(arglist, formatString);
+		vfprintf(stdout, formatString, arglist);
+		va_end(arglist);
+
+		#ifndef(_WIN32)
+		printf("\033[0m"); // Reset console/terminal colour
+		#endif
+	}
+
 	void PrintLine(const char* formatString, ...)
 	{
 		va_list arglist;
