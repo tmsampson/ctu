@@ -33,7 +33,7 @@ namespace Utils
 		va_end(arglist);
 	}
 
-	void Print(EPrintColour::Enum colour, const char* formatString, ...)
+	void Print(EColour::Enum colour, const char* formatString, ...)
 	{
 		#ifndef _WIN32
 		printf("\033[1:%dm", colour); // Set console/terminal colour
