@@ -18,7 +18,7 @@ bool CTU::RunStartupChecks(JSONFile& configFile)
 	if(!taskListPath.empty())
 		return true;
 
-	Utils::PrintLine("WARNING: No task list is currently set.");
+	Utils::PrintLine(Utils::EColour::YELLOW, "WARNING: No task list is currently set.");
 
 	do
 	{
@@ -41,11 +41,11 @@ bool CTU::RunStartupChecks(JSONFile& configFile)
 	Utils::Print("Creating %s    ", taskListPath.c_str());
 	if(!Utils::TouchFile(taskListPath))
 	{
-		Utils::PrintLine("FAIL");
+		Utils::PrintLine(Utils::EColour::RED, "FAIL");
 		return false;
 	}
 
-	Utils::PrintLine("SUCCESS\r\n");
+	Utils::PrintLine(Utils::EColour::GREEN, "SUCCESS\r\n");
 	configFile.Set<std::string>(JK_CURRENT_TASK_LIST, taskListPath);
 
 	return true;
