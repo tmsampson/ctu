@@ -29,7 +29,7 @@ bool MalformedFileIsUnchanged()
 	std::streamoff fileSize = Utils::GetFileSize(EXISTING_MALFORMED_FILE);
 
 	return (fileSize == EXISTING_MALFORMED_FILE_SIZE &&
-	        contents ==  EXISTING_MALFORMED_FILE_CONTENTS);
+	        contents == EXISTING_MALFORMED_FILE_CONTENTS);
 }
 
 // ************************************************
