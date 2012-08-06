@@ -15,6 +15,7 @@
 	#include <sys/stat.h>
 	#include <libgen.h>
 	#ifdef __APPLE__
+		#include <mach-o/dyld.h>
 		#include <stdlib.h>
 	#endif
 #endif
