@@ -25,6 +25,20 @@
 
 namespace Utils
 {
+	void SetConsoleColour(EColour::Enum colour)
+	{
+		#ifndef _WIN32
+		printf("\033[1;%dm", colour);
+		#endif
+	}
+
+	void ResetConsoleColour()
+	{
+		#ifndef _WIN32
+		printf("\033[0m");
+		#endif
+	}
+
 	void Print(const char* formatString, ...)
 	{
 		va_list arglist;
@@ -35,18 +49,12 @@ namespace Utils
 
 	void Print(EColour::Enum colour, const char* formatString, ...)
 	{
-		#ifndef _WIN32
-		printf("\033[1;%dm", colour); // Set console/terminal colour
-		#endif
-
+		SetConsoleColour(colour);
 		va_list arglist;
 		va_start(arglist, formatString);
 		vfprintf(stdout, formatString, arglist);
 		va_end(arglist);
-
-		#ifndef _WIN32
-		printf("\033[0m"); // Reset console/terminal colour
-		#endif
+		ResetConsoleColour();
 	}
 
 	void PrintLine(const char* formatString, ...)
@@ -56,6 +64,17 @@ namespace Utils
 		std::string fs = std::string(formatString) + "\r\n";
 		vfprintf(stdout, fs.c_str(), arglist);
 		va_end(arglist);
+	}
+
+	void PrintLine(EColour::Enum colour, const char* formatString, ...)
+	{
+		SetConsoleColour(colour);
+		va_list arglist;
+		va_start(arglist, formatString);
+		std::string fs = std::string(formatString) + "\r\n";
+		vfprintf(stdout, fs.c_str(), arglist);
+		va_end(arglist);
+		ResetConsoleColour();
 	}
 
 	std::string GetCurrentDir()
