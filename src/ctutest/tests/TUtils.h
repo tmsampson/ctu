@@ -106,6 +106,8 @@ TEST_F(TUtils, TouchFile_PassBadFilename_ReturnFalse)
 
 TEST_F(TUtils, TouchFile_PassDirectory_PerPlatformBehaviour)
 {
+	// Note: On Linux/Unix it is valid to perform a touch
+	//       on an existing directory
 	#if defined(_WIN32)
 	ASSERT_FALSE(Utils::TouchFile(Utils::GetCurrentDir()));
 	#else
