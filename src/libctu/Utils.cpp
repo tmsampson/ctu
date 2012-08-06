@@ -8,12 +8,14 @@
 	#include <shlobj.h>
 	#include <shlwapi.h>
 	#include <direct.h>
+	char Utils::PATH_SEPARATOR = '\\';
 #else
 	#include <unistd.h>
 	#include <sys/types.h>
 	#include <pwd.h>
 	#include <sys/stat.h>
 	#include <libgen.h>
+	char Utils::PATH_SEPARATOR = '/';
 	#ifdef __APPLE__
 		#include <mach-o/dyld.h>
 		#include <stdlib.h>
@@ -67,6 +69,11 @@ namespace Utils
 		return ""; // Unsupported platform
 	}
 
+	std::string GetConfigFilePath()
+	{
+		return Utils::GetExecutableDir() + Utils::PATH_SEPARATOR + "ctu.settings";
+	}
+
 	std::string GetDefaultTaskListDirectory()
 	{
 		#if defined(_WIN32)
@@ -83,7 +90,7 @@ namespace Utils
 
 	bool FileExists(const std::string& path)
 	{
-		return std::ifstream(path.c_str()).is_open();
+		return std::ifstream(path.c_str()).good();
 	}
 
 	s64 GetFileSize(const std::string& path)
@@ -93,10 +100,21 @@ namespace Utils
 		return fstream.tellg();
 	}
 
+	bool TouchFile(const std::string& path)
+	{
+		if(FileExists(path))
+			return true;
+
+		std::ofstream touch(path.c_str());
+		return touch.is_open();
+	}
+
 	bool DirectoryExists(const std::string& path)
 	{
 		#if defined(_WIN32)
-			return GetFileAttributes(path.c_str()) != INVALID_FILE_ATTRIBUTES;
+			s32 result = GetFileAttributes(path.c_str());
+			return (result != INVALID_FILE_ATTRIBUTES &&
+			        result & FILE_ATTRIBUTE_DIRECTORY);
 		#else
 			struct stat sb;
 			return (stat(path.c_str(), &sb) == 0 && S_ISDIR(sb.st_mode));

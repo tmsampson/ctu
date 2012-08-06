@@ -11,6 +11,7 @@ static const char*  TEMP_FILE          = "ctutest_resources/temp";
 static const char*  FS_TEST_FILE1      = "ctutest_resources/fs1";
 static const char*  FS_TEST_FILE2      = "ctutest_resources/fs2";
 static const char*  FS_TEST_FILE3      = "ctutest_resources/fs3";
+static const char*  TOUCH_FILE         = "ctutest_resources/touch";
 
 // ************************************************
 //  Utils::GetCurrentDir Tests
@@ -88,6 +89,33 @@ TEST_F(TUtils, GetFileSize_TestFile2_Return128)
 TEST_F(TUtils, GetFileSize_TestFile3_Return1024)
 {
 	ASSERT_EQ(1024, Utils::GetFileSize(FS_TEST_FILE3));
+}
+
+// ************************************************
+//  Utils::TouchFile Tests
+// ************************************************
+TEST_F(TUtils, TouchFile_PassEmptyString_ReturnFalse)
+{
+	ASSERT_FALSE(Utils::TouchFile(""));
+}
+
+TEST_F(TUtils, TouchFile_PassDirectory_PerPlatformBehaviour)
+{
+	#if defined(_WIN32)
+	ASSERT_FALSE(Utils::TouchFile(Utils::GetCurrentDir()));
+	#else
+	ASSERT_TRUE(Utils::TouchFile(Utils::GetCurrentDir()));
+	#endif
+}
+
+TEST_F(TUtils, TouchFile_FileExists_ReturnTrue)
+{
+	ASSERT_TRUE(Utils::TouchFile(EXISTING_FILE));
+}
+
+TEST_F(TUtils, TouchFile_FileDoesNotExist_ReturnTrue)
+{
+	ASSERT_TRUE(Utils::TouchFile(TOUCH_FILE));
 }
 
 // ************************************************
