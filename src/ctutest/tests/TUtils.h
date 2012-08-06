@@ -99,6 +99,11 @@ TEST_F(TUtils, TouchFile_PassEmptyString_ReturnFalse)
 	ASSERT_FALSE(Utils::TouchFile(""));
 }
 
+TEST_F(TUtils, TouchFile_PassBadFilename_ReturnFalse)
+{
+	ASSERT_FALSE(Utils::TouchFile(BAD_FILENAME));
+}
+
 TEST_F(TUtils, TouchFile_PassDirectory_PerPlatformBehaviour)
 {
 	#if defined(_WIN32)
