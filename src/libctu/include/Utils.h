@@ -10,12 +10,13 @@ namespace Utils
 	{
 		enum Enum
 		{
-			RED    = 31;
-			GREEN  = 32;
-			YELLOW = 33;
-			BLUE   = 34;
-		}
+			RED    = 31,
+			GREEN  = 32,
+			YELLOW = 33,
+			BLUE   = 34,
+		};
 	}
+
 	extern void Print(const char* formatString, ...);
 	extern void Print(EPrintColour::Enum colour, const char* formatString, ...);
 	extern void PrintLine(const char* formatString, ...);
