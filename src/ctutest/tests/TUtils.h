@@ -237,4 +237,12 @@ TEST_F(TUtils, StringTrim_MultipleTrimCharsInReverseOrder_CharsTrimmed)
 	ASSERT_EQ("Hello World", trimmedStr);
 }
 
+TEST_F(TUtils, StringTrim_ManyTrimChars_CharsTrimmed)
+{
+	std::string str = "Hello World!](   )[";
+	char *trimChars = " !()[]";
+	std::string trimmedStr = Utils::StringTrim(str, trimChars);
+	ASSERT_EQ("Hello World", trimmedStr);
+}
+
 #endif
