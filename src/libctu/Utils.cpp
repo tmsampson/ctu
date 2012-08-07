@@ -192,28 +192,29 @@ namespace Utils
 		#endif
 	}
 
-	std::string StringTrim(std::string str)
+	std::string StringTrim(const std::string& str)
 	{
 		// Early out
 		if (str.size() == 0)
 			return str;
 
 		u32 trimSize = 0;
-
 		for (s32 size = (str.size() - 1); size >= 0; --size)
+		{
 			// If there is whitespace, increase the trim size
 			if (str[size] == ' ')
 				++trimSize;
+		}
 
 		// Return a empty string if the entire string was whitespace
 		if (str.size() == trimSize)
 			return "";
 
 		// Trim the white space
-		return str.erase(str.size() - trimSize + 1, trimSize);
+		return str.substr(0, str.size() - trimSize + 1);
 	}
 
-	std::string StringTrim(std::string str, const char* trimChars)
+	std::string StringTrim(const std::string& str, const char* trimChars)
 	{
 		// Early out
 		if (str.size() == 0 || strlen(trimChars) == 0)
@@ -221,7 +222,6 @@ namespace Utils
 
 		u32 trimCharCount = strlen(trimChars);
 		u32 trimSize = 0;
-
 		for (s32 size = (str.size() - 1); size >= 0; --size)
 		{
 			// If there is a trim char, increase the trim size
@@ -240,6 +240,6 @@ namespace Utils
 			return "";
 
 		// Trim the chars
-		return str.erase(str.size() - trimSize + 1, trimSize);
+		return str.substr(0, str.size() - trimSize + 1);
 	}
 }
