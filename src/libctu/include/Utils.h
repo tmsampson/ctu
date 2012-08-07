@@ -34,8 +34,8 @@ namespace Utils
 	extern bool DirectoryExists(const std::string& path);
 	extern char PATH_SEPARATOR;
 
-	extern std::string StringTrim(std::string str);
-	extern std::string StringTrim(std::string str, const char* trimChars);
+	extern std::string StringTrim(const std::string& str);
+	extern std::string StringTrim(const std::string& str, const char* trimChars);
 }
 
 #endif
