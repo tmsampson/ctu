@@ -28,6 +28,7 @@ bool CTU::RunStartupChecks(JSONFile& configFile)
 
 		if(!taskListPath.empty())
 		{
+			taskListPath = Utils::StringTrim(taskListPath, ".\\/");
 			if(!Utils::DirectoryExists(taskListPath))
 				Utils::PrintLine(Utils::EColour::RED, "ERROR: The directory specified does not exist, please try again");
 			continue;
