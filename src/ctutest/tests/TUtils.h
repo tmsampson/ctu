@@ -200,7 +200,7 @@ TEST_F(TUtils, StringTrim_OnlyWhiteSpacePresent_ReturnsEmptyString)
 TEST_F(TUtils, StringTrim_EmptyTrimChars_StringUnchanged)
 {
 	std::string str = "Hello World!";
-	string trimChars = "";
+	std::string trimChars = "";
 	std::string trimmedStr = Utils::StringTrim(str, trimChars);
 	ASSERT_EQ(str, trimmedStr);
 }
