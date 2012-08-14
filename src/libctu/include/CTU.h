@@ -5,8 +5,8 @@
 
 namespace CTU
 {
-	bool RunStartupChecks(ConfigFile& configFile);
-	bool Begin(const std::vector<std::string>& args);
+	bool RunStartupChecks(ConfigFile* pCconfig);
+	int Begin(const std::vector<std::string>& args);
 }
 
 #endif

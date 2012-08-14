@@ -7,18 +7,21 @@
 // CTU Commands
 #include "commands/CmdAdd.h" // add
 
+static ConfigFile* pConfigFile;
 static CTU::CommandMgr commandMgr;
 static const std::string JK_CURRENT_TASK_LIST = "currentTaskList";
 static const std::string JK_VERBOSE           = "verbose";
 
-bool CTU::RunStartupChecks(ConfigFile& configFile)
+bool CTU::RunStartupChecks(ConfigFile* pConfig)
 {
+	pConfigFile = pConfig;
+
 	// Ensure values are set OR default
-	configFile.Set<bool>(JK_VERBOSE, configFile.Get<bool>(JK_VERBOSE, false));
-	configFile.Save();
+	pConfigFile->Set<bool>(JK_VERBOSE, pConfigFile->Get<bool>(JK_VERBOSE, false));
+	pConfigFile->Save();
 
 	// Get path to current task list
-	std::string taskListPath = configFile.Get<std::string>(JK_CURRENT_TASK_LIST);
+	std::string taskListPath = pConfigFile->Get<std::string>(JK_CURRENT_TASK_LIST);
 
 	// Is the current task list set?
 	if(!taskListPath.empty())
@@ -53,39 +56,40 @@ bool CTU::RunStartupChecks(ConfigFile& configFile)
 	}
 
 	Utils::PrintLine(Utils::EColour::GREEN, "SUCCESS\r\n");
-	configFile.Set<std::string>(JK_CURRENT_TASK_LIST, taskListPath);
+	pConfigFile->Set<std::string>(JK_CURRENT_TASK_LIST, taskListPath);
 
 	return true;
 }
 
 void PrintIncorrectUsage(const std::string& commandName = "")
 {
-	Utils::PrintLine(Utils::EColour::RED, "Incorrect Usage!");
 	if(commandName.size())
-		Utils::PrintLine(Utils::EColour::RED, "ERROR: Command '%s' does not exist", commandName.c_str());
+		Utils::PrintLine(Utils::EColour::RED, "ctu: unknown command '%s'", commandName.c_str());
+	Utils::PrintLine("CTU Command-line Task Utility");
+	Utils::PrintLine("\r\nbasic commands:\r\n");
 	commandMgr.PrintCommandSummaries();
 }
 
-bool CTU::Begin(const std::vector<std::string>& args)
+int CTU::Begin(const std::vector<std::string>& args)
 {
+	// Register all commands
+	commandMgr.RegisterCommand<CTU::Commands::CmdAdd>(); // add
+
 	if(!args.size())
 	{
 		PrintIncorrectUsage();
-		return false;
+		return -1;
 	}
-
-	// Register all commands
-	commandMgr.RegisterCommand<CTU::Commands::CmdAdd>(); // add
 
 	// Does command exist?
 	std::string commandName = args[0];
 	if(!commandMgr.CommandExists(commandName))
 	{
 		PrintIncorrectUsage(commandName);
-		return false;
+		return -1;
 	}
 
 	// Run command
 	CTU::Command::ArgList cargs(args.begin() + 1, args.end());
-	return commandMgr.Execute(commandName, cargs);
+	return commandMgr.Execute(commandName, cargs)? 0 : -1;
 }
