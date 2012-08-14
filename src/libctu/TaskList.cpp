@@ -7,7 +7,7 @@ bool CTU::TaskList::Parse(const std::string& taskListPath, const std::string& bu
 	m_taskListPath = taskListPath;
 	m_bullet = bullet;
 
-	std::ifstream taskListFile(m_taskListPath);
+	std::ifstream taskListFile(m_taskListPath.c_str());
 	if(!taskListFile.is_open())
 	{
 		Utils::PrintLine(Utils::EColour::RED,
