@@ -2,8 +2,6 @@
 #define CONFIG_FILE_H
 
 #include "json/json.h"
-#include <iostream>
-#include <fstream>
 #include <string>
 
 class ConfigFile

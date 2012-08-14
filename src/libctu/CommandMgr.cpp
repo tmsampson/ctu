@@ -1,9 +1,27 @@
 #include "CommandMgr.h"
 #include "Utils.h"
 
-bool CTU::CommandMgr::CommandExists(const std::string& name) const
+bool CTU::CommandMgr::CommandExists(const std::string& commandName) const
 {
-	return m_commands.find(name) != m_commands.end();
+	return m_commands.find(commandName) != m_commands.end();
+}
+
+bool CTU::CommandMgr::CommandRequiresParse(const std::string& commandName)
+{
+	if(!CommandExists(commandName))
+		return false;
+	Command::Instance pCommand = m_commands[commandName];
+	return pCommand->RequiresTaskListParse();
+}
+
+bool CTU::CommandMgr::Execute(const std::string& commandName, const CTU::Command::ArgList& args,
+                              CTU::TaskList& taskList)
+{
+	if(!CommandExists(commandName))
+		return false;
+
+	Command::Instance pCommand = m_commands[commandName];
+	return pCommand->Execute(args, taskList);
 }
 
 void CTU::CommandMgr::PrintCommandSummaries() const
@@ -23,13 +41,4 @@ void CTU::CommandMgr::PrintCommandSummaries() const
 		Utils::Print("%s", i->second->GetSummary().c_str());
 	}
 	Utils::PrintLine("");
-}
-
-bool CTU::CommandMgr::Execute(const std::string& commandName, const CTU::Command::ArgList& args)
-{
-	if(!CommandExists(commandName))
-		return false;
-
-	Command::Instance pCommand = m_commands[commandName];
-	return pCommand->Execute(args);
 }

@@ -16,7 +16,7 @@ namespace CTU
 					return "usage";
 				}
 
-				virtual bool Execute(const CTU::Command::ArgList& args)
+				virtual bool Execute(const CTU::Command::ArgList& args, CTU::TaskList& taskList)
 				{
 					Utils::PrintLine("I am the add command :)");
 					return true;
