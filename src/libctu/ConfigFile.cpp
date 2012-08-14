@@ -1,5 +1,7 @@
 #include "ConfigFile.h"
 #include "BasicTypes.h"
+#include <iostream>
+#include <fstream>
 
 ConfigFile::ConfigFile(const std::string& path)
 	: m_path(path), m_bLoadFailed(false), m_bParseFailed(false)

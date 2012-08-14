@@ -42,6 +42,7 @@ add_library(libctu STATIC
             ${LIBCTU_ROOT}/ConfigFile.cpp
             ${LIBCTU_ROOT}/Utils.cpp
             ${LIBCTU_ROOT}/CommandMgr.cpp
+            ${LIBCTU_ROOT}/TaskList.cpp
             ${LIBCTU_ROOT}/CTU.cpp)
 target_link_libraries(libctu jsoncpp)
 if(MSVC)

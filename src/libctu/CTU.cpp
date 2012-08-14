@@ -1,8 +1,10 @@
 #include "CTU.h"
 #include "CommandMgr.h"
 #include "Utils.h"
+#include "TaskList.h"
 #include <string>
 #include <map>
+#include <iostream>
 
 // CTU Commands
 #include "commands/CmdAdd.h" // add
@@ -11,6 +13,7 @@ static ConfigFile* pConfigFile;
 static CTU::CommandMgr commandMgr;
 static const std::string JK_CURRENT_TASK_LIST = "currentTaskList";
 static const std::string JK_VERBOSE           = "verbose";
+static const std::string JK_BULLET            = "bullet";
 
 bool CTU::RunStartupChecks(ConfigFile* pConfig)
 {
@@ -18,6 +21,7 @@ bool CTU::RunStartupChecks(ConfigFile* pConfig)
 
 	// Ensure values are set OR default
 	pConfigFile->Set<bool>(JK_VERBOSE, pConfigFile->Get<bool>(JK_VERBOSE, false));
+	pConfigFile->Set<std::string>(JK_BULLET, pConfigFile->Get<std::string>(JK_BULLET, "> "));
 	pConfigFile->Save();
 
 	// Get path to current task list
@@ -89,7 +93,15 @@ int CTU::Begin(const std::vector<std::string>& args)
 		return -1;
 	}
 
+	// Parse existing tasks?
+	CTU::TaskList taskList;
+	if(commandMgr.CommandRequiresParse(commandName))
+	{
+		std::string taskListPath = pConfigFile->Get<std::string>(JK_CURRENT_TASK_LIST);
+		std::string bullet = pConfigFile->Get<std::string>(JK_BULLET);
+	}
+
 	// Run command
 	CTU::Command::ArgList cargs(args.begin() + 1, args.end());
-	return commandMgr.Execute(commandName, cargs)? 0 : -1;
+	return commandMgr.Execute(commandName, cargs, taskList)? 0 : -1;
 }
