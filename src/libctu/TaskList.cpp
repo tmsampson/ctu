@@ -51,7 +51,7 @@ bool CTU::TaskList::AddTask(const std::string& rawText)
 	return true;
 }
 
-const std::string CTU::TaskList::Where() const
+const std::string CTU::TaskList::GetPath() const
 {
 	return m_taskListPath;
 }

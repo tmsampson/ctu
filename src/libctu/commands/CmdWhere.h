@@ -14,7 +14,7 @@ namespace CTU
 				virtual std::string GetSummary() const { return "prints the location of the active task list"; }
 				virtual std::string GetUsage() const
 				{
-					return std::string("ctu where \"ENTRY\"\r\n\r\n") +
+					return std::string("ctu where \r\n\r\n") +
 					       std::string("prints the location of the active task list\r\n");
 				}
 
@@ -25,7 +25,7 @@ namespace CTU
 
 				virtual bool Execute(const CTU::Command::ArgList& args, CTU::TaskList& taskList)
 				{
-					Utils::PrintLine("Current task list stored at: %s", taskList.Where().c_str());
+					Utils::PrintLine("Current task list stored at: %s", taskList.GetPath().c_str());
 					return true;
 				}
 		};
