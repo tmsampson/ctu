@@ -11,11 +11,11 @@ namespace CTU
 			public:
 				virtual bool RequiresTaskListSave() const { return false; }
 				virtual std::string GetName() const    { return "where"; }
-				virtual std::string GetSummary() const { return "prints the location of the active task list"; }
+				virtual std::string GetSummary() const { return "display the location of the active task list"; }
 				virtual std::string GetUsage() const
 				{
 					return std::string("ctu where \r\n\r\n") +
-					       std::string("prints the location of the active task list\r\n");
+					       std::string("display the location of the active task list\r\n");
 				}
 
 				virtual bool Validate(const CTU::Command::ArgList& args)

@@ -9,10 +9,11 @@
 // CTU Commands
 #include "commands/CmdAdd.h"   // add
 #include "commands/CmdWhere.h" // where
+#include "commands/CmdHelp.h" // where
 
+CTU::CommandMgr commandMgr;
 static CTU::TaskList taskList;
 static ConfigFile* pConfigFile;
-static CTU::CommandMgr commandMgr;
 static const std::string JK_CURRENT_TASK_LIST = "currentTaskList";
 static const std::string JK_VERBOSE           = "verbose";
 static const std::string JK_BULLET            = "bullet";
@@ -21,9 +22,7 @@ void PrintIncorrectUsage(const std::string& commandName = "")
 {
 	if(commandName.size())
 		Utils::PrintLine(Utils::EColour::RED, "ctu: unknown command '%s'", commandName.c_str());
-	Utils::PrintLine("CTU Command-line Task Utility");
-	Utils::PrintLine("\r\nbasic commands:\r\n");
-	commandMgr.PrintCommandSummaries();
+	commandMgr.PrintBasicCommandsSummary();
 }
 
 std::string FirstTimeSetupTaskListFile()
@@ -97,6 +96,7 @@ int CTU::Begin(const std::vector<std::string>& args)
 	// Register all commands
 	commandMgr.RegisterCommand<CTU::Commands::CmdAdd>();   // add
 	commandMgr.RegisterCommand<CTU::Commands::CmdWhere>(); // where
+	commandMgr.RegisterCommand<CTU::Commands::CmdHelp>();  // help
 
 	if(!args.size())
 	{

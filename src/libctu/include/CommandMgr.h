@@ -43,7 +43,8 @@ namespace CTU
 			bool CommandRequiresSave(const std::string& commandName);
 			bool Execute(const std::string& commandName, const CTU::Command::ArgList& args,
 			             CTU::TaskList& taskList);
-			void PrintCommandSummaries() const;
+			void PrintBasicCommandsSummary() const;
+			void DisplayUsage(const std::string& commandName);
 
 		private:
 			typedef std::map<std::string, Command::Instance> CommandMap;
