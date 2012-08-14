@@ -19,7 +19,7 @@ namespace CTU
 			bool Init(const std::string& taskListPath, const std::string& bullet);
 			bool Parse();
 			bool AddTask(const std::string& rawText);
-			const std::string Where() const;
+			const std::string GetPath() const;
 			bool Save();
 
 		private:
