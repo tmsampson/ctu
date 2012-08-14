@@ -1,7 +1,7 @@
-#include "JSONFile.h"
+#include "ConfigFile.h"
 #include "BasicTypes.h"
 
-JSONFile::JSONFile(const std::string& path)
+ConfigFile::ConfigFile(const std::string& path)
 	: m_path(path), m_bLoadFailed(false), m_bParseFailed(false)
 {
 	std::ifstream inputFile(m_path.c_str());
@@ -33,12 +33,12 @@ JSONFile::JSONFile(const std::string& path)
 	}
 }
 
-JSONFile::~JSONFile()
+ConfigFile::~ConfigFile()
 {
 	Save(); // Save by default on destruction
 }
 
-bool JSONFile::Save()
+bool ConfigFile::Save()
 {
 	// Make sure not to overwrite non-JSON files
 	if(m_bParseFailed)
@@ -61,17 +61,17 @@ bool JSONFile::Save()
 	return true;
 }
 
-bool JSONFile::IsLoaded() const
+bool ConfigFile::IsLoaded() const
 {
 	return !m_bLoadFailed;
 }
 
-bool JSONFile::ContainsKey(const std::string& key) const
+bool ConfigFile::ContainsKey(const std::string& key) const
 {
 	return m_root.isMember(key);
 }
 
-bool JSONFile::Remove(const std::string& key, bool saveImmediate)
+bool ConfigFile::Remove(const std::string& key, bool saveImmediate)
 {
 	if(!ContainsKey(key))
 		return false;
@@ -84,7 +84,7 @@ bool JSONFile::Remove(const std::string& key, bool saveImmediate)
 	return true;
 }
 
-std::string JSONFile::GetLastError()
+std::string ConfigFile::GetLastError()
 {
 	return m_reader.getFormattedErrorMessages();
 }
@@ -93,43 +93,43 @@ std::string JSONFile::GetLastError()
 // Template specialisations for getting values WITH default value
 // **********************************************************************
 template <typename T>
-T JSONFile::Get(const std::string& key, const T& defaultValue)
+T ConfigFile::Get(const std::string& key, const T& defaultValue)
 {
 	return m_root.get(key, defaultValue);
 }
 
 template <>
-bool JSONFile::Get<bool>(const std::string& key, const bool& defaultValue)
+bool ConfigFile::Get<bool>(const std::string& key, const bool& defaultValue)
 {
 	return m_root.get(key, defaultValue).asBool();
 }
 
 template <>
-s32 JSONFile::Get<s32>(const std::string& key, const s32& defaultValue)
+s32 ConfigFile::Get<s32>(const std::string& key, const s32& defaultValue)
 {
 	return m_root.get(key, defaultValue).asInt();
 }
 
 template <>
-u32 JSONFile::Get<u32>(const std::string& key, const u32& defaultValue)
+u32 ConfigFile::Get<u32>(const std::string& key, const u32& defaultValue)
 {
 	return m_root.get(key, defaultValue).asUInt();
 }
 
 template <>
-float JSONFile::Get<float>(const std::string& key, const float& defaultValue)
+float ConfigFile::Get<float>(const std::string& key, const float& defaultValue)
 {
 	return m_root.get(key, defaultValue).asFloat();
 }
 
 template <>
-double JSONFile::Get<double>(const std::string& key, const double& defaultValue)
+double ConfigFile::Get<double>(const std::string& key, const double& defaultValue)
 {
 	return m_root.get(key, defaultValue).asDouble();
 }
 
 template <>
-std::string JSONFile::Get<std::string>(const std::string& key, const std::string& defaultValue)
+std::string ConfigFile::Get<std::string>(const std::string& key, const std::string& defaultValue)
 {
 	return m_root.get(key, defaultValue).asString();
 }

@@ -1,16 +1,16 @@
-#ifndef JSON_FILE_H
-#define JSON_FILE_H
+#ifndef CONFIG_FILE_H
+#define CONFIG_FILE_H
 
 #include "json/json.h"
 #include <iostream>
 #include <fstream>
 #include <string>
 
-class JSONFile
+class ConfigFile
 {
 	public:
-		JSONFile(const std::string& path);
-		~JSONFile();
+		ConfigFile(const std::string& path);
+		~ConfigFile();
 
 		bool Save();
 		bool IsLoaded() const;
@@ -33,5 +33,5 @@ class JSONFile
 		bool m_bLoadFailed, m_bParseFailed;
 };
 
-#include "JSONFile.inl"
+#include "ConfigFile.inl"
 #endif

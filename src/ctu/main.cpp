@@ -1,13 +1,13 @@
 #include "CTU.h"
 #include "Utils.h"
-#include "JSONFile.h"
+#include "ConfigFile.h"
 #include "CommandMgr.h"
 #include <vector>
 #include <string>
 
 int main(int argc, char* argv[])
 {
-	JSONFile configFile(Utils::GetConfigFilePath());
+	ConfigFile configFile(Utils::GetConfigFilePath());
 	CTU::RunStartupChecks(configFile);
 
 	// Collect all but first arg (process name)

@@ -11,7 +11,7 @@ static CTU::CommandMgr commandMgr;
 static const std::string JK_CURRENT_TASK_LIST = "currentTaskList";
 static const std::string JK_VERBOSE           = "verbose";
 
-bool CTU::RunStartupChecks(JSONFile& configFile)
+bool CTU::RunStartupChecks(ConfigFile& configFile)
 {
 	// Ensure values are set OR default
 	configFile.Set<bool>(JK_VERBOSE, configFile.Get<bool>(JK_VERBOSE, false));
