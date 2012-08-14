@@ -64,7 +64,7 @@ void CTU::CommandMgr::PrintCommandSummaries() const
 		Utils::Print(" %s", commandName.c_str());
 		for(u32 pos = 0; pos < (uAlignment - commandNameLen); ++pos)
 			Utils::Print(" ");
-		Utils::Print("%s", commandSummary.c_str());
+		Utils::PrintLine("%s", commandSummary.c_str());
 	}
 	Utils::PrintLine("\r\n");
 	Utils::PrintLine("use \"ctu help COMMAND\" for command specific usage details");

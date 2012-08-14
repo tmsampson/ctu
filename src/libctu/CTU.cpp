@@ -7,7 +7,8 @@
 #include <iostream>
 
 // CTU Commands
-#include "commands/CmdAdd.h" // add
+#include "commands/CmdAdd.h"   // add
+#include "commands/CmdWhere.h" // where
 
 static CTU::TaskList taskList;
 static ConfigFile* pConfigFile;
@@ -94,7 +95,8 @@ bool CTU::RunStartupChecks(ConfigFile* pConfig)
 int CTU::Begin(const std::vector<std::string>& args)
 {
 	// Register all commands
-	commandMgr.RegisterCommand<CTU::Commands::CmdAdd>(); // add
+	commandMgr.RegisterCommand<CTU::Commands::CmdAdd>();   // add
+	commandMgr.RegisterCommand<CTU::Commands::CmdWhere>(); // where
 
 	if(!args.size())
 	{
