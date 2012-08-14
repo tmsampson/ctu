@@ -51,6 +51,11 @@ bool CTU::TaskList::AddTask(const std::string& rawText)
 	return true;
 }
 
+const std::string CTU::TaskList::Where() const
+{
+	return m_taskListPath;
+}
+
 bool CTU::TaskList::Save()
 {
 	assert(m_taskListPath.size());

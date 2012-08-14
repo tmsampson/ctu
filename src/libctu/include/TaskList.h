@@ -19,6 +19,7 @@ namespace CTU
 			bool Init(const std::string& taskListPath, const std::string& bullet);
 			bool Parse();
 			bool AddTask(const std::string& rawText);
+			const std::string Where() const;
 			bool Save();
 
 		private:
@@ -27,7 +28,5 @@ namespace CTU
 			std::vector<Task> m_tasks;
 	};
 }
-
-
 
 #endif
