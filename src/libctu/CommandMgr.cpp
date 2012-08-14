@@ -1,5 +1,6 @@
 #include "CommandMgr.h"
 #include "Utils.h"
+#include <assert.h>
 
 bool CTU::CommandMgr::CommandExists(const std::string& commandName) const
 {
@@ -14,6 +15,14 @@ bool CTU::CommandMgr::CommandRequiresParse(const std::string& commandName)
 	return pCommand->RequiresTaskListParse();
 }
 
+bool CTU::CommandMgr::CommandRequiresSave(const std::string& commandName)
+{
+	if(!CommandExists(commandName))
+		return false;
+	Command::Instance pCommand = m_commands[commandName];
+	return pCommand->RequiresTaskListSave();
+}
+
 bool CTU::CommandMgr::Execute(const std::string& commandName, const CTU::Command::ArgList& args,
                               CTU::TaskList& taskList)
 {
@@ -21,7 +30,23 @@ bool CTU::CommandMgr::Execute(const std::string& commandName, const CTU::Command
 		return false;
 
 	Command::Instance pCommand = m_commands[commandName];
-	return pCommand->Execute(args, taskList);
+	if(!pCommand->Validate(args))
+	{
+		Utils::PrintLine(Utils::EColour::RED, "ERROR: Incorrect usage...\r\n");
+		Utils::Print("%s", pCommand->GetUsage().c_str());
+		return false;
+	}
+
+	if(CommandRequiresParse(commandName) ||
+	   CommandRequiresSave(commandName))
+	{
+		taskList.Parse();
+	}
+
+	if(!pCommand->Execute(args, taskList))
+		return false;
+
+	return pCommand->RequiresTaskListSave()? taskList.Save() : true;
 }
 
 void CTU::CommandMgr::PrintCommandSummaries() const
