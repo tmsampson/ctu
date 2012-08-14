@@ -6,6 +6,7 @@
 #include <map>
 #include "Utils.h"
 #include "TaskList.h"
+#include "ConfigFile.h"
 
 namespace CTU
 {
@@ -14,11 +15,13 @@ namespace CTU
 		public:
 			typedef SharedPtr<CTU::Command> Instance;
 			typedef std::vector<std::string> ArgList;
+			virtual bool Validate(const ArgList& args) = 0;
 			virtual bool Execute(const ArgList& args, CTU::TaskList& taskList) = 0;
 			virtual std::string GetName() const = 0;
 			virtual std::string GetSummary() const = 0;
 			virtual std::string GetUsage() const = 0;
 			virtual bool RequiresTaskListParse() const { return true; }
+			virtual bool RequiresTaskListSave() const { return false; }
 	};
 
 	class CommandMgr
@@ -37,6 +40,7 @@ namespace CTU
 
 			bool CommandExists(const std::string& commandName) const;
 			bool CommandRequiresParse(const std::string& commandName);
+			bool CommandRequiresSave(const std::string& commandName);
 			bool Execute(const std::string& commandName, const CTU::Command::ArgList& args,
 			             CTU::TaskList& taskList);
 			void PrintCommandSummaries() const;

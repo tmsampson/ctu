@@ -1,12 +1,18 @@
 #include "TaskList.h"
 #include "Utils.h"
 #include <fstream>
+#include <assert.h>
 
-bool CTU::TaskList::Parse(const std::string& taskListPath, const std::string& bullet)
+bool CTU::TaskList::Init(const std::string& taskListPath, const std::string& bullet)
 {
 	m_taskListPath = taskListPath;
 	m_bullet = bullet;
 
+	return Utils::TouchFile(taskListPath);
+}
+
+bool CTU::TaskList::Parse()
+{
 	std::ifstream taskListFile(m_taskListPath.c_str());
 	if(!taskListFile.is_open())
 	{
@@ -19,7 +25,7 @@ bool CTU::TaskList::Parse(const std::string& taskListPath, const std::string& bu
 	static std::string line;
 	while(std::getline(taskListFile, line))
 	{
-		if(!ParseLine(line, bullet))
+		if(!ParseLine(line, m_bullet))
 		{
 			Utils::PrintLine(Utils::EColour::RED, "ERROR: Task on line %d could not be parsed", uLineNumber);
 			return false;
@@ -47,6 +53,8 @@ bool CTU::TaskList::AddTask(const std::string& rawText)
 
 bool CTU::TaskList::Save()
 {
+	assert(m_taskListPath.size());
+
 	std::ofstream output(m_taskListPath.c_str());
 	if(!output.is_open())
 	{

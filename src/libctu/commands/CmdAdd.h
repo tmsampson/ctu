@@ -9,6 +9,7 @@ namespace CTU
 		class CmdAdd : public CTU::Command
 		{
 			public:
+				virtual bool RequiresTaskListSave() const { return true; }
 				virtual std::string GetName() const    { return "add"; }
 				virtual std::string GetSummary() const { return "add a new task to the active task list"; }
 				virtual std::string GetUsage() const
@@ -16,9 +17,14 @@ namespace CTU
 					return "usage";
 				}
 
+				virtual bool Validate(const CTU::Command::ArgList& args)
+				{
+					return args.size() == 1;
+				}
+
 				virtual bool Execute(const CTU::Command::ArgList& args, CTU::TaskList& taskList)
 				{
-					Utils::PrintLine("I am the add command :)");
+					taskList.AddTask(args[0]);
 					return true;
 				}
 		};

@@ -9,29 +9,25 @@
 // CTU Commands
 #include "commands/CmdAdd.h" // add
 
+static CTU::TaskList taskList;
 static ConfigFile* pConfigFile;
 static CTU::CommandMgr commandMgr;
 static const std::string JK_CURRENT_TASK_LIST = "currentTaskList";
 static const std::string JK_VERBOSE           = "verbose";
 static const std::string JK_BULLET            = "bullet";
 
-bool CTU::RunStartupChecks(ConfigFile* pConfig)
+void PrintIncorrectUsage(const std::string& commandName = "")
 {
-	pConfigFile = pConfig;
+	if(commandName.size())
+		Utils::PrintLine(Utils::EColour::RED, "ctu: unknown command '%s'", commandName.c_str());
+	Utils::PrintLine("CTU Command-line Task Utility");
+	Utils::PrintLine("\r\nbasic commands:\r\n");
+	commandMgr.PrintCommandSummaries();
+}
 
-	// Ensure values are set OR default
-	pConfigFile->Set<bool>(JK_VERBOSE, pConfigFile->Get<bool>(JK_VERBOSE, false));
-	pConfigFile->Set<std::string>(JK_BULLET, pConfigFile->Get<std::string>(JK_BULLET, "> "));
-	pConfigFile->Save();
-
-	// Get path to current task list
-	std::string taskListPath = pConfigFile->Get<std::string>(JK_CURRENT_TASK_LIST);
-
-	// Is the current task list set?
-	if(!taskListPath.empty())
-		return true;
-
-	Utils::PrintLine(Utils::EColour::YELLOW, "WARNING: No task list is currently set.");
+std::string FirstTimeSetupTaskListFile()
+{
+	std::string taskListPath;
 
 	do
 	{
@@ -56,22 +52,43 @@ bool CTU::RunStartupChecks(ConfigFile* pConfig)
 	if(!Utils::TouchFile(taskListPath))
 	{
 		Utils::PrintLine(Utils::EColour::RED, "FAIL");
+		return "";
+	}
+
+	pConfigFile->Set<std::string>(JK_CURRENT_TASK_LIST, taskListPath);
+	Utils::PrintLine(Utils::EColour::GREEN, "SUCCESS\r\n");
+	return taskListPath;
+}
+
+bool CTU::RunStartupChecks(ConfigFile* pConfig)
+{
+	pConfigFile = pConfig;
+
+	// Ensure values are set OR default
+	pConfigFile->Set<bool>(JK_VERBOSE, pConfigFile->Get<bool>(JK_VERBOSE, false));
+	pConfigFile->Set<std::string>(JK_BULLET, pConfigFile->Get<std::string>(JK_BULLET, "> "));
+	pConfigFile->Save();
+
+	// Get path to current task list
+	std::string taskListPath = pConfigFile->Get<std::string>(JK_CURRENT_TASK_LIST);
+
+	// Setup current task list (first run?)
+	if(!taskListPath.size())
+	{
+		Utils::PrintLine(Utils::EColour::YELLOW, "WARNING: No task list is currently set.");
+		taskListPath = FirstTimeSetupTaskListFile();
+		if(!taskListPath.size())
+			return false;
+	}
+
+	// Initialise TaskList object
+	if(!taskList.Init(taskListPath, pConfigFile->Get<std::string>(JK_BULLET)))
+	{
+		Utils::PrintLine(Utils::EColour::RED, "ERROR: Current task list was missing and could not be created");
 		return false;
 	}
 
-	Utils::PrintLine(Utils::EColour::GREEN, "SUCCESS\r\n");
-	pConfigFile->Set<std::string>(JK_CURRENT_TASK_LIST, taskListPath);
-
 	return true;
-}
-
-void PrintIncorrectUsage(const std::string& commandName = "")
-{
-	if(commandName.size())
-		Utils::PrintLine(Utils::EColour::RED, "ctu: unknown command '%s'", commandName.c_str());
-	Utils::PrintLine("CTU Command-line Task Utility");
-	Utils::PrintLine("\r\nbasic commands:\r\n");
-	commandMgr.PrintCommandSummaries();
 }
 
 int CTU::Begin(const std::vector<std::string>& args)
@@ -93,15 +110,6 @@ int CTU::Begin(const std::vector<std::string>& args)
 		return -1;
 	}
 
-	// Parse existing tasks?
-	CTU::TaskList taskList;
-	if(commandMgr.CommandRequiresParse(commandName))
-	{
-		std::string taskListPath = pConfigFile->Get<std::string>(JK_CURRENT_TASK_LIST);
-		std::string bullet = pConfigFile->Get<std::string>(JK_BULLET);
-	}
-
-	// Run command
 	CTU::Command::ArgList cargs(args.begin() + 1, args.end());
 	return commandMgr.Execute(commandName, cargs, taskList)? 0 : -1;
 }

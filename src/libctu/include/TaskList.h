@@ -16,7 +16,8 @@ namespace CTU
 	class TaskList
 	{
 		public:
-			bool Parse(const std::string& taskListPath, const std::string& bullet);
+			bool Init(const std::string& taskListPath, const std::string& bullet);
+			bool Parse();
 			bool AddTask(const std::string& rawText);
 			bool Save();
 
