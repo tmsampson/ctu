@@ -63,7 +63,7 @@ bool CTU::TaskList::AddTask(const std::string& rawText)
 	return true;
 }
 
-bool CTU::TaskList::GetTaskCount() const
+u32 CTU::TaskList::GetTaskCount() const
 {
 	return m_tasks.size();
 }
