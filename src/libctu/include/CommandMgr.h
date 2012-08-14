@@ -37,7 +37,7 @@ namespace CTU
 			bool Execute(const std::string& commandName, const CTU::Command::ArgList& args);
 
 		private:
-			typedef std::map<std::string, SharedPtr<CTU::Command>> CommandMap;
+			typedef std::map<std::string, SharedPtr<CTU::Command> > CommandMap;
 			CommandMap m_commands;
 	};
 }
