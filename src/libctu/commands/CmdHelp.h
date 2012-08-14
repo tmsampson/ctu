@@ -34,7 +34,7 @@ namespace CTU
 					std::string commandName = args[0];
 					if(!commandMgr.CommandExists(commandName))
 					{
-						Utils::PrintLine(Utils::EColour::RED, "ERROR: Command '%s' does not exist", commandName);
+						Utils::PrintLine(Utils::EColour::RED, "ERROR: Command '%s' does not exist", commandName.c_str());
 						return false;
 					}
 
