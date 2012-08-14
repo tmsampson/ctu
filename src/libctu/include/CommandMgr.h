@@ -4,6 +4,7 @@
 #include <vector>
 #include <string>
 #include <map>
+#include <memory>
 
 namespace CTU
 {
@@ -24,7 +25,7 @@ namespace CTU
 			template<typename T>
 			bool RegisterCommand()
 			{
-				CTU::Command* pCommand = new T();
+				std::shared_ptr<CTU::Command> pCommand(new T());
 				if(CommandExists(pCommand->GetName()))
 					return false;
 				m_commands.insert(std::make_pair(pCommand->GetName(), pCommand));
@@ -36,7 +37,7 @@ namespace CTU
 			bool Execute(const std::string& commandName, const CTU::Command::ArgList& args);
 
 		private:
-			typedef std::map<std::string, CTU::Command*> CommandMap;
+			typedef std::map<std::string, std::shared_ptr<CTU::Command>> CommandMap;
 			CommandMap m_commands;
 	};
 }

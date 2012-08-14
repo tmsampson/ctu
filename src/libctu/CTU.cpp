@@ -62,7 +62,7 @@ void PrintIncorrectUsage(const std::string& commandName = "")
 {
 	Utils::PrintLine(Utils::EColour::RED, "Incorrect Usage!");
 	if(commandName.size())
-		Utils::PrintLine(Utils::EColour::RED, "Command '%s' does not exist", commandName.c_str());
+		Utils::PrintLine(Utils::EColour::RED, "ERROR: Command '%s' does not exist", commandName.c_str());
 	commandMgr.PrintCommandSummaries();
 }
 
