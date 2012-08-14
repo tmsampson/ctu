@@ -46,6 +46,7 @@ namespace Utils
 
 	extern std::string StringTrim(const std::string& str);
 	extern std::string StringTrim(const std::string& str, const std::string& trimChars);
+	extern std::string StringToLower(const std::string& str);
 }
 
 #endif

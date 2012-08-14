@@ -275,4 +275,49 @@ TEST_F(TUtils, StringTrim_StringContainsOnlyTrimChars_EntireStringTrimmed)
 	std::string trimmedStr = Utils::StringTrim(str, trimChars);
 	ASSERT_EQ("", trimmedStr);
 }
+
+// ************************************************
+//  Utils::StringToLower Tests
+// ************************************************
+TEST_F(TUtils, StringToLower_PassEmptyString_ReturnEmptyString)
+{
+	std::string str = "";
+	ASSERT_EQ(str, Utils::StringToLower(str));
+}
+
+TEST_F(TUtils, StringToLower_PassLowerCaseString_StringUnchanged)
+{
+	std::string str = "hello";
+	ASSERT_EQ(str, Utils::StringToLower(str));
+}
+
+TEST_F(TUtils, StringToLower_PassUpperCaseString_ReturnAllLowerCaseString)
+{
+	std::string str = "SHRUNK";
+	ASSERT_EQ("shrunk", Utils::StringToLower(str));
+}
+
+TEST_F(TUtils, StringToLower_PassMixedCaseString_ReturnAllLowerCaseString)
+{
+	std::string str = "CaMeL";
+	ASSERT_EQ("camel", Utils::StringToLower(str));
+}
+
+TEST_F(TUtils, StringToLower_PassLowerCaseStringMixedChars_StringUnchanged)
+{
+	std::string str = "hello!_@@~# world";
+	ASSERT_EQ(str, Utils::StringToLower(str));
+}
+
+TEST_F(TUtils, StringToLower_PassUpperCaseStringMixedChars_ReturnAllLowerCaseString)
+{
+	std::string str = "HELLO!_@@~# WORLD";
+	ASSERT_EQ("hello!_@@~# world", Utils::StringToLower(str));
+}
+
+TEST_F(TUtils, StringToLower_PassMixedCaseStringMixedChars_ReturnAllLowerCaseString)
+{
+	std::string str = "CaMeL!_@@~# CaSe";
+	ASSERT_EQ("camel!_@@~# case", Utils::StringToLower(str));
+}
 #endif
