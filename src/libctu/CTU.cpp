@@ -1,7 +1,13 @@
 #include "CTU.h"
+#include "CommandMgr.h"
 #include "Utils.h"
 #include <string>
+#include <map>
 
+// CTU Commands
+#include "commands/CmdAdd.h" // add
+
+static CTU::CommandMgr commandMgr;
 static const std::string JK_CURRENT_TASK_LIST = "currentTaskList";
 static const std::string JK_VERBOSE           = "verbose";
 
@@ -50,4 +56,36 @@ bool CTU::RunStartupChecks(JSONFile& configFile)
 	configFile.Set<std::string>(JK_CURRENT_TASK_LIST, taskListPath);
 
 	return true;
+}
+
+void PrintIncorrectUsage(const std::string& commandName = "")
+{
+	Utils::PrintLine(Utils::EColour::RED, "Incorrect Usage!");
+	if(commandName.size())
+		Utils::PrintLine(Utils::EColour::RED, "Command '%s' does not exist", commandName.c_str());
+	commandMgr.PrintCommandSummaries();
+}
+
+bool CTU::Begin(const std::vector<std::string>& args)
+{
+	if(!args.size())
+	{
+		PrintIncorrectUsage();
+		return false;
+	}
+
+	// Register all commands
+	commandMgr.RegisterCommand<CTU::Commands::CmdAdd>(); // add
+
+	// Does command exist?
+	std::string commandName = args[0];
+	if(!commandMgr.CommandExists(commandName))
+	{
+		PrintIncorrectUsage(commandName);
+		return false;
+	}
+
+	// Run command
+	CTU::Command::ArgList cargs(args.begin() + 1, args.end());
+	return commandMgr.Execute(commandName, cargs);
 }
