@@ -47,7 +47,11 @@ bool CTU::TaskList::Parse()
 
 bool CTU::TaskList::ParseLine(const std::string& line, const std::string& bullet)
 {
-	return true;
+	if(line.size() <= bullet.size())
+		return false;
+
+	std::string rawText = line.substr(bullet.size());
+	return AddTask(rawText);
 }
 
 bool CTU::TaskList::AddTask(const std::string& rawText)
