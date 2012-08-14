@@ -32,15 +32,15 @@ std::string FirstTimeSetupTaskListFile()
 
 	do
 	{
-		Utils::PrintLine("Where would you like your task list to be created? (leave blank for default)");
-		Utils::Print("Task List Path: ");
+		Utils::PrintLine("where would you like your task list to be created? (leave blank for default)");
+		Utils::Print("task list path: ");
 		std::getline(std::cin, taskListPath);
 
 		if(!taskListPath.empty())
 		{
 			taskListPath = Utils::StringTrim(taskListPath, ".\\/");
 			if(!Utils::DirectoryExists(taskListPath))
-				Utils::PrintLine(Utils::EColour::RED, "ERROR: The directory specified does not exist, please try again");
+				Utils::PrintLine(Utils::EColour::RED, "ERROR: the directory specified does not exist, please try again");
 			continue;
 		}
 
@@ -76,7 +76,7 @@ bool CTU::RunStartupChecks(ConfigFile* pConfig)
 	// Setup current task list (first run?)
 	if(!taskListPath.size())
 	{
-		Utils::PrintLine(Utils::EColour::YELLOW, "WARNING: No task list is currently set.");
+		Utils::PrintLine(Utils::EColour::YELLOW, "WARNING: no task list is currently set");
 		taskListPath = FirstTimeSetupTaskListFile();
 		if(!taskListPath.size())
 			return false;
@@ -85,7 +85,7 @@ bool CTU::RunStartupChecks(ConfigFile* pConfig)
 	// Initialise TaskList object
 	if(!taskList.Init(taskListPath, pConfigFile->Get<std::string>(JK_BULLET)))
 	{
-		Utils::PrintLine(Utils::EColour::RED, "ERROR: Active task list was missing and could not be created");
+		Utils::PrintLine(Utils::EColour::RED, "ERROR: active task list was missing and could not be created");
 		return false;
 	}
 

@@ -17,7 +17,7 @@ bool CTU::TaskList::Parse()
 	if(!taskListFile.is_open())
 	{
 		Utils::PrintLine(Utils::EColour::RED,
-		                 "ERROR: Could not open task list file: %s", m_taskListPath.c_str());
+		                 "ERROR: could not open task list file: %s", m_taskListPath.c_str());
 		return false;
 	}
 
@@ -27,7 +27,7 @@ bool CTU::TaskList::Parse()
 	{
 		if(!ParseLine(line, m_bullet))
 		{
-			Utils::PrintLine(Utils::EColour::RED, "ERROR: Task on line %d could not be parsed", uLineNumber);
+			Utils::PrintLine(Utils::EColour::RED, "ERROR: task on line %d could not be parsed", uLineNumber);
 			return false;
 		}
 		++uLineNumber;
