@@ -3,6 +3,7 @@
 // Tests
 #include "tests/TUtils.h"
 #include "tests/TConfigFile.h"
+#include "tests/TTaskList.h"
 
 const char*  EMPTY_STRING            = "";
 const char*  BAD_PATH                = "<>|,.../";

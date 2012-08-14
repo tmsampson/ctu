@@ -3,6 +3,7 @@
 
 #include <string>
 #include <vector>
+#include "BasicTypes.h"
 
 namespace CTU
 {
@@ -19,7 +20,7 @@ namespace CTU
 			bool Init(const std::string& taskListPath, const std::string& bullet);
 			bool Parse();
 			bool AddTask(const std::string& rawText);
-			bool GetTaskCount() const;
+			u32 GetTaskCount() const;
 			const std::string GetPath() const;
 			bool Save();
 
