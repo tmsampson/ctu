@@ -52,18 +52,19 @@ bool CTU::CommandMgr::Execute(const std::string& commandName, const CTU::Command
 void CTU::CommandMgr::PrintCommandSummaries() const
 {
 	static const u32 uAlignment = 12;
-	std::string commandName;
+	std::string commandName, commandSummary;
 	u32 commandNameLen;
 
 	CommandMap::const_iterator i = m_commands.begin();
 	for(; i != m_commands.end(); ++i)
 	{
-		commandName = i->first;
+		commandName    = Utils::StringToLower(i->first);
+		commandSummary = Utils::StringToLower(i->second->GetSummary());
 		commandNameLen = commandName.size();
 		Utils::Print(" %s", commandName.c_str());
 		for(u32 pos = 0; pos < (uAlignment - commandNameLen); ++pos)
 			Utils::Print(" ");
-		Utils::Print("%s", i->second->GetSummary().c_str());
+		Utils::Print("%s", commandSummary.c_str());
 	}
 	Utils::PrintLine("");
 }
