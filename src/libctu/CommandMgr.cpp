@@ -18,6 +18,6 @@ bool CTU::CommandMgr::Execute(const std::string& commandName, const CTU::Command
 	if(!CommandExists(commandName))
 		return false;
 
-	std::shared_ptr<CTU::Command> pCommand = m_commands[commandName];
+	SharedPtr<CTU::Command> pCommand = m_commands[commandName];
 	return pCommand->Execute(args);
 }

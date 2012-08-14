@@ -2,10 +2,17 @@
 #define UTILS_H_
 
 #include <string>
+#include <memory>
 #include "BasicTypes.h"
 
 namespace Utils
 {
+	#if defined(_WIN32)
+	#define SharedPtr std::shared_ptr
+	#else
+	#define SharedPtr std::tr1::shared_ptr
+	#endif
+
 	namespace EColour
 	{
 		enum Enum
