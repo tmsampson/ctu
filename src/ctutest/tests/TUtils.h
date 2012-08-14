@@ -200,7 +200,7 @@ TEST_F(TUtils, StringTrim_OnlyWhiteSpacePresent_ReturnsEmptyString)
 TEST_F(TUtils, StringTrim_EmptyTrimChars_StringUnchanged)
 {
 	std::string str = "Hello World!";
-	char *trimChars = "";
+	string trimChars = "";
 	std::string trimmedStr = Utils::StringTrim(str, trimChars);
 	ASSERT_EQ(str, trimmedStr);
 }
@@ -208,7 +208,7 @@ TEST_F(TUtils, StringTrim_EmptyTrimChars_StringUnchanged)
 TEST_F(TUtils, StringTrim_EmptyStringWithTrimChars_ReturnsEmptyString)
 {
 	std::string str = "";
-	char *trimChars = "! ";
+	std::string trimChars = "! ";
 	std::string trimmedStr = Utils::StringTrim(str, trimChars);
 	ASSERT_EQ(str, trimmedStr);
 }
@@ -216,7 +216,7 @@ TEST_F(TUtils, StringTrim_EmptyStringWithTrimChars_ReturnsEmptyString)
 TEST_F(TUtils, StringTrim_WhiteSpaceTrimChar_WhiteSpaceTrimmed)
 {
 	std::string str = "Hello World!   ";
-	char *trimChars = " ";
+	std::string trimChars = " ";
 	std::string trimmedStr = Utils::StringTrim(str, trimChars);
 	ASSERT_EQ("Hello World!", trimmedStr);
 }
@@ -224,7 +224,7 @@ TEST_F(TUtils, StringTrim_WhiteSpaceTrimChar_WhiteSpaceTrimmed)
 TEST_F(TUtils, StringTrim_MultipleTrimCharsInLogicalOrder_CharsTrimmed)
 {
 	std::string str = "Hello World!   ";
-	char *trimChars = "! ";
+	std::string trimChars = "! ";
 	std::string trimmedStr = Utils::StringTrim(str, trimChars);
 	ASSERT_EQ("Hello World", trimmedStr);
 }
@@ -232,7 +232,7 @@ TEST_F(TUtils, StringTrim_MultipleTrimCharsInLogicalOrder_CharsTrimmed)
 TEST_F(TUtils, StringTrim_MultipleTrimCharsInReverseOrder_CharsTrimmed)
 {
 	std::string str = "Hello World!   ";
-	char *trimChars = " !";
+	std::string trimChars = " !";
 	std::string trimmedStr = Utils::StringTrim(str, trimChars);
 	ASSERT_EQ("Hello World", trimmedStr);
 }
@@ -240,7 +240,7 @@ TEST_F(TUtils, StringTrim_MultipleTrimCharsInReverseOrder_CharsTrimmed)
 TEST_F(TUtils, StringTrim_ManyTrimChars_CharsTrimmed)
 {
 	std::string str = "Hello World!](   )[";
-	char *trimChars = " !()[]";
+	std::string trimChars = " !()[]";
 	std::string trimmedStr = Utils::StringTrim(str, trimChars);
 	ASSERT_EQ("Hello World", trimmedStr);
 }
@@ -248,7 +248,7 @@ TEST_F(TUtils, StringTrim_ManyTrimChars_CharsTrimmed)
 TEST_F(TUtils, StringTrim_PassFwddSlash_FwdSlashTrimmed)
 {
 	std::string str = "C:/";
-	char *trimChars = "/";
+	std::string trimChars = "/";
 	std::string trimmedStr = Utils::StringTrim(str, trimChars);
 	ASSERT_EQ("C:", trimmedStr);
 }
@@ -256,7 +256,7 @@ TEST_F(TUtils, StringTrim_PassFwddSlash_FwdSlashTrimmed)
 TEST_F(TUtils, StringTrim_PassFwdSlashAndPeriod_BothTrimmed)
 {
 	std::string str = "C:/../";
-	char *trimChars = "./";
+	std::string trimChars = "./";
 	std::string trimmedStr = Utils::StringTrim(str, trimChars);
 	ASSERT_EQ("C:", trimmedStr);
 }
@@ -264,7 +264,7 @@ TEST_F(TUtils, StringTrim_PassFwdSlashAndPeriod_BothTrimmed)
 TEST_F(TUtils, StringTrim_PassFwdAndBackSlashAndPeriod_AllThreeTrimmed)
 {
 	std::string str = "C:\\/../";
-	char *trimChars = ".\\/";
+	std::string trimChars = ".\\/";
 	std::string trimmedStr = Utils::StringTrim(str, trimChars);
 	ASSERT_EQ("C:", trimmedStr);
 }
@@ -272,7 +272,7 @@ TEST_F(TUtils, StringTrim_PassFwdAndBackSlashAndPeriod_AllThreeTrimmed)
 TEST_F(TUtils, StringTrim_StringContainsOnlyTrimChars_EntireStringTrimmed)
 {
 	std::string str = "*&^";
-	char *trimChars = "*&^";
+	std::string trimChars = "*&^";
 	std::string trimmedStr = Utils::StringTrim(str, trimChars);
 	ASSERT_EQ("", trimmedStr);
 }
