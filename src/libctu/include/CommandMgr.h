@@ -17,6 +17,7 @@ namespace CTU
 			virtual std::string GetName() const = 0;
 			virtual std::string GetSummary() const = 0;
 			virtual std::string GetUsage() const = 0;
+			virtual bool SkipTaskListParse() const { return false; }
 	};
 
 	class CommandMgr

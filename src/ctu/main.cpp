@@ -8,13 +8,12 @@
 int main(int argc, char* argv[])
 {
 	ConfigFile configFile(Utils::GetConfigFilePath());
-	CTU::RunStartupChecks(configFile);
+	CTU::RunStartupChecks(&configFile);
 
 	// Collect all but first arg (process name)
 	CTU::Command::ArgList args;
 	for(s32 i = 1; i < argc; ++i)
 		args.push_back(argv[i]);
 
-	CTU::Begin(args);
-	return 0;
+	return CTU::Begin(args);
 }

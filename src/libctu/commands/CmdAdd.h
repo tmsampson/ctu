@@ -10,7 +10,7 @@ namespace CTU
 		{
 			public:
 				virtual std::string GetName() const    { return "add"; }
-				virtual std::string GetSummary() const { return "summary"; }
+				virtual std::string GetSummary() const { return "add a new task to the active task list"; }
 				virtual std::string GetUsage() const
 				{
 					return "usage";
