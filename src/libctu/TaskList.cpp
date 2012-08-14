@@ -47,7 +47,7 @@ bool CTU::TaskList::AddTask(const std::string& rawText)
 
 bool CTU::TaskList::Save()
 {
-	std::ofstream output(m_taskListPath);
+	std::ofstream output(m_taskListPath.c_str());
 	if(!output.is_open())
 	{
 		Utils::PrintLine(Utils::EColour::RED,
