@@ -84,7 +84,7 @@ bool CTU::RunStartupChecks(ConfigFile* pConfig)
 	// Initialise TaskList object
 	if(!taskList.Init(taskListPath, pConfigFile->Get<std::string>(JK_BULLET)))
 	{
-		Utils::PrintLine(Utils::EColour::RED, "ERROR: Current task list was missing and could not be created");
+		Utils::PrintLine(Utils::EColour::RED, "ERROR: Active task list was missing and could not be created");
 		return false;
 	}
 
