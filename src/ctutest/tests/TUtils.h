@@ -269,4 +269,11 @@ TEST_F(TUtils, StringTrim_PassFwdAndBackSlashAndPeriod_AllThreeTrimmed)
 	ASSERT_EQ("C:", trimmedStr);
 }
 
+TEST_F(TUtils, StringTrim_StringContainsOnlyTrimChars_EntireStringTrimmed)
+{
+	std::string str = "*&^";
+	char *trimChars = "*&^";
+	std::string trimmedStr = Utils::StringTrim(str, trimChars);
+	ASSERT_EQ("", trimmedStr);
+}
 #endif
