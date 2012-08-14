@@ -8,7 +8,15 @@ bool CTU::TaskList::Init(const std::string& taskListPath, const std::string& bul
 	m_taskListPath = taskListPath;
 	m_bullet = bullet;
 
-	return Utils::TouchFile(taskListPath);
+	bool touchSucceeded = Utils::TouchFile(taskListPath);
+
+	if (!touchSucceeded)
+	{
+		m_taskListPath = "";
+		return false;
+	}
+
+	return true;
 }
 
 bool CTU::TaskList::Parse()
