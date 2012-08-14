@@ -33,7 +33,7 @@ bool CTU::CommandMgr::Execute(const std::string& commandName, const CTU::Command
 	if(!pCommand->Validate(args))
 	{
 		Utils::PrintLine(Utils::EColour::RED, "ERROR: Incorrect usage...\r\n");
-		Utils::Print("%s", pCommand->GetUsage().c_str());
+		Utils::PrintLine("%s", pCommand->GetUsage().c_str());
 		return false;
 	}
 
