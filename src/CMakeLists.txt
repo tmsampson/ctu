@@ -41,6 +41,7 @@ include_directories("${LIBCTU_ROOT}/include")
 add_library(libctu STATIC
             ${LIBCTU_ROOT}/JSONFile.cpp
             ${LIBCTU_ROOT}/Utils.cpp
+            ${LIBCTU_ROOT}/CommandMgr.cpp
             ${LIBCTU_ROOT}/CTU.cpp)
 target_link_libraries(libctu jsoncpp)
 if(MSVC)
