@@ -17,12 +17,13 @@ namespace CTU
 					return std::string("ctu add \"ENTRY\"\r\n\r\n") +
 					       std::string("add the specified entry to the active command list\r\n") +
 					       std::string("note: quotes may be omited if the entry does not contain spaces\r\n") +
-					       std::string("      to nest quotes use single quotes '' or escaped double quotes \\\"\r\n");
+					       std::string("      to nest quotes use single quotes '' or escaped double quotes \\\"\r\n") +
+					       std::string("      empty entries are classed as incorrect usage\r\n");
 				}
 
 				virtual bool Validate(const CTU::Command::ArgList& args)
 				{
-					return args.size() == 1;
+					return (args.size() == 1) && args[0].size();
 				}
 
 				virtual bool Execute(const CTU::Command::ArgList& args, CTU::TaskList& taskList)

@@ -27,7 +27,6 @@ namespace CTU
 	class CommandMgr
 	{
 		public:
-
 			template<typename T>
 			bool RegisterCommand()
 			{
