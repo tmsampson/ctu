@@ -11,6 +11,7 @@ namespace CTU
 	class Command
 	{
 		public:
+			typedef SharedPtr<CTU::Command> Instance;
 			typedef std::vector<std::string> ArgList;
 			virtual bool Execute(const ArgList& args) = 0;
 			virtual std::string GetName() const = 0;
@@ -25,7 +26,7 @@ namespace CTU
 			template<typename T>
 			bool RegisterCommand()
 			{
-				SharedPtr<CTU::Command> pCommand(new T());
+				Command::Instance pCommand(new T());
 				if(CommandExists(pCommand->GetName()))
 					return false;
 				m_commands.insert(std::make_pair(pCommand->GetName(), pCommand));
@@ -37,7 +38,7 @@ namespace CTU
 			bool Execute(const std::string& commandName, const CTU::Command::ArgList& args);
 
 		private:
-			typedef std::map<std::string, SharedPtr<CTU::Command> > CommandMap;
+			typedef std::map<std::string, Command::Instance> CommandMap;
 			CommandMap m_commands;
 	};
 }
