@@ -63,6 +63,11 @@ bool CTU::TaskList::AddTask(const std::string& rawText)
 	return true;
 }
 
+bool CTU::TaskList::GetTaskCount() const
+{
+	return m_tasks.size();
+}
+
 const std::string CTU::TaskList::GetPath() const
 {
 	return m_taskListPath;
