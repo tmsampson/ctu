@@ -155,7 +155,6 @@ TEST_F(TUtils, DirectoryExists_PassExistingFile_ReturnFalse)
 
 TEST_F(TUtils, DirectoryExists_PassExistingDir_ReturnTrue)
 {
-	printf("%s\r\n", Utils::GetCurrentDir().c_str());
 	ASSERT_TRUE(Utils::DirectoryExists(Utils::GetCurrentDir()));
 }
 
