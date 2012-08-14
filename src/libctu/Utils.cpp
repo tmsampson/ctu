@@ -2,6 +2,7 @@
 
 #include <stdio.h>
 #include <fstream>
+#include <algorithm>
 
 #ifdef _WIN32
 	#include <windows.h>
@@ -220,5 +221,12 @@ namespace Utils
 
 		// Return trimmed string
 		return str.substr(0, endMarker);
+	}
+
+	std::string StringToLower(const std::string& str)
+	{
+		std::string copy = str;
+		std::transform(copy.begin(), copy.end(), copy.begin(), ::tolower);
+		return copy;
 	}
 }
