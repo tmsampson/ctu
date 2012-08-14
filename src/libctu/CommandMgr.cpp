@@ -32,7 +32,7 @@ bool CTU::CommandMgr::Execute(const std::string& commandName, const CTU::Command
 	Command::Instance pCommand = m_commands[commandName];
 	if(!pCommand->Validate(args))
 	{
-		Utils::PrintLine(Utils::EColour::RED, "ERROR: Incorrect usage...\r\n");
+		Utils::PrintLine(Utils::EColour::RED, "ERROR: incorrect usage...\r\n");
 		Utils::PrintLine("%s", pCommand->GetUsage().c_str());
 		return false;
 	}
@@ -49,12 +49,15 @@ bool CTU::CommandMgr::Execute(const std::string& commandName, const CTU::Command
 	return pCommand->RequiresTaskListSave()? taskList.Save() : true;
 }
 
-void CTU::CommandMgr::PrintCommandSummaries() const
+void CTU::CommandMgr::PrintBasicCommandsSummary() const
 {
+	Utils::PrintLine("CTU Command-line Task Utility");
+	Utils::PrintLine("\r\nbasic commands:\r\n");
+
 	static const u32 uAlignment = 12;
 	std::string commandName, commandSummary;
 	u32 commandNameLen;
-
+	
 	CommandMap::const_iterator i = m_commands.begin();
 	for(; i != m_commands.end(); ++i)
 	{
@@ -69,4 +72,13 @@ void CTU::CommandMgr::PrintCommandSummaries() const
 	Utils::PrintLine("\r\n");
 	Utils::PrintLine("use \"ctu help COMMAND\" for command specific usage details");
 	Utils::PrintLine("");
+}
+
+void CTU::CommandMgr::DisplayUsage(const std::string& commandName)
+{
+	if(!CommandExists(commandName))
+		return;
+
+	Command::Instance pCommand = m_commands[commandName];
+	Utils::Print("%s", pCommand->GetUsage().c_str());
 }
