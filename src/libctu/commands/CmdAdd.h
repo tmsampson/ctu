@@ -9,7 +9,8 @@ namespace CTU
 		class CmdAdd : public CTU::Command
 		{
 			public:
-				virtual bool RequiresTaskListSave() const { return true; }
+				CmdAdd() { SetFlag(ECommandFlag::REQUIRES_SAVE); }
+
 				virtual std::string GetName() const    { return "add"; }
 				virtual std::string GetSummary() const { return "add a new task to the active task list"; }
 				virtual std::string GetUsage() const
