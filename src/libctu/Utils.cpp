@@ -244,9 +244,13 @@ namespace Utils
 		Utils::PrintLine(Utils::EColour::RED, " Function: %s", function.c_str());
 		Utils::PrintLine(Utils::EColour::RED, "     Line: %d", uLine);
 		Utils::PrintLine(Utils::EColour::RED, "***************************************************");
-		__asm
-		{
-			int 4;
-		}
+		#if defined(_WIN32)
+			__asm
+			{
+				int 4;
+			}
+		#else
+			asm("int 4");
+		#endif
 	}
 }
