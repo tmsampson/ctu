@@ -9,7 +9,8 @@ namespace CTU
 		class CmdWhere : public CTU::Command
 		{
 			public:
-				virtual bool RequiresTaskListSave() const { return false; }
+				CmdWhere() { ResetFlag(ECommandFlag::REQUIRES_PARSE); }
+
 				virtual std::string GetName() const    { return "where"; }
 				virtual std::string GetSummary() const { return "display the location of the active task list"; }
 				virtual std::string GetUsage() const

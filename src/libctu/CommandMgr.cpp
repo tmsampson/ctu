@@ -2,6 +2,26 @@
 #include "Utils.h"
 #include <assert.h>
 
+CTU::Command::Command() : m_uFlags(0)
+{
+	SetFlag(ECommandFlag::REQUIRES_PARSE);
+}
+
+bool CTU::Command::FlagIsSet(ECommandFlag::Enum flag) const
+{
+	return (m_uFlags & flag) != 0;
+}
+
+void CTU::Command::SetFlag(ECommandFlag::Enum flag)
+{
+	m_uFlags |= flag;
+}
+
+void CTU::Command::ResetFlag(ECommandFlag::Enum flag)
+{
+	m_uFlags &= ~flag;
+}
+
 bool CTU::CommandMgr::CommandExists(const std::string& commandName) const
 {
 	return m_commands.find(commandName) != m_commands.end();
@@ -12,7 +32,7 @@ bool CTU::CommandMgr::CommandRequiresParse(const std::string& commandName) const
 	if(!CommandExists(commandName))
 		return false;
 	Command::Instance pCommand = GetCommandInstance(commandName);
-	return pCommand->RequiresTaskListParse();
+	return pCommand->FlagIsSet(ECommandFlag::REQUIRES_PARSE);
 }
 
 bool CTU::CommandMgr::CommandRequiresSave(const std::string& commandName) const
@@ -20,7 +40,7 @@ bool CTU::CommandMgr::CommandRequiresSave(const std::string& commandName) const
 	if(!CommandExists(commandName))
 		return false;
 	Command::Instance pCommand = GetCommandInstance(commandName);
-	return pCommand->RequiresTaskListSave();
+	return pCommand->FlagIsSet(ECommandFlag::REQUIRES_SAVE);
 }
 
 bool CTU::CommandMgr::Execute(const std::string& commandName, const CTU::Command::ArgList& args,
@@ -46,7 +66,7 @@ bool CTU::CommandMgr::Execute(const std::string& commandName, const CTU::Command
 	if(!pCommand->Execute(args, taskList))
 		return false;
 
-	return pCommand->RequiresTaskListSave()? taskList.Save() : true;
+	return CommandRequiresSave(commandName)? taskList.Save() : true;
 }
 
 void CTU::CommandMgr::PrintBasicCommandsSummary() const

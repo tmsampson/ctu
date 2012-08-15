@@ -10,19 +10,33 @@
 
 namespace CTU
 {
+	namespace ECommandFlag
+	{
+		enum Enum
+		{
+			REQUIRES_PARSE = 1 << 0,
+			REQUIRES_SAVE  = 1 << 1,
+		};
+	}
+
 	class Command
 	{
 		public:
 			typedef SharedPtr<CTU::Command> Instance;
 			typedef std::vector<std::string> ArgList;
 
+			Command();
 			virtual bool Validate(const ArgList& args) const = 0;
 			virtual bool Execute(const ArgList& args, CTU::TaskList& taskList) const = 0;
 			virtual std::string GetName() const = 0;
 			virtual std::string GetSummary() const = 0;
 			virtual std::string GetUsage() const = 0;
-			virtual bool RequiresTaskListParse() const { return true; }
-			virtual bool RequiresTaskListSave() const { return false; }
+			bool FlagIsSet(ECommandFlag::Enum flag) const;
+			void SetFlag(ECommandFlag::Enum flag);
+			void ResetFlag(ECommandFlag::Enum flag);
+
+		private:
+			u32 m_uFlags;
 	};
 
 	class CommandMgr
