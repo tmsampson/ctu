@@ -2,8 +2,8 @@
 #define T_TASK_LIST_H_
 
 #include "TaskList.h"
-#include <gtest/gtest.h>
 #include "Common.h"
+#include <gtest/gtest.h>
 #include <fstream>
 
 class TTaskList : public ::testing::Test { };

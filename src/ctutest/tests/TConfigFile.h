@@ -2,10 +2,10 @@
 #define T_CONFIGFILE_H_
 
 #include "ConfigFile.h"
-#include <limits>
-#include <gtest/gtest.h>
 #include "Common.h"
 #include "BasicTypes.h"
+#include <gtest/gtest.h>
+#include <limits>
 
 class TConfigFile : public ::testing::Test { };
 static const char*  SAVE_NEW_FILE                    = "ctutest_resources/save-new-file";

@@ -1,12 +1,12 @@
 #ifndef COMMAND_MGR_H_
 #define COMMAND_MGR_H_
 
-#include <vector>
-#include <string>
-#include <map>
 #include "Utils.h"
 #include "TaskList.h"
 #include "ConfigFile.h"
+#include <vector>
+#include <string>
+#include <map>
 
 namespace CTU
 {

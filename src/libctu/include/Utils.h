@@ -3,10 +3,10 @@
 
 #include <string>
 #include <memory>
+#include "BasicTypes.h"
 #if !defined(_WIN32)
 	#include <tr1/memory>
 #endif
-#include "BasicTypes.h"
 
 namespace Utils
 {

@@ -1,9 +1,9 @@
 #ifndef TASK_LIST_H_
 #define TASK_LIST_H_
 
+#include "BasicTypes.h"
 #include <string>
 #include <vector>
-#include "BasicTypes.h"
 
 namespace CTU
 {

@@ -2,8 +2,8 @@
 #define T_UTILS_H_
 
 #include "Utils.h"
-#include <gtest/gtest.h>
 #include "Common.h"
+#include <gtest/gtest.h>
 #include <fstream>
 
 class TUtils : public ::testing::Test { };
