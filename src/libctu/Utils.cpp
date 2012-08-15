@@ -228,4 +228,25 @@ namespace Utils
 		std::transform(copy.begin(), copy.end(), copy.begin(), ::tolower);
 		return copy;
 	}
+
+	inline void Assert(bool bCondition, const std::string& file, const std::string& function,
+	                   u32 uLine, const std::string& message)
+	{
+		if(bCondition)
+			return;
+
+		Utils::PrintLine(Utils::EColour::RED, "***************************************************");
+		Utils::PrintLine(Utils::EColour::RED, " A S S E R T   F A I L E D");
+		Utils::PrintLine(Utils::EColour::RED, "***************************************************");
+		if(message.size())
+			Utils::PrintLine(Utils::EColour::RED, "  Message: %s", message.c_str());
+		Utils::PrintLine(Utils::EColour::RED, "     File: %s", file.c_str());
+		Utils::PrintLine(Utils::EColour::RED, " Function: %s", function.c_str());
+		Utils::PrintLine(Utils::EColour::RED, "     Line: %d", uLine);
+		Utils::PrintLine(Utils::EColour::RED, "***************************************************");
+		__asm
+		{
+			int 4;
+		}
+	}
 }

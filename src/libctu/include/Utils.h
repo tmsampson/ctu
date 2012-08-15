@@ -47,6 +47,16 @@ namespace Utils
 	extern std::string StringTrim(const std::string& str);
 	extern std::string StringTrim(const std::string& str, const std::string& trimChars);
 	extern std::string StringToLower(const std::string& str);
+
+	extern inline void Assert(bool bCondition, const std::string& file, const std::string& function, u32 uLine, const std::string& message);
+
+	#if defined(NDEBUG)
+		#define CPU_ASSERT(expression, message) ((void)0)
+		#define CPU_ASSERT_ONLY(expression) ((void)0)
+	#else
+		#define CPU_ASSERT(expression, message) Utils::Assert((expression), __FILE__, __FUNCTION__, __LINE__, (message))
+		#define CPU_ASSERT_ONLY(expression) Utils::Assert((expression), __FILE__, __FUNCTION__, __LINE__, "")
+	#endif
 }
 
 #endif
