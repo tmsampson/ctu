@@ -1,5 +1,4 @@
 #include "Utils.h"
-
 #include <stdio.h>
 #include <fstream>
 #include <algorithm>
