@@ -18,12 +18,12 @@ namespace CTU
 					       std::string("display the location of the active task list\r\n");
 				}
 
-				virtual bool Validate(const CTU::Command::ArgList& args)
+				virtual bool Validate(const CTU::Command::ArgList& args) const
 				{
 					return args.size() == 0;
 				}
 
-				virtual bool Execute(const CTU::Command::ArgList& args, CTU::TaskList& taskList)
+				virtual bool Execute(const CTU::Command::ArgList& args, CTU::TaskList& taskList) const
 				{
 					Utils::PrintLine("Current task list stored at: %s", taskList.GetPath().c_str());
 					return true;

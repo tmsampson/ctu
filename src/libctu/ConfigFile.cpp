@@ -86,7 +86,7 @@ bool ConfigFile::Remove(const std::string& key, bool saveImmediate)
 	return true;
 }
 
-std::string ConfigFile::GetLastError()
+std::string ConfigFile::GetLastError() const
 {
 	return m_reader.getFormattedErrorMessages();
 }

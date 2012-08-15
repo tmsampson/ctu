@@ -21,12 +21,12 @@ namespace CTU
 					       std::string("      empty entries are classed as incorrect usage\r\n");
 				}
 
-				virtual bool Validate(const CTU::Command::ArgList& args)
+				virtual bool Validate(const CTU::Command::ArgList& args) const
 				{
 					return (args.size() == 1) && args[0].size();
 				}
 
-				virtual bool Execute(const CTU::Command::ArgList& args, CTU::TaskList& taskList)
+				virtual bool Execute(const CTU::Command::ArgList& args, CTU::TaskList& taskList) const
 				{
 					taskList.AddTask(args[0]);
 					return true;

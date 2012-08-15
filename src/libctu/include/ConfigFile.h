@@ -22,7 +22,7 @@ class ConfigFile
 		bool Set(const std::string& key, const T& value, bool saveImmediate = false);
 
 		bool Remove(const std::string& key, bool saveImmediate = false);
-		std::string GetLastError();
+		std::string GetLastError() const;
 
 	private:
 		std::string m_path;

@@ -15,8 +15,9 @@ namespace CTU
 		public:
 			typedef SharedPtr<CTU::Command> Instance;
 			typedef std::vector<std::string> ArgList;
-			virtual bool Validate(const ArgList& args) = 0;
-			virtual bool Execute(const ArgList& args, CTU::TaskList& taskList) = 0;
+
+			virtual bool Validate(const ArgList& args) const = 0;
+			virtual bool Execute(const ArgList& args, CTU::TaskList& taskList) const = 0;
 			virtual std::string GetName() const = 0;
 			virtual std::string GetSummary() const = 0;
 			virtual std::string GetUsage() const = 0;
@@ -38,15 +39,16 @@ namespace CTU
 			}
 
 			bool CommandExists(const std::string& commandName) const;
-			bool CommandRequiresParse(const std::string& commandName);
-			bool CommandRequiresSave(const std::string& commandName);
+			bool CommandRequiresParse(const std::string& commandName) const;
+			bool CommandRequiresSave(const std::string& commandName) const;
 			bool Execute(const std::string& commandName, const CTU::Command::ArgList& args,
-			             CTU::TaskList& taskList);
+			             CTU::TaskList& taskList) const;
 			void PrintBasicCommandsSummary() const;
-			void DisplayUsage(const std::string& commandName);
+			void DisplayUsage(const std::string& commandName) const;
 
 		private:
 			typedef std::map<std::string, Command::Instance> CommandMap;
+			Command::Instance GetCommandInstance(const std::string& commandName) const;
 			CommandMap m_commands;
 	};
 }

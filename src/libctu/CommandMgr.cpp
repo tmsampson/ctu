@@ -7,29 +7,29 @@ bool CTU::CommandMgr::CommandExists(const std::string& commandName) const
 	return m_commands.find(commandName) != m_commands.end();
 }
 
-bool CTU::CommandMgr::CommandRequiresParse(const std::string& commandName)
+bool CTU::CommandMgr::CommandRequiresParse(const std::string& commandName) const
 {
 	if(!CommandExists(commandName))
 		return false;
-	Command::Instance pCommand = m_commands[commandName];
+	Command::Instance pCommand = GetCommandInstance(commandName);
 	return pCommand->RequiresTaskListParse();
 }
 
-bool CTU::CommandMgr::CommandRequiresSave(const std::string& commandName)
+bool CTU::CommandMgr::CommandRequiresSave(const std::string& commandName) const
 {
 	if(!CommandExists(commandName))
 		return false;
-	Command::Instance pCommand = m_commands[commandName];
+	Command::Instance pCommand = GetCommandInstance(commandName);
 	return pCommand->RequiresTaskListSave();
 }
 
 bool CTU::CommandMgr::Execute(const std::string& commandName, const CTU::Command::ArgList& args,
-                              CTU::TaskList& taskList)
+                              CTU::TaskList& taskList) const
 {
 	if(!CommandExists(commandName))
 		return false;
 
-	Command::Instance pCommand = m_commands[commandName];
+	Command::Instance pCommand = GetCommandInstance(commandName);
 	if(!pCommand->Validate(args))
 	{
 		Utils::PrintLine(Utils::EColour::RED, "ERROR: incorrect usage...\r\n");
@@ -74,11 +74,18 @@ void CTU::CommandMgr::PrintBasicCommandsSummary() const
 	Utils::PrintLine("");
 }
 
-void CTU::CommandMgr::DisplayUsage(const std::string& commandName)
+void CTU::CommandMgr::DisplayUsage(const std::string& commandName) const
 {
 	if(!CommandExists(commandName))
 		return;
 
-	Command::Instance pCommand = m_commands[commandName];
+	Command::Instance pCommand = GetCommandInstance(commandName);
 	Utils::Print("%s", pCommand->GetUsage().c_str());
+}
+
+CTU::Command::Instance CTU::CommandMgr::GetCommandInstance(const std::string& commandName) const
+{
+	assert(CommandExists(commandName));
+	CommandMap::const_iterator result = m_commands.find(commandName);
+	return result->second;
 }
