@@ -6,6 +6,7 @@
 #include "BasicTypes.h"
 #if !defined(_WIN32)
 	#include <tr1/memory>
+	#include <assert.h>
 #endif
 
 namespace Utils
@@ -48,7 +49,29 @@ namespace Utils
 	extern std::string StringTrim(const std::string& str, const std::string& trimChars);
 	extern std::string StringToLower(const std::string& str);
 
-	extern inline void Assert(bool bCondition, const std::string& file, const std::string& function, u32 uLine, const std::string& message);
+	inline void Assert(bool bCondition, const std::string& file, const std::string& function, u32 uLine, const std::string& message)
+	{
+		if(bCondition)
+			return;
+
+		Utils::PrintLine(Utils::EColour::RED, "***************************************************");
+		Utils::PrintLine(Utils::EColour::RED, " A S S E R T   F A I L E D");
+		Utils::PrintLine(Utils::EColour::RED, "***************************************************");
+		if(message.size())
+			Utils::PrintLine(Utils::EColour::RED, "  Message: %s", message.c_str());
+		Utils::PrintLine(Utils::EColour::RED, "     File: %s", file.c_str());
+		Utils::PrintLine(Utils::EColour::RED, " Function: %s", function.c_str());
+		Utils::PrintLine(Utils::EColour::RED, "     Line: %d", uLine);
+		Utils::PrintLine(Utils::EColour::RED, "***************************************************");
+		#if defined(_WIN32)
+			__asm
+			{
+				int 4;
+			}
+		#else
+			assert(false);
+		#endif
+	}
 
 	#if defined(NDEBUG)
 		#define CPU_ASSERT(expression, message) ((void)0)
