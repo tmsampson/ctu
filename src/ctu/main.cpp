@@ -15,5 +15,6 @@ int main(int argc, char* argv[])
 	for(s32 i = 1; i < argc; ++i)
 		args.push_back(argv[i]);
 
+	CPU_ASSERT(false, "foo");
 	return CTU::Begin(args);
 }
