@@ -86,6 +86,12 @@ bool ConfigFile::Remove(const std::string& key, bool saveImmediate)
 	return true;
 }
 
+bool ConfigFile::Clear()
+{
+	m_root.clear();
+	return true;
+}
+
 std::string ConfigFile::GetLastError() const
 {
 	return m_reader.getFormattedErrorMessages();
