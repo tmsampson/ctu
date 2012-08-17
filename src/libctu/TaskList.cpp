@@ -1,7 +1,6 @@
 #include "TaskList.h"
 #include "Utils.h"
 #include <fstream>
-#include <assert.h>
 
 bool CTU::TaskList::Init(const std::string& taskListPath, const std::string& bullet)
 {
@@ -74,7 +73,7 @@ const std::string CTU::TaskList::GetPath() const
 
 bool CTU::TaskList::Save()
 {
-	assert(m_taskListPath.size());
+	CTU_ASSERT(m_taskListPath.size() != 0, "Save path was blank");
 
 	std::ofstream output(m_taskListPath.c_str());
 	if(!output.is_open())
