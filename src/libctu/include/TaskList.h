@@ -20,9 +20,11 @@ namespace CTU
 			bool Init(const std::string& taskListPath, const std::string& bullet);
 			bool Parse();
 			bool AddTask(const std::string& rawText);
-			u32 GetTaskCount() const;
 			const std::string GetPath() const;
 			bool Save();
+
+			u32 GetTaskCount() const;
+			const std::vector<Task>& GetAllTasks() const;
 
 		private:
 			bool ParseLine(const std::string& line, const std::string& bullet);

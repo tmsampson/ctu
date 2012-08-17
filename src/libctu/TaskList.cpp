@@ -89,3 +89,8 @@ bool CTU::TaskList::Save()
 	output.close();
 	return true;
 }
+
+const std::vector<CTU::Task>& CTU::TaskList::GetAllTasks() const
+{
+	return m_tasks;
+}

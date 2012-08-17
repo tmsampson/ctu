@@ -23,7 +23,7 @@ namespace CTU
 
 				virtual bool Validate(const CTU::Command::ArgList& args) const
 				{
-					return true;
+					return !args.size();
 				}
 
 				virtual bool Execute(const CTU::Command::ArgList& args, CTU::TaskList& taskList) const
