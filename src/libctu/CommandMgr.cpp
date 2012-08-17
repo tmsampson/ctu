@@ -1,6 +1,5 @@
 #include "CommandMgr.h"
 #include "Utils.h"
-#include <assert.h>
 
 CTU::Command::Command() : m_uFlags(0)
 {
@@ -106,7 +105,7 @@ void CTU::CommandMgr::DisplayUsage(const std::string& commandName) const
 
 CTU::Command::Instance CTU::CommandMgr::GetCommandInstance(const std::string& commandName) const
 {
-	assert(CommandExists(commandName));
+	CTU_ASSERT(CommandExists(commandName), "Command did not exist");
 	CommandMap::const_iterator result = m_commands.find(commandName);
 	return result->second;
 }
