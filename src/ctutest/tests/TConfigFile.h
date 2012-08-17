@@ -10,6 +10,7 @@
 class TConfigFile : public ::testing::Test { };
 static const char*  SAVE_NEW_FILE                    = "ctutest_resources/save-new-file";
 static const char*  CREATE_NEW_FILE                  = "ctutest_resources/create-new-file";
+static const char*  CREATE_EMPTY_FILE                = "ctutest_resources/create-empty-file";
 static const char*  SCOPED_SAVE                      = "ctutest_resources/scoped-save";
 static const char*  IS_LOADED_TEST1                  = "ctutest_resources/is-loaded";
 static const char*  MODIFIED_FILE                    = "ctutest_resources/modified-file";
@@ -396,5 +397,48 @@ TEST_F(TConfigFile, Remove_RemoveAndOutOfScope_ValueRemovedFromFile)
 		ASSERT_TRUE(jfile.Remove("myDouble"));
 	}
 	ASSERT_FALSE(ConfigFile(EXISTING_FILE).ContainsKey("myDouble"));
+}
+
+// ************************************************
+// ConfigFile::Clear Tests
+// ************************************************
+TEST_F(TConfigFile, Clear_ClearEmptyConfigFile_ReturnTrue)
+{
+	ConfigFile jfile(CREATE_EMPTY_FILE);
+	ASSERT_TRUE(jfile.Clear());
+}
+
+TEST_F(TConfigFile, Clear_ClearNonEmptyConfigFile_KeyRemovedAfterClear)
+{
+	ConfigFile jfile(CREATE_EMPTY_FILE);
+	jfile.Set<bool>("keyToClear", true);
+	ASSERT_TRUE(jfile.ContainsKey("keyToClear"));
+	ASSERT_TRUE(jfile.Clear());
+	ASSERT_FALSE(jfile.ContainsKey("keyToClear"));
+}
+
+TEST_F(TConfigFile, Clear_ClearExistingConfigFile_AllKeysRemovedAfterClear)
+{
+	ConfigFile jfile(EXISTING_FILE);
+	ASSERT_TRUE(jfile.Clear());
+	ASSERT_FALSE(jfile.ContainsKey("myBool"));
+	ASSERT_FALSE(jfile.ContainsKey("myInt"));
+	ASSERT_FALSE(jfile.ContainsKey("myUInt"));
+	ASSERT_FALSE(jfile.ContainsKey("myFloat"));
+	ASSERT_FALSE(jfile.ContainsKey("myDouble"));
+	ASSERT_FALSE(jfile.ContainsKey("myString"));
+	ASSERT_FALSE(jfile.ContainsKey("myStringInt"));
+}
+
+TEST_F(TConfigFile, Clear_LoadPreviouslyClearedConfigFile_ConfigFileEmpty)
+{
+	ConfigFile jfile(EXISTING_FILE);
+	ASSERT_FALSE(jfile.ContainsKey("myBool"));
+	ASSERT_FALSE(jfile.ContainsKey("myInt"));
+	ASSERT_FALSE(jfile.ContainsKey("myUInt"));
+	ASSERT_FALSE(jfile.ContainsKey("myFloat"));
+	ASSERT_FALSE(jfile.ContainsKey("myDouble"));
+	ASSERT_FALSE(jfile.ContainsKey("myString"));
+	ASSERT_FALSE(jfile.ContainsKey("myStringInt"));
 }
 #endif
