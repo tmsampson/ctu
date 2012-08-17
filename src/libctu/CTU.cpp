@@ -8,8 +8,9 @@
 
 // CTU Commands
 #include "commands/CmdAdd.h"   // add
+#include "commands/CmdHelp.h"  // help
+#include "commands/CmdReset.h" // reset
 #include "commands/CmdWhere.h" // where
-#include "commands/CmdHelp.h" // where
 
 CTU::CommandMgr commandMgr;
 static CTU::TaskList taskList;
@@ -95,8 +96,9 @@ int CTU::Begin(const std::vector<std::string>& args)
 {
 	// Register all commands
 	commandMgr.RegisterCommand<CTU::Commands::CmdAdd>();   // add
-	commandMgr.RegisterCommand<CTU::Commands::CmdWhere>(); // where
 	commandMgr.RegisterCommand<CTU::Commands::CmdHelp>();  // help
+	commandMgr.RegisterCommand<CTU::Commands::CmdReset>(); // reset
+	commandMgr.RegisterCommand<CTU::Commands::CmdWhere>(); // where
 
 	if(!args.size())
 	{

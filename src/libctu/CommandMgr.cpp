@@ -60,7 +60,8 @@ bool CTU::CommandMgr::Execute(const std::string& commandName, const CTU::Command
 	if(CommandRequiresParse(commandName) ||
 	   CommandRequiresSave(commandName))
 	{
-		taskList.Parse();
+		if(!taskList.Parse())
+			return false;
 	}
 
 	if(!pCommand->Execute(args, taskList))
