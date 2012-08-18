@@ -28,17 +28,7 @@ namespace CTU
 
 				virtual bool Execute(const CTU::Command::ArgList& args, CTU::TaskList& taskList) const
 				{
-					std::string result;
-					bool bValidResult = false;
-					while(!bValidResult)
-					{
-						Utils::PrintLine(Utils::EColour::YELLOW, "are you sure you wish to reset all settings? (y/n): ");
-						std::getline(std::cin, result);
-						bValidResult = (result == "y"   || result == "n" ||
-						                result == "yes" || result == "no");
-					}
-
-					if(result[0] == 'n')
+					if(!Utils::PromptYesNo("are you sure you wish to reset all settings?"))
 					{
 						Utils::PrintLine("settings will remain unchanged");
 						return true;
