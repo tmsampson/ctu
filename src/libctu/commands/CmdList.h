@@ -25,20 +25,7 @@ namespace CTU
 
 				virtual bool Execute(const CTU::Command::ArgList& args, CTU::TaskList& taskList)
 				{
-					if(!taskList.GetTaskCount())
-					{
-						Utils::PrintLine(Utils::EColour::YELLOW, "active task list is empty");
-						return true;
-					}
-
-					u32 uLine = 1;
-					const std::vector<CTU::Task>& allTasks = taskList.GetAllTasks();
-					std::vector<CTU::Task>::const_iterator i = allTasks.begin();
-					for(; i != allTasks.end(); ++i)
-					{
-						Utils::PrintLine("%d. %s", uLine, i->Contents.c_str());
-						++uLine;
-					}
+					taskList.PrintNumeric();
 					return true;
 				}
 		};
