@@ -75,8 +75,7 @@ namespace CTU
 					                 "task (%d. %s%s) was removed\r\n",
 					                 m_nTaskIndex,
 					                 truncatedItemText.c_str(),
-					                 (removedItem.size() > uTruncateMaxLength)? "..." : ""
-					                 );
+					                 (removedItem.size() > uTruncateMaxLength)? "..." : "");
 					return true;
 				}
 
