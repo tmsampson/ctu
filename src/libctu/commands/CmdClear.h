@@ -25,6 +25,12 @@ namespace CTU
 
 				virtual bool Execute(const CTU::Command::ArgList& args, CTU::TaskList& taskList)
 				{
+					if(!taskList.GetTaskCount())
+					{
+						Utils::PrintLine(Utils::EColour::YELLOW, "active task list is empty");
+						return false;
+					}
+
 					if(!Utils::PromptYesNo("are you sure you wish to clear the active task list?"))
 					{
 						Utils::PrintLine("active task list was not cleared");
