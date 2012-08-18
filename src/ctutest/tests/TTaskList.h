@@ -200,33 +200,23 @@ TEST_F(TTaskList, Clear_NoTasks_ListRemainsUnchanged)
 // ************************************************
 //  TTaskList::GetPath Tests
 // ************************************************
-TEST_F(TTaskList, GetPath_NormalCall_PathReturned)
+TEST_F(TTaskList, GetPath_InitialisedWithValidPath_PathReturned)
 {
-	const std::string path = "C:\\temp.txt";
-
 	// Create a new list and initialise it
 	CTU::TaskList newList;
-	newList.Init(path, "");
-	ASSERT_EQ(path, newList.GetPath());
+	newList.Init(VALID_PATH, "");
+
+	ASSERT_EQ(VALID_PATH, newList.GetPath());
 }
 
-/*TEST_F(TTaskList, GetPath_NoExtension_BlankReturn)
+TEST_F(TTaskList, GetPath_InitialisedWithInvalidPath_BlankStringReturned)
 {
 	// Create a new list and initialise it
 	CTU::TaskList newList;
-	newList.Init("C:\\temp", "");
+	newList.Init(INVALID_PATH, "");
 
-	ASSERT_EQ(newList.GetPath(), "");
+	ASSERT_EQ("", newList.GetPath());
 }
-
-TEST_F(TTaskList, GetPath_NoPathPassed_BlankReturn)
-{
-	// Create a new list and initialise it
-	CTU::TaskList newList;
-	newList.Init("", "");
-
-	ASSERT_EQ(newList.GetPath(), "");
-}*/
 
 // ************************************************
 //  TTaskList::GetTaskCount Tests
