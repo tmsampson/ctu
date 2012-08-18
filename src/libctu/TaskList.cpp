@@ -71,12 +71,42 @@ bool CTU::TaskList::Save()
 	return true;
 }
 
+void CTU::TaskList::PrintNumeric() const
+{
+	if(!GetTaskCount())
+		Utils::PrintLine(Utils::EColour::YELLOW, "active task list is empty");
+
+	std::vector<CTU::Task>::const_iterator i = m_tasks.begin();
+	for(u32 uLine = 1; i != m_tasks.end(); ++i)
+	{
+		Utils::PrintLine("%d. %s", uLine, i->Contents.c_str());
+		++uLine;
+	}
+}
+
 bool CTU::TaskList::AddTask(const std::string& rawText)
 {
 	Task task;
 	task.RawText  = rawText;
 	task.Contents = rawText;
 	m_tasks.push_back(task);
+	return true;
+}
+
+bool CTU::TaskList::RemoveTask(u32 uIndex)
+{
+	if(uIndex > GetTaskCount())
+		return false;
+	m_tasks.erase(m_tasks.begin() + uIndex -1);
+	return true;
+}
+
+bool CTU::TaskList::RemoveTask(u32 uIndex, std::string& removedItem)
+{
+	if(uIndex > GetTaskCount())
+		return false;
+	removedItem = m_tasks[uIndex - 1].Contents;
+	m_tasks.erase(m_tasks.begin() + uIndex -1);
 	return true;
 }
 
