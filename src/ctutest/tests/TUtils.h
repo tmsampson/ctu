@@ -324,25 +324,25 @@ TEST_F(TUtils, StringToLower_PassMixedCaseStringMixedChars_ReturnAllLowerCaseStr
 // ************************************************
 //  Utils::StringTruncate Tests
 // ************************************************
-TEST_F(TUtils, StringTruncate_PassStringAndZeroLength_ReturnEmptyString)
+TEST_F(TUtils, StringTruncate_PassZeroLength_ReturnEmptyString)
 {
 	std::string str = "Hello World";
 	ASSERT_EQ("", Utils::StringTruncate(str, 0));
 }
 
-TEST_F(TUtils, StringTruncate_PassStringAndNonZeroLengthLessThanSourceLength_ReturnTruncatedString)
+TEST_F(TUtils, StringTruncate_PassLengthLessThanSourceLength_ReturnTruncatedString)
 {
 	std::string str = "Hello World";
 	ASSERT_EQ("Hello", Utils::StringTruncate(str, 5));
 }
 
-TEST_F(TUtils, StringTruncate_PassStringAndNonZeroLengthEqualToSourceLength_ReturnTruncatedString)
+TEST_F(TUtils, StringTruncate_PassLengthEqualToSourceLength_ReturnTruncatedString)
 {
 	std::string str = "Hello World";
 	ASSERT_EQ("Hello World", Utils::StringTruncate(str, 11));
 }
 
-TEST_F(TUtils, StringTruncate_PassStringAndNonZeroLengthGreaterThanSourceLength_ReturnTruncatedString)
+TEST_F(TUtils, StringTruncate_PassLengthGreaterThanSourceLength_ReturnTruncatedString)
 {
 	std::string str = "Hello World";
 	ASSERT_EQ("Hello World", Utils::StringTruncate(str, 13));
