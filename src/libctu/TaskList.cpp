@@ -74,7 +74,7 @@ bool CTU::TaskList::Save()
 void CTU::TaskList::PrintNumeric() const
 {
 	if(!GetTaskCount())
-		Utils::PrintLine(Utils::EColour::YELLOW, "Active task list is empty");
+		Utils::PrintLine(Utils::EColour::YELLOW, "active task list is empty");
 
 	std::vector<CTU::Task>::const_iterator i = m_tasks.begin();
 	for(u32 uLine = 1; i != m_tasks.end(); ++i)
