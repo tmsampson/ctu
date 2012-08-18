@@ -20,8 +20,11 @@ namespace CTU
 			bool Init(const std::string& taskListPath, const std::string& bullet);
 			bool Parse();
 			bool Save();
+			void PrintNumeric() const;
 
 			bool AddTask(const std::string& rawText);
+			bool RemoveTask(u32 uIndex);
+			bool RemoveTask(u32 uIndex, std::string& removedItem);
 			void Clear();
 
 			const std::string GetPath() const;
