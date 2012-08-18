@@ -9,6 +9,7 @@
 // CTU Commands
 #include "commands/CmdAdd.h"    // add
 #include "commands/CmdClear.h"  // clear
+#include "commands/CmdCount.h"  // count
 #include "commands/CmdHelp.h"   // help
 #include "commands/CmdList.h"   // list
 #include "commands/CmdRemove.h" // remove
@@ -100,6 +101,7 @@ int CTU::Begin(const std::vector<std::string>& args)
 	// Register all commands
 	commandMgr.RegisterCommand<CTU::Commands::CmdAdd>();    // add
 	commandMgr.RegisterCommand<CTU::Commands::CmdClear>();  // clear
+	commandMgr.RegisterCommand<CTU::Commands::CmdCount>();  // count
 	commandMgr.RegisterCommand<CTU::Commands::CmdHelp>();   // help
 	commandMgr.RegisterCommand<CTU::Commands::CmdList>();   // list
 	commandMgr.RegisterCommand<CTU::Commands::CmdRemove>(); // remove
