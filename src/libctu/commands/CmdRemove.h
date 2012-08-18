@@ -69,12 +69,13 @@ namespace CTU
 					}
 
 					// Inform user of removed task
-					std::string truncatedItemText = Utils::StringTruncate(removedItem, 30);
+					static const u32 uTruncateMaxLength = 30;
+					std::string truncatedItemText = Utils::StringTruncate(removedItem, uTruncateMaxLength);
 					Utils::PrintLine(Utils::EColour::GREEN,
 					                 "task (%d. %s%s) was removed\r\n",
 					                 m_nTaskIndex,
 					                 truncatedItemText.c_str(),
-					                 (removedItem.size() > 10)? "..." : ""
+					                 (removedItem.size() > uTruncateMaxLength)? "..." : ""
 					                 );
 					return true;
 				}
