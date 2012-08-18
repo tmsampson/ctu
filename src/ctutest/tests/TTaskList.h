@@ -128,6 +128,55 @@ TEST_F(TTaskList, RemoveTask_RemoveTaskLastIndex_CorrectTaskIsReturned)
 }
 
 // ************************************************
+//  TTaskList::Clear Tests
+// ************************************************
+TEST_F(TTaskList, Clear_OneTask_OneTaskIsCleared)
+{
+	// Create a new list and initialise it
+	CTU::TaskList newList;
+	newList.Init("./", "");
+
+	// Add one task
+	newList.AddTask("test1");
+
+	// Clear the list
+	newList.Clear();
+
+	ASSERT_EQ(0, newList.GetTaskCount());
+}
+
+TEST_F(TTaskList, Clear_MultipleTasks_AllTasksCleared)
+{
+	// Create a new list and initialise it
+	CTU::TaskList newList;
+	newList.Init("./", "");
+
+	// Add five tasks
+	newList.AddTask("test1");
+	newList.AddTask("test2");
+	newList.AddTask("test3");
+	newList.AddTask("test4");
+	newList.AddTask("test5");
+
+	// Clear the list
+	newList.Clear();
+	
+	ASSERT_EQ(0, newList.GetTaskCount());
+}
+
+TEST_F(TTaskList, Clear_NoTasks_ListRemainsUnchanged)
+{
+	// Create a new list and initialise it
+	CTU::TaskList newList;
+	newList.Init("./", "");
+
+	// Clear the list
+	newList.Clear();
+
+	ASSERT_EQ(0, newList.GetTaskCount());
+}
+
+// ************************************************
 //  TTaskList::GetPath Tests
 // ************************************************
 TEST_F(TTaskList, GetPath_NormalCall_PathReturned)
@@ -157,5 +206,45 @@ TEST_F(TTaskList, GetPath_NoPathPassed_BlankReturn)
 
 	ASSERT_EQ(newList.GetPath(), "");
 }*/
+
+// ************************************************
+//  TTaskList::GetTaskCount Tests
+// ************************************************
+TEST_F(TTaskList, GetTaskCount_OneTask_ReturnsCountOfOne)
+{
+	// Create a new list and initialise it
+	CTU::TaskList newList;
+	newList.Init("./", "");
+
+	// Add one task
+	newList.AddTask("test1");
+
+	ASSERT_EQ(1, newList.GetTaskCount());
+}
+
+TEST_F(TTaskList, GetTaskCount_MultipleTasks_ReturnsCountOfFive)
+{
+	// Create a new list and initialise it
+	CTU::TaskList newList;
+	newList.Init("./", "");
+
+	// Add five tasks
+	newList.AddTask("test1");
+	newList.AddTask("test2");
+	newList.AddTask("test3");
+	newList.AddTask("test4");
+	newList.AddTask("test5");
+	
+	ASSERT_EQ(5, newList.GetTaskCount());
+}
+
+TEST_F(TTaskList, GetTaskCount_NoTasks_ReturnsCountOfOne)
+{
+	// Create a new list and initialise it
+	CTU::TaskList newList;
+	newList.Init("./", "");
+
+	ASSERT_EQ(0, newList.GetTaskCount());
+}
 
 #endif
