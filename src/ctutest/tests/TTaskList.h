@@ -30,6 +30,17 @@ TEST_F(TTaskList, Init_InvalidPathPassed_ReturnsFalse)
 }
 
 // ************************************************
+//  TTaskList::Save Tests
+// ************************************************
+TEST_F(TTaskList, Save_NormalCall_ReturnsTrue)
+{
+	// Create a new list and initialise it
+	CTU::TaskList newList;
+
+	ASSERT_EQ(true, newList.Init(VALID_PATH, ""));
+}
+
+// ************************************************
 //  TTaskList::AddTask Tests
 // ************************************************
 TEST_F(TTaskList, AddTask_NoTasksAdded_TaskCountIsZero)
