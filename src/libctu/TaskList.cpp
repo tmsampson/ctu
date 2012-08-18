@@ -52,25 +52,6 @@ bool CTU::TaskList::ParseLine(const std::string& line, const std::string& bullet
 	return AddTask(rawText);
 }
 
-bool CTU::TaskList::AddTask(const std::string& rawText)
-{
-	Task task;
-	task.RawText  = rawText;
-	task.Contents = rawText;
-	m_tasks.push_back(task);
-	return true;
-}
-
-u32 CTU::TaskList::GetTaskCount() const
-{
-	return m_tasks.size();
-}
-
-const std::string CTU::TaskList::GetPath() const
-{
-	return m_taskListPath;
-}
-
 bool CTU::TaskList::Save()
 {
 	CTU_ASSERT(m_taskListPath.size() != 0, "Save path was blank");
@@ -88,6 +69,30 @@ bool CTU::TaskList::Save()
 		output << m_bullet << i->RawText << std::endl;
 	output.close();
 	return true;
+}
+
+bool CTU::TaskList::AddTask(const std::string& rawText)
+{
+	Task task;
+	task.RawText  = rawText;
+	task.Contents = rawText;
+	m_tasks.push_back(task);
+	return true;
+}
+
+void CTU::TaskList::Clear()
+{
+	m_tasks.clear();
+}
+
+const std::string CTU::TaskList::GetPath() const
+{
+	return m_taskListPath;
+}
+
+u32 CTU::TaskList::GetTaskCount() const
+{
+	return m_tasks.size();
 }
 
 const std::vector<CTU::Task>& CTU::TaskList::GetAllTasks() const
