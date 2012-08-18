@@ -27,7 +27,7 @@ namespace CTU
 					return (args.size() == 1) && args[0].size();
 				}
 
-				virtual bool Execute(const CTU::Command::ArgList& args, CTU::TaskList& taskList) const
+				virtual bool Execute(const CTU::Command::ArgList& args, CTU::TaskList& taskList)
 				{
 					taskList.AddTask(args[0]);
 					return true;

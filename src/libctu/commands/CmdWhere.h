@@ -24,7 +24,7 @@ namespace CTU
 					return args.size() == 0;
 				}
 
-				virtual bool Execute(const CTU::Command::ArgList& args, CTU::TaskList& taskList) const
+				virtual bool Execute(const CTU::Command::ArgList& args, CTU::TaskList& taskList)
 				{
 					Utils::PrintLine("Current task list stored at: %s", taskList.GetPath().c_str());
 					return true;
