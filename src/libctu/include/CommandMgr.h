@@ -53,6 +53,7 @@ namespace CTU
 			}
 
 			bool CommandExists(const std::string& commandName) const;
+			bool CommandExists(std::string& commandName) const;
 			bool CommandRequiresParse(const std::string& commandName) const;
 			bool CommandRequiresSave(const std::string& commandName) const;
 			bool Execute(const std::string& commandName, const CTU::Command::ArgList& args,

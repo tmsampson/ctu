@@ -23,7 +23,32 @@ void CTU::Command::ResetFlag(ECommandFlag::Enum flag)
 
 bool CTU::CommandMgr::CommandExists(const std::string& commandName) const
 {
-	return m_commands.find(commandName) != m_commands.end();
+	return (m_commands.find(commandName) != m_commands.end());
+}
+
+bool CTU::CommandMgr::CommandExists(std::string& commandName) const
+{
+	if(m_commands.find(commandName) != m_commands.end())
+		return true;
+
+	// Perhaps commandName is an abbreviation?
+	std::string existingCommandName;
+	CommandMap::const_iterator i = m_commands.begin();
+	for(; i != m_commands.end(); ++i)
+	{
+		existingCommandName = i->second->GetName();
+		if(existingCommandName.size() <= commandName.size())
+			continue;
+		if(existingCommandName.substr(0, commandName.size()) == commandName)
+		{
+			// Match found
+			commandName = existingCommandName;
+			return true;
+		}
+	}
+
+	// No abbreviation matches
+	return false;
 }
 
 bool CTU::CommandMgr::CommandRequiresParse(const std::string& commandName) const
