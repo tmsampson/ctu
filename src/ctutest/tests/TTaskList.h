@@ -222,7 +222,7 @@ TEST_F(TTaskList, GetTaskCount_OneTask_ReturnsCountOfOne)
 	ASSERT_EQ(1, newList.GetTaskCount());
 }
 
-TEST_F(TTaskList, GetTaskCount_MultipleTasks_ReturnsCountOfFive)
+TEST_F(TTaskList, GetTaskCount_FiveTasks_ReturnsCountOfFive)
 {
 	// Create a new list and initialise it
 	CTU::TaskList newList;
@@ -245,6 +245,55 @@ TEST_F(TTaskList, GetTaskCount_NoTasks_ReturnsCountOfOne)
 	newList.Init("./", "");
 
 	ASSERT_EQ(0, newList.GetTaskCount());
+}
+
+// ************************************************
+//  TTaskList::GetAllTasks Tests
+// ************************************************
+TEST_F(TTaskList, GetAllTasks_NoTasks_EmptyVectorReturned)
+{
+	// Create a new list and initialise it
+	CTU::TaskList newList;
+	newList.Init("./", "");
+
+	// Get all the tasks
+	std::vector<CTU::Task> tasks = newList.GetAllTasks();
+
+	ASSERT_EQ(0, tasks.size());
+}
+
+TEST_F(TTaskList, GetAllTasks_OneTask_VectorOfSizeOneReturned)
+{
+	// Create a new list and initialise it
+	CTU::TaskList newList;
+	newList.Init("./", "");
+
+	// Add one task
+	newList.AddTask("test1");
+
+	// Get all the tasks
+	std::vector<CTU::Task> tasks = newList.GetAllTasks();
+
+	ASSERT_EQ(1, tasks.size());
+}
+
+TEST_F(TTaskList, GetAllTasks_FiveTasks_VectorOfSizeFiveReturned)
+{
+	// Create a new list and initialise it
+	CTU::TaskList newList;
+	newList.Init("./", "");
+
+	// Add one task
+	newList.AddTask("test1");
+	newList.AddTask("test2");
+	newList.AddTask("test3");
+	newList.AddTask("test4");
+	newList.AddTask("test5");
+
+	// Get all the tasks
+	std::vector<CTU::Task> tasks = newList.GetAllTasks();
+
+	ASSERT_EQ(5, tasks.size());
 }
 
 #endif
