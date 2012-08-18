@@ -95,6 +95,8 @@ bool CTU::TaskList::AddTask(const std::string& rawText)
 
 bool CTU::TaskList::RemoveTask(u32 uIndex)
 {
+	if (uIndex == 0)
+		return false;
 	if(uIndex > GetTaskCount())
 		return false;
 	m_tasks.erase(m_tasks.begin() + uIndex -1);
@@ -103,6 +105,8 @@ bool CTU::TaskList::RemoveTask(u32 uIndex)
 
 bool CTU::TaskList::RemoveTask(u32 uIndex, std::string& removedItem)
 {
+	if (uIndex == 0)
+		return false;
 	if(uIndex > GetTaskCount())
 		return false;
 	removedItem = m_tasks[uIndex - 1].Contents;
