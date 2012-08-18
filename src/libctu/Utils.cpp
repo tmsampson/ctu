@@ -2,13 +2,13 @@
 #include <stdio.h>
 #include <fstream>
 #include <algorithm>
+#include <iostream>
 
 #ifdef _WIN32
 	#include <windows.h>
 	#include <shlobj.h>
 	#include <shlwapi.h>
 	#include <direct.h>
-	
 #else
 	#include <unistd.h>
 	#include <sys/types.h>
@@ -93,6 +93,21 @@ namespace Utils
 		vfprintf(stdout, fs.c_str(), arglist);
 		va_end(arglist);
 		ResetConsoleColour();
+	}
+
+	bool PromptYesNo(const std::string& question, EColour::Enum colour)
+	{
+		std::string result;
+		bool bValidResult = false;
+		while(!bValidResult)
+		{
+			Utils::PrintLine(Utils::EColour::YELLOW, "%s (y/n): ", question.c_str());
+			std::getline(std::cin, result);
+			bValidResult = (result == "y"   || result == "n" ||
+			                result == "yes" || result == "no");
+		}
+
+		return result[0] == 'y';
 	}
 
 	std::string GetCurrentDir()

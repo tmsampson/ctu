@@ -34,6 +34,8 @@ namespace Utils
 	extern void PrintLine(const char* formatString, ...);
 	extern void PrintLine(EColour::Enum colour, const char* formatString, ...);
 
+	extern bool PromptYesNo(const std::string& question, EColour::Enum colour = EColour::YELLOW);
+
 	extern std::string GetCurrentDir();
 	extern std::string GetExecutableDir();
 
