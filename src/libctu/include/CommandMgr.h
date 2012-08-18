@@ -27,7 +27,7 @@ namespace CTU
 
 			Command();
 			virtual bool Validate(const ArgList& args) const = 0;
-			virtual bool Execute(const ArgList& args, CTU::TaskList& taskList) const = 0;
+			virtual bool Execute(const ArgList& args, CTU::TaskList& taskList) = 0;
 			virtual std::string GetName() const = 0;
 			virtual std::string GetSummary() const = 0;
 			virtual std::string GetUsage() const = 0;
