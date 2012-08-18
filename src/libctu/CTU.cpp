@@ -13,9 +13,9 @@
 #include "commands/CmdReset.h" // reset
 #include "commands/CmdWhere.h" // where
 
+ConfigFile* pConfigFile;
 CTU::CommandMgr commandMgr;
 static CTU::TaskList taskList;
-static ConfigFile* pConfigFile;
 static const std::string JK_CURRENT_TASK_LIST = "currentTaskList";
 static const std::string JK_VERBOSE           = "verbose";
 static const std::string JK_BULLET            = "bullet";
