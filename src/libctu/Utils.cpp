@@ -110,6 +110,34 @@ namespace Utils
 		return result[0] == 'y';
 	}
 
+	u32 PromptTaskIndex(const CTU::TaskList& taskList, bool& bUserCancelled)
+	{
+		if(!taskList.GetTaskCount())
+			return 0;
+
+		std::string result;
+		s32 nResult = 0;
+		while(nResult == 0)
+		{
+			taskList.PrintNumeric();
+			Utils::PrintLine(Utils::EColour::YELLOW,
+			                 "Please enter a valid task index (1..%d) or enter 'c' to cancel: ",
+			                 taskList.GetTaskCount());
+			std::getline(std::cin, result);
+
+			// Did the user cancel?
+			if(result.size() == 1 && result[0] == 'c')
+			{
+				bUserCancelled = true;
+				break;
+			}
+
+			// Parse result
+			nResult = atoi(result.c_str());
+		}
+		return nResult;
+	}
+
 	std::string GetCurrentDir()
 	{
 		#if defined(_WIN32)
@@ -244,5 +272,9 @@ namespace Utils
 		return copy;
 	}
 
-	
+	std::string StringTruncate(const std::string& str, u32 uMaxLength)
+	{
+		u32 uTruncatedLength = std::min<u32>(str.size(), uMaxLength);
+		return str.substr(0, uTruncatedLength);
+	}
 }

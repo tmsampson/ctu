@@ -3,6 +3,7 @@
 
 #include <string>
 #include "BasicTypes.h"
+#include "TaskList.h"
 
 #if defined(_WIN32)
 	#include <memory>
@@ -35,6 +36,7 @@ namespace Utils
 	extern void PrintLine(EColour::Enum colour, const char* formatString, ...);
 
 	extern bool PromptYesNo(const std::string& question, EColour::Enum colour = EColour::YELLOW);
+	extern u32  PromptTaskIndex(const CTU::TaskList& taskList, bool& bUserCancelled);
 
 	extern std::string GetCurrentDir();
 	extern std::string GetExecutableDir();
@@ -51,6 +53,7 @@ namespace Utils
 	extern std::string StringTrim(const std::string& str);
 	extern std::string StringTrim(const std::string& str, const std::string& trimChars);
 	extern std::string StringToLower(const std::string& str);
+	extern std::string StringTruncate(const std::string& str, u32 uMaxLength);
 }
 
 #include "CTUAssert.inl"
