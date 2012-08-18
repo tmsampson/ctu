@@ -102,7 +102,7 @@ void CTU::CommandMgr::PrintBasicCommandsSummary() const
 	static const u32 uAlignment = 12;
 	std::string commandName, commandSummary;
 	u32 commandNameLen;
-	
+
 	CommandMap::const_iterator i = m_commands.begin();
 	for(; i != m_commands.end(); ++i)
 	{
