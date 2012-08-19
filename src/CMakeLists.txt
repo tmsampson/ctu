@@ -64,3 +64,30 @@ target_link_libraries(ctutest libctu gtest)
 # Build main ctu executable
 add_executable(ctu ctu/main.cpp)
 target_link_libraries(ctu libctu)
+
+##############################################################
+# Packaging Configuration                                    #
+##############################################################
+# To generate install package...                             #
+# Linux:   './make_linux.sh package'                         #
+# Windows: NOT SUPPORTED                                     #
+# OSX:     NOT SUPPORTED                                     #
+# Note: Resulting package is placed in ${CTU_ROOT}/package   #
+##############################################################
+install(TARGETS ctu DESTINATION ctu)
+set(CPACK_OUTPUT_FILE_PREFIX "${CTU_ROOT}/package") # output directory
+set(CPACK_PACKAGE_NAME "ctu")
+set(CPACK_PACKAGE_CONTACT "Thomas Sampson <drummertom999@gmail.com>")
+set(CPACK_PACKAGE_VERSION_MAJOR 1)
+set(CPACK_PACKAGE_VERSION_MINOR 0)
+set(CPACK_PACKAGE_VERSION_PATCH 0)
+set(CPACK_PACKAGE_FILE_NAME "ctu-${CPACK_PACKAGE_VERSION_MAJOR}.${CPACK_PACKAGE_VERSION_MINOR}.${CPACK_PACKAGE_VERSION_PATCH}-linux")
+set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "CTU Command-line Task Utility")
+set(CPACK_PACKAGE_DESCRIPTION "Manage task lists with ease without leaving the command line environment")
+
+# Debian specifics
+set(CPACK_GENERATOR "DEB")
+set(CPACK_DEBIAN_PACKAGE_SECTION 'utils')
+set(CPACK_DEBIAN_PACKAGE_DESCRIPTION ${CPACK_PACKAGE_DESCRIPTION})
+
+include(CPack)
