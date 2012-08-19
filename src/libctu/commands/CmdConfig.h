@@ -3,6 +3,7 @@
 #include "CommandMgr.h"
 #include <stdlib.h>
 extern ConfigFile* pConfigFile;
+extern const std::string JK_EDITOR;
 
 namespace CTU
 {
@@ -26,7 +27,7 @@ namespace CTU
 
 				virtual bool Execute(const CTU::Command::ArgList& args, CTU::TaskList& taskList)
 				{
-					std::string command = pConfigFile->Get<std::string>("editor") +
+					std::string command = pConfigFile->Get<std::string>(JK_EDITOR) +
 					                      " \"" + pConfigFile->GetPath() + "\"";
 					system(command.c_str());
 					return true;
