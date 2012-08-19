@@ -13,7 +13,7 @@ cmake "%CTU_ROOT_DIR%\src"
 IF NOT %ERRORLEVEL%==0 GOTO finish
 
 :: Build ctu using msbuild
-msbuild /verbosity:quiet ctu.sln
+msbuild ctu.sln /verbosity:quiet /p:Configuration=Release
 IF NOT %ERRORLEVEL%==0 GOTO finish
 
 :: Run unit tests
