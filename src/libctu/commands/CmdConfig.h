@@ -29,8 +29,8 @@ namespace CTU
 				{
 					std::string command = pConfigFile->Get<std::string>(JK_EDITOR) +
 					                      " \"" + pConfigFile->GetPath() + "\"";
-					system(command.c_str());
-					return true;
+					int ret = system(command.c_str());
+					return ret == 0;
 				}
 		};
 	}
