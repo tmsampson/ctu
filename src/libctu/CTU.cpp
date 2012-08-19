@@ -22,6 +22,7 @@ static CTU::TaskList taskList;
 static const std::string JK_CURRENT_TASK_LIST = "currentTaskList";
 static const std::string JK_VERBOSE           = "verbose";
 static const std::string JK_BULLET            = "bullet";
+static const std::string JK_EDITOR            = "editor";
 
 void PrintIncorrectUsage(const std::string& commandName = "")
 {
@@ -72,6 +73,11 @@ bool CTU::RunStartupChecks(ConfigFile* pConfig)
 	// Ensure values are set OR default
 	pConfigFile->Set<bool>(JK_VERBOSE, pConfigFile->Get<bool>(JK_VERBOSE, false));
 	pConfigFile->Set<std::string>(JK_BULLET, pConfigFile->Get<std::string>(JK_BULLET, "> "));
+	pConfigFile->Set<std::string>(JK_EDITOR, pConfigFile->Get<std::string>(JK_EDITOR, Utils::GetDefaultEditor()));
+
+	// Handle any empty string values
+	if(pConfigFile->Get<std::string>(JK_EDITOR) == "")
+		pConfigFile->Set<std::string>(JK_EDITOR, Utils::GetDefaultEditor());
 	pConfigFile->Save();
 
 	// Get path to current task list

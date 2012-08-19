@@ -43,6 +43,7 @@ namespace Utils
 
 	extern std::string GetConfigFilePath();
 	extern std::string GetDefaultTaskListDirectory();
+	extern std::string GetDefaultEditor();
 
 	extern bool FileExists(const std::string& path);
 	extern s64 GetFileSize(const std::string& path);

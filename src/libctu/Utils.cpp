@@ -202,6 +202,15 @@ namespace Utils
 		#endif
 	}
 
+	std::string GetDefaultEditor()
+	{
+		#if defined(_WIN32)
+			return "notepad";
+		#else
+			return "nano";
+		#endif
+	}
+
 	bool FileExists(const std::string& path)
 	{
 		return std::ifstream(path.c_str()).good();
