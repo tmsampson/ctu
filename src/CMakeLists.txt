@@ -1,12 +1,13 @@
 # Main Project Configuration
 project(ctu)
 cmake_minimum_required(VERSION 2.8.7)
+set(CMAKE_BUILD_TYPE "Release")
 set(CTU_ROOT "${CMAKE_CURRENT_SOURCE_DIR}/..")
 
 # Setup build output layout
 if(MSVC)
-      set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG "../")
-      set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_DEBUG "../")
+      set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE "../")
+      set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_RELEASE "../")
 else()
       set(EXECUTABLE_OUTPUT_PATH ${CTU_ROOT}/build)
 endif()
