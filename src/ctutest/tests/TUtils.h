@@ -22,13 +22,13 @@ TEST_F(TUtils, GetCurrentDir_NormalCall_ReturnNonEmptyString)
 }
 
 // ************************************************
-//  Utils::GetExecutableDir Tests
+//  Utils::GetExecutableDirectory Tests
 // ************************************************
-TEST_F(TUtils, GetExecutableDir_NormalCall_ReturnCurrentDir)
+TEST_F(TUtils, GetExecutableDirectory_NormalCall_ReturnCurrentDir)
 {
 	// Note: When unit tests execute, executable directory
 	//       should be same as working directory
-	ASSERT_EQ(Utils::GetCurrentDir(), Utils::GetExecutableDir());
+	ASSERT_EQ(Utils::GetCurrentDir(), Utils::GetExecutableDirectory());
 }
 
 // ************************************************
@@ -159,11 +159,11 @@ TEST_F(TUtils, DirectoryExists_PassExistingDir_ReturnTrue)
 }
 
 // ************************************************
-//  Utils::GetDefaultTaskListDirectory Tests
+//  Utils::GetUserDirectory Tests
 // ************************************************
-TEST_F(TUtils, GetDefaultTaskListDirectory_Call_ValidPathReturned)
+TEST_F(TUtils, GetUserDirectory_Call_ValidPathReturned)
 {
-	std::string path = Utils::GetDefaultTaskListDirectory();
+	std::string path = Utils::GetUserDirectory();
 	ASSERT_TRUE(Utils::DirectoryExists(path));
 }
 
