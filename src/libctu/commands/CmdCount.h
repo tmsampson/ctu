@@ -24,7 +24,7 @@ namespace CTU
 
 				virtual bool Execute(const CTU::Command::ArgList& args, CTU::TaskList& taskList)
 				{
-					Utils::PrintLine("number of tasks in the active task list is: %i", taskList.GetTaskCount());
+					Utils::PrintLine("number of tasks in the active task list is: %d", taskList.GetTaskCount());
 					return true;
 				}
 		};
