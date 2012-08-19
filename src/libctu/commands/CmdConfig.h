@@ -1,6 +1,7 @@
 #include "CTU.h"
 #include "Utils.h"
 #include "CommandMgr.h"
+#include <stdlib.h>
 extern ConfigFile* pConfigFile;
 
 namespace CTU
