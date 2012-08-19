@@ -39,10 +39,12 @@ namespace Utils
 	extern u32  PromptTaskIndex(const CTU::TaskList& taskList, bool& bUserCancelled);
 
 	extern std::string GetCurrentDir();
-	extern std::string GetExecutableDir();
+	extern std::string GetExecutableDirectory();
+	extern bool SearchDirectoryTreeForFile(const std::string& directory, const std::string& filename,
+	                                       std::string& resultOut);
 
 	extern std::string GetConfigFilePath();
-	extern std::string GetDefaultTaskListDirectory();
+	extern std::string GetUserDirectory();
 	extern std::string GetDefaultEditor();
 
 	extern bool FileExists(const std::string& path);

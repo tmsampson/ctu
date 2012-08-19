@@ -154,7 +154,7 @@ namespace Utils
 		#undef GetCurrentDirFunc
 	}
 
-	std::string GetExecutableDir()
+	std::string GetExecutableDirectory()
 	{
 		static const u32 uSize = FILENAME_MAX;
 		static char pResult[uSize];
@@ -183,12 +183,50 @@ namespace Utils
 		return ""; // Unsupported platform
 	}
 
-	std::string GetConfigFilePath()
+	extern bool SearchDirectoryTreeForFile(const std::string& directory, const std::string& filename,
+	                                       std::string& resultOut)
 	{
-		return Utils::GetExecutableDir() + Utils::PATH_SEPARATOR + "ctu.settings";
+		// Tidy up the input path
+		std::string tidyDir = StringTrim(directory, "\\/");
+		std::replace(tidyDir.begin(), tidyDir.end(), '/',  PATH_SEPARATOR);
+		std::replace(tidyDir.begin(), tidyDir.end(), '\\', PATH_SEPARATOR);
+
+		if(!DirectoryExists(tidyDir))
+			return false;
+
+		std::size_t splitPos;
+		std::string candidate;
+		bool bFileFound = false;
+		while(!bFileFound)
+		{
+			candidate = tidyDir + PATH_SEPARATOR + filename;
+
+			// Test for file at this level
+			if(FileExists(candidate))
+			{
+				resultOut = candidate;
+				return true;
+			}
+
+			// Can we go up a directory?
+			splitPos = tidyDir.find_last_of(PATH_SEPARATOR);
+			if (splitPos == std::string::npos)
+				break; // Root path reached
+
+			// Move up a directory and try again
+			tidyDir = tidyDir.substr(0, splitPos);
+		}
+
+		// File not found
+		return false;
 	}
 
-	std::string GetDefaultTaskListDirectory()
+	std::string GetConfigFilePath()
+	{
+		return Utils::GetExecutableDirectory() + Utils::PATH_SEPARATOR + "ctu.settings";
+	}
+
+	std::string GetUserDirectory()
 	{
 		#if defined(_WIN32)
 			static char pathResult[MAX_PATH];
