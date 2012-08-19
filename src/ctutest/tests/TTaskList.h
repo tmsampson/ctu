@@ -18,7 +18,7 @@ TEST_F(TTaskList, Init_ValidPathPassed_ReturnsTrue)
 	// Create a new list and initialise it
 	CTU::TaskList newList;
 
-	ASSERT_EQ(true, newList.Init(TEMP_FILE, ""));
+	ASSERT_TRUE(newList.Init(TEMP_FILE, ""));
 }
 
 TEST_F(TTaskList, Init_InvalidPathPassed_ReturnsFalse)
@@ -26,7 +26,7 @@ TEST_F(TTaskList, Init_InvalidPathPassed_ReturnsFalse)
 	// Create a new list and initialise it
 	CTU::TaskList newList;
 
-	ASSERT_EQ(false, newList.Init(INVALID_PATH, ""));
+	ASSERT_FALSE(newList.Init(INVALID_PATH, ""));
 }
 
 // ************************************************
@@ -37,7 +37,7 @@ TEST_F(TTaskList, Save_NormalCall_ReturnsTrue)
 	// Create a new list and initialise it
 	CTU::TaskList newList;
 
-	ASSERT_EQ(true, newList.Init(VALID_PATH, ""));
+	ASSERT_TRUE(newList.Init(VALID_PATH, ""));
 }
 
 // ************************************************
