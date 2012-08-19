@@ -87,18 +87,18 @@ bool CTU::RunStartupChecks(ConfigFile* pConfig)
 		pConfigFile->Set<std::string>(JK_TASK_LIST_FILE, defaultTaskListFile);
 	pConfigFile->Save();
 
-	// 1. Is a "main" task list set?
-	std::string taskListPath = pConfigFile->Get<std::string>(JK_MAIN_TASK_LIST);
-	if(!taskListPath.size())
+	// 1. Recursively search up directory tree to find a task list
+	std::string taskListPath;
+	bool bTaskListFound = Utils::SearchDirectoryTreeForFile(Utils::GetCurrentDir(),
+	                                                        pConfigFile->Get<std::string>(JK_TASK_LIST_FILE),
+	                                                        taskListPath);
+	if(!bTaskListFound)
 	{
-		// 2. Recursively search up directory tree to find a task list
-		bool bTaskListFound = Utils::SearchDirectoryTreeForFile(Utils::GetCurrentDir(),
-		                                                        pConfigFile->Get<std::string>(JK_TASK_LIST_FILE),
-		                                                        taskListPath);
-
-		// 3. Final fallback - Ask the user where to create the main task list
-		if(!bTaskListFound)
+		// 2. No task list found along the current path, is a "main" task list set?
+		taskListPath = pConfigFile->Get<std::string>(JK_MAIN_TASK_LIST);
+		if(!taskListPath.size())
 		{
+			// 3. No "main" task list set, ask the user where to create the main task list
 			Utils::PrintLine(Utils::EColour::YELLOW, "WARNING: no task list is currently set");
 			taskListPath = SetupMainTaskList();
 			if(!taskListPath.size())
