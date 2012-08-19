@@ -35,6 +35,17 @@ mkdir $CTU_BUILD_DIR/ctutest_resources
 cp -r $CTU_TEST_RESOURCES_DIR/* $CTU_BUILD_DIR/ctutest_resources
 ./ctutest
 rm -r $CTU_BUILD_DIR/ctutest_resources
+exit_if_failed
+
+# Build package?
+if [ "$1" == package ]; then
+	printf "\r\n"
+	echo =====================================================
+	echo = G E N E R A T I N G = D E B I A N = P A C K A G E
+	echo =====================================================
+	cd $CTU_BUILD_DIR/intermediate
+	make package
+fi
 
 # Return to original directory
 cd $CTU_ROOT_DIR
