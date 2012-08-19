@@ -25,7 +25,8 @@ namespace CTU
 
 				virtual bool Execute(const CTU::Command::ArgList& args, CTU::TaskList& taskList)
 				{
-					std::string command = pConfigFile->Get<std::string>("editor") + " \"" + pConfigFile->GetPath() + "\"";
+					std::string command = pConfigFile->Get<std::string>("editor") +
+					                      " \"" + pConfigFile->GetPath() + "\"";
 					system(command.c_str());
 					return true;
 				}
