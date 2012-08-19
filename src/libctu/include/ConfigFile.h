@@ -24,6 +24,7 @@ class ConfigFile
 		bool Remove(const std::string& key, bool saveImmediate = false);
 		bool Clear();
 		std::string GetLastError() const;
+		std::string GetPath() const;
 
 	private:
 		std::string m_path;
