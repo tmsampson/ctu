@@ -97,6 +97,11 @@ std::string ConfigFile::GetLastError() const
 	return m_reader.getFormattedErrorMessages();
 }
 
+std::string ConfigFile::GetPath() const
+{
+	return m_path;
+}
+
 // **********************************************************************
 // Template specialisations for getting values WITH default value
 // **********************************************************************
