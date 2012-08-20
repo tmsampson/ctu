@@ -23,4 +23,10 @@ Binaries for Windows, Linux and MacOSX can be found on the downloads page:
 
 Support
 =================
+Binaries for Windows, Linux and MacOSX can be found on the downloads page:
+
+    https://bitbucket.org/drummertom999/ctu/downloads
+
+Support
+=================
 Some text
