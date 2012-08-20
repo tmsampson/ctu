@@ -6,14 +6,14 @@ ctu is a cross-platform command line task management system, which allows full c
 and management of text based task lists directly from the terminal / shell. ctu allows 
 tasks to be added, prioritised, listed, sorted, removed and cleared, using an intuative
 command line syntax. Task lists are stored in a simple and hand-editable text
-based format, ideal for sharing and maintaining personal todo lists.
+based format, ideal for maintaining and sharing personal todo lists.
 
 Building ctu
 =================
-For instructions on building ctu for your platform from source, see the build
+For instructions on building ctu from source for your platform , see the build
 instructions page:
 
-    http://dummyurl.com
+    https://bitbucket.org/drummertom999/ctu/wiki/Build
 
 Binary Packages
 =================
