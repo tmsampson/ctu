@@ -25,6 +25,16 @@ cd "%CTU_BUILD_DIR%"
 xcopy /Y /E /I /Q "%CTU_TEST_RESOURCES_DIR%" "%CTU_BUILD_DIR%\ctutest_resources"
 call ctutest
 rd /s /q "%CTU_BUILD_DIR%\ctutest_resources"
+IF NOT %ERRORLEVEL%==0 GOTO finish
+
+:: Generate zip package?
+IF NOT "%1"=="package" GOTO finish
+	echo.
+	echo =====================================================
+	echo = G E N E R A T I N G = Z I P = P A C K A G E
+	echo =====================================================
+	cd %CTU_INTERMEDIATE_DIR%
+	cpack -G ZIP
 
 :: Return to original directory
 :finish
