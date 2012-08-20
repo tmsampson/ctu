@@ -15,18 +15,15 @@ instructions page:
 
     http://dummyurl.com
 
-Binary packages
+Binary Packages
 =================
 Binaries for Windows, Linux and MacOSX can be found on the downloads page:
 
     https://bitbucket.org/drummertom999/ctu/downloads
 
-Support
+Getting Support
 =================
-Binaries for Windows, Linux and MacOSX can be found on the downloads page:
+Please visit the wiki for help and tips on using ctu, or feel free to contact a developer:
 
-    https://bitbucket.org/drummertom999/ctu/downloads
-
-Support
-=================
-Some text
+    - Thomas Sampson <drummertom999@gmail.com>
+    - Andrew Wiley <wiley.a@gmail.com>
