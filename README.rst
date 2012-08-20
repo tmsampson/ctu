@@ -23,7 +23,4 @@ Binaries for Windows, Linux and MacOSX can be found on the downloads page:
 
 Support
 =================
-Please visit the wiki for help and tips on using ctu, or feel free to contact a developer:
-
-    - Thomas Sampson <drummertom999@gmail.com>
-    - Andrew Wiley <wiley.a@gmail.com>
+Some text
