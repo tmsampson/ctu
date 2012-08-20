@@ -95,8 +95,8 @@ endif()
 
 if(UNIX AND NOT APPLE)
       # Debian (.deb) specifics
-      install(TARGETS ctu DESTINATION ctu)
-      install(FILES "${CTU_ROOT}/README.rst" DESTINATION ctu)
+      install(TARGETS ctu DESTINATION bin)
+      install(FILES "${CTU_ROOT}/README.rst" DESTINATION share/doc/ctu)
       set(CPACK_GENERATOR "DEB")
       set(CPACK_DEBIAN_PACKAGE_SECTION 'utils')
       set(CPACK_DEBIAN_PACKAGE_DESCRIPTION ${CPACK_PACKAGE_DESCRIPTION})
