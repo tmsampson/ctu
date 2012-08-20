@@ -74,7 +74,6 @@ target_link_libraries(ctu libctu)
 # OSX:     NOT SUPPORTED                                     #
 # Note: Resulting package is placed in ${CTU_ROOT}/package   #
 ##############################################################
-install(TARGETS ctu DESTINATION ctu)
 set(CPACK_OUTPUT_FILE_PREFIX "${CTU_ROOT}/package") # output directory
 set(CPACK_PACKAGE_NAME "ctu")
 set(CPACK_PACKAGE_CONTACT "Thomas Sampson <drummertom999@gmail.com>")
@@ -82,18 +81,22 @@ set(CPACK_PACKAGE_VERSION_MAJOR 1)
 set(CPACK_PACKAGE_VERSION_MINOR 0)
 set(CPACK_PACKAGE_VERSION_PATCH 0)
 set(CPACK_PACKAGE_VERSION_STRING "${CPACK_PACKAGE_VERSION_MAJOR}.${CPACK_PACKAGE_VERSION_MINOR}.${CPACK_PACKAGE_VERSION_PATCH}")
-set(CPACK_PACKAGE_FILE_NAME "ctu-${CPACK_PACKAGE_VERSION_STRING}-${CMAKE_SYSTEM_NAME}")
+set(CPACK_PACKAGE_FILE_NAME "ctu-${CPACK_PACKAGE_VERSION_STRING}-${CMAKE_SYSTEM_NAME}-x86")
 STRING(TOLOWER ${CPACK_PACKAGE_FILE_NAME} CPACK_PACKAGE_FILE_NAME)
 set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "CTU Command-line Task Utility")
 set(CPACK_PACKAGE_DESCRIPTION "Manage task lists with ease without leaving the command line environment")
 
 if(WIN32 OR APPLE)
       # Zip archive specifics
+      install(TARGETS ctu DESTINATION .)
+      install(FILES "${CTU_ROOT}/README.rst" DESTINATION .)
       set(CPACK_GENERATOR "ZIP")
 endif()
 
 if(UNIX AND NOT APPLE)
       # Debian (.deb) specifics
+      install(TARGETS ctu DESTINATION ctu)
+      install(FILES "${CTU_ROOT}/README.rst" DESTINATION ctu)
       set(CPACK_GENERATOR "DEB")
       set(CPACK_DEBIAN_PACKAGE_SECTION 'utils')
       set(CPACK_DEBIAN_PACKAGE_DESCRIPTION ${CPACK_PACKAGE_DESCRIPTION})
