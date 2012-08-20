@@ -27,3 +27,7 @@ Please visit the wiki for help and tips on using ctu, or feel free to contact a 
 
     - Thomas Sampson <drummertom999@gmail.com>
     - Andrew Wiley <wiley.a@gmail.com>
+
+Bugs can be reported at the following url:
+
+    https://bitbucket.org/drummertom999/ctu/issues
