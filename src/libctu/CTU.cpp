@@ -40,7 +40,7 @@ std::string SetupMainTaskList()
 
 	do
 	{
-		Utils::PrintLine("where would you like your task list to be created? (leave blank for current directory)");
+		Utils::PrintLine("where would you like your task list to be created?\r\n(leave blank for current directory)");
 		Utils::Print("task list path: ");
 		std::getline(std::cin, taskListPath);
 
