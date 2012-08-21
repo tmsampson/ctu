@@ -2,8 +2,6 @@
 #include "Utils.h"
 #include "ConfigFile.h"
 #include "CommandMgr.h"
-#include <vector>
-#include <string>
 
 int main(int argc, char* argv[])
 {
