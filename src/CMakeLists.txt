@@ -69,9 +69,9 @@ target_link_libraries(ctu libctu)
 # Packaging Configuration                                    #
 ##############################################################
 # To generate install package...                             #
-# Linux:   './make_linux package'                            #
 # Windows: 'make_windows package'                            #
-# OSX:     NOT SUPPORTED                                     #
+# Linux:   './make_linux package'                            #
+# OSX:     './make_osx package'                              #
 # Note: Resulting package is placed in ${CTU_ROOT}/package   #
 ##############################################################
 set(CPACK_OUTPUT_FILE_PREFIX "${CTU_ROOT}/package") # output directory
