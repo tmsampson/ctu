@@ -38,7 +38,7 @@ namespace CTU
 					}
 
 					taskList.Clear();
-					SetFlag(ECommandFlag::REQUIRES_SAVE);
+					SetFlag(ECommandFlag::REQUIRES_TASK_LIST_SAVE);
 					return true;
 				}
 		};

@@ -8,7 +8,7 @@ namespace CTU
 		class CmdHelp : public CTU::Command
 		{
 			public:
-				CmdHelp() { ResetFlag(ECommandFlag::REQUIRES_PARSE); }
+				CmdHelp() { ResetFlag(ECommandFlag::REQUIRES_TASK_LIST); }
 
 				virtual std::string GetName() const    { return "help"; }
 				virtual std::string GetSummary() const { return "display usage instructions for a given command"; }

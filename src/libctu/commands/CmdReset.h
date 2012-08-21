@@ -10,7 +10,7 @@ namespace CTU
 		class CmdReset : public CTU::Command
 		{
 			public:
-				CmdReset() { ResetFlag(ECommandFlag::REQUIRES_PARSE); }
+				CmdReset() { ResetFlag(ECommandFlag::REQUIRES_TASK_LIST); }
 
 				virtual std::string GetName() const    { return "reset"; }
 				virtual std::string GetSummary() const { return "reset all settings to first-run defaults"; }
@@ -35,7 +35,9 @@ namespace CTU
 					}
 
 					pConfigFile->Clear();
-					return CTU::RunStartupChecks(pConfigFile);
+					if(!CTU::ValidateConfigFile(pConfigFile))
+						return false;
+					return CTU::LocateTaskList(pConfigFile);
 				}
 		};
 	}

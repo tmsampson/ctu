@@ -10,7 +10,7 @@ namespace CTU
 		class CmdRemove : public CTU::Command
 		{
 			public:
-				CmdRemove() : m_nTaskIndex(0) { SetFlag(ECommandFlag::REQUIRES_SAVE); }
+				CmdRemove() : m_nTaskIndex(0) { SetFlag(ECommandFlag::REQUIRES_TASK_LIST_SAVE); }
 
 				virtual std::string GetName() const    { return "remove"; }
 				virtual std::string GetSummary() const { return "remove a task from the active task list"; }
