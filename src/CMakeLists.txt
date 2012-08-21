@@ -74,7 +74,7 @@ target_link_libraries(ctu libctu)
 # OSX:     './make_osx package'                              #
 # Note: Resulting package is placed in ${CTU_ROOT}/package   #
 ##############################################################
-set(CPACK_OUTPUT_FILE_PREFIX "${CTU_ROOT}/package") # output directory
+set(CPACK_OUTPUT_FILE_PREFIX "${CTU_ROOT}/package")
 set(CPACK_PACKAGE_NAME "ctu")
 set(CPACK_PACKAGE_CONTACT "Thomas Sampson <drummertom999@gmail.com>")
 set(CPACK_PACKAGE_VERSION_MAJOR 1)
