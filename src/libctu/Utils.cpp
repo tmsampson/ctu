@@ -223,7 +223,7 @@ namespace Utils
 
 	std::string GetConfigFilePath()
 	{
-		return Utils::GetExecutableDirectory() + Utils::PATH_SEPARATOR + "ctu.settings";
+		return Utils::GetUserDirectory() + Utils::PATH_SEPARATOR + "ctu.settings";
 	}
 
 	std::string GetUserDirectory()
