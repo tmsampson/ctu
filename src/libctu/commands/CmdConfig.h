@@ -12,6 +12,8 @@ namespace CTU
 		class CmdConfig : public CTU::Command
 		{
 			public:
+				CmdConfig() { ResetFlag(ECommandFlag::REQUIRES_TASK_LIST); }
+
 				virtual std::string GetName() const    { return "config"; }
 				virtual std::string GetSummary() const { return "opens ctu.settings file for editing"; }
 				virtual std::string GetUsage() const

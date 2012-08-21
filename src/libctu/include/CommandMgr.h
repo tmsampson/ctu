@@ -14,8 +14,8 @@ namespace CTU
 	{
 		enum Enum
 		{
-			REQUIRES_PARSE = 1 << 0,
-			REQUIRES_SAVE  = 1 << 1,
+			REQUIRES_TASK_LIST      = 1 << 0,
+			REQUIRES_TASK_LIST_SAVE = 1 << 1,
 		};
 	}
 
@@ -54,8 +54,8 @@ namespace CTU
 
 			bool CommandExists(const std::string& commandName) const;
 			bool CommandExists(std::string& commandName) const;
-			bool CommandRequiresParse(const std::string& commandName) const;
-			bool CommandRequiresSave(const std::string& commandName) const;
+			bool CommandRequiresTaskList(const std::string& commandName) const;
+			bool CommandRequiresTaskListSave(const std::string& commandName) const;
 			bool Execute(const std::string& commandName, const CTU::Command::ArgList& args,
 			             CTU::TaskList& taskList) const;
 			void PrintBasicCommandsSummary() const;

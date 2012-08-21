@@ -3,7 +3,7 @@
 
 CTU::Command::Command() : m_uFlags(0)
 {
-	SetFlag(ECommandFlag::REQUIRES_PARSE);
+	SetFlag(ECommandFlag::REQUIRES_TASK_LIST);
 }
 
 bool CTU::Command::FlagIsSet(ECommandFlag::Enum flag) const
@@ -51,20 +51,20 @@ bool CTU::CommandMgr::CommandExists(std::string& commandName) const
 	return false;
 }
 
-bool CTU::CommandMgr::CommandRequiresParse(const std::string& commandName) const
+bool CTU::CommandMgr::CommandRequiresTaskList(const std::string& commandName) const
 {
 	if(!CommandExists(commandName))
 		return false;
 	Command::Instance pCommand = GetCommandInstance(commandName);
-	return pCommand->FlagIsSet(ECommandFlag::REQUIRES_PARSE);
+	return pCommand->FlagIsSet(ECommandFlag::REQUIRES_TASK_LIST);
 }
 
-bool CTU::CommandMgr::CommandRequiresSave(const std::string& commandName) const
+bool CTU::CommandMgr::CommandRequiresTaskListSave(const std::string& commandName) const
 {
 	if(!CommandExists(commandName))
 		return false;
 	Command::Instance pCommand = GetCommandInstance(commandName);
-	return pCommand->FlagIsSet(ECommandFlag::REQUIRES_SAVE);
+	return pCommand->FlagIsSet(ECommandFlag::REQUIRES_TASK_LIST_SAVE);
 }
 
 bool CTU::CommandMgr::Execute(const std::string& commandName, const CTU::Command::ArgList& args,
@@ -81,8 +81,8 @@ bool CTU::CommandMgr::Execute(const std::string& commandName, const CTU::Command
 		return false;
 	}
 
-	if(CommandRequiresParse(commandName) ||
-	   CommandRequiresSave(commandName))
+	if(CommandRequiresTaskList(commandName) ||
+	   CommandRequiresTaskListSave(commandName))
 	{
 		if(!taskList.Parse())
 			return false;
@@ -91,7 +91,7 @@ bool CTU::CommandMgr::Execute(const std::string& commandName, const CTU::Command
 	if(!pCommand->Execute(args, taskList))
 		return false;
 
-	return CommandRequiresSave(commandName)? taskList.Save() : true;
+	return CommandRequiresTaskListSave(commandName)? taskList.Save() : true;
 }
 
 void CTU::CommandMgr::PrintBasicCommandsSummary() const
@@ -114,6 +114,7 @@ void CTU::CommandMgr::PrintBasicCommandsSummary() const
 			Utils::Print(" ");
 		Utils::PrintLine("%s", commandSummary.c_str());
 	}
+
 	Utils::PrintLine("\r\n");
 	Utils::PrintLine("use \"ctu help COMMAND\" for command specific usage details");
 	Utils::PrintLine("");

@@ -5,8 +5,9 @@
 
 namespace CTU
 {
-	bool RunStartupChecks(ConfigFile* pCconfig);
-	int Begin(const std::vector<std::string>& args);
+	bool ValidateConfigFile(ConfigFile* pConfig);
+	bool LocateTaskList(ConfigFile* pConfig);
+	int  Begin(const std::vector<std::string>& args, ConfigFile* pConfig);
 }
 
 #endif

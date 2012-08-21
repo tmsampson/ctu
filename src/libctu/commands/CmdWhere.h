@@ -9,7 +9,7 @@ namespace CTU
 		class CmdWhere : public CTU::Command
 		{
 			public:
-				CmdWhere() { ResetFlag(ECommandFlag::REQUIRES_PARSE); }
+				CmdWhere() { SetFlag(ECommandFlag::REQUIRES_TASK_LIST); }
 
 				virtual std::string GetName() const    { return "where"; }
 				virtual std::string GetSummary() const { return "display the location of the active task list"; }
