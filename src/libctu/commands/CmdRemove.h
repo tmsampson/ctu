@@ -20,7 +20,7 @@ namespace CTU
 					       std::string("removes a single task from the active task list\r\n\r\n") +
 					       std::string("options:\r\n") +
 					       std::string(" -t        the numeric index of the task to be removed\r\n\r\n") +
-					       std::string("note: if the -t option is omited, a prompt will allow a task\r\n") +
+					       std::string("note: if the -t option is omitted, a prompt will allow a task\r\n") +
 					       std::string("      to be selected manually for removal\r\n");
 				}
 

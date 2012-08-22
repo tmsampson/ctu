@@ -14,7 +14,7 @@ namespace CTU
 				virtual std::string GetUsage() const
 				{
 					return std::string("ctu list\r\n\r\n") +
-					       std::string("list the tasks within the active command list\r\n") +
+					       std::string("list the tasks within the active task list\r\n") +
 					       std::string("note: tasks are listed in the order which they appear in-file\r\n");
 				}
 

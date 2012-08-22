@@ -21,7 +21,7 @@ namespace CTU
 					       std::string("creates a new task list within the current directory\r\n") +
 					       std::string("note: this does nothing more than create an empty task list\r\n") +
 					       std::string("      within the current directory and does not modify the\r\n") +
-					       std::string("      mainTaskList value within ctu.settings, if a task list\r\n") +
+					       std::string("      defaultTaskList value within ctu.settings, if a task list\r\n") +
 					       std::string("      already exists within the current directory this will\r\n") +
 					       std::string("      not be overwritten\r\n");
 				}
