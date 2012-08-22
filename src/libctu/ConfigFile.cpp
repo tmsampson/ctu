@@ -31,6 +31,7 @@ ConfigFile::ConfigFile(const std::string& path)
 		// Do not allow partial parses
 		m_root.clear();
 		m_bLoadFailed = m_bParseFailed = true;
+		m_path = "";
 		return;
 	}
 }
