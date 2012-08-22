@@ -10,6 +10,7 @@
 class TConfigFile : public ::testing::Test { };
 static const char*  SAVE_NEW_FILE                    = "ctutest_resources/save-new-file";
 static const char*  CREATE_NEW_FILE                  = "ctutest_resources/create-new-file";
+static const char*  CREATE_NEW_FILE_2                = "ctutest_resources/create-new-file2";
 static const char*  CREATE_EMPTY_FILE                = "ctutest_resources/create-empty-file";
 static const char*  SCOPED_SAVE                      = "ctutest_resources/scoped-save";
 static const char*  IS_LOADED_TEST1                  = "ctutest_resources/is-loaded";
@@ -117,97 +118,6 @@ TEST_F(TConfigFile, IsLoaded_LoadExistingMalformedFile_ReturnFalse)
 {
 	ConfigFile jfile(EXISTING_MALFORMED_FILE);
 	ASSERT_FALSE(jfile.IsLoaded());
-}
-
-// ************************************************
-// ConfigFile::Set<T> Tests
-// ************************************************
-TEST_F(TConfigFile, Set_SetBoolTrue_GetBoolReturnsTrue)
-{
-	ConfigFile jfile(EMPTY_STRING);
-	jfile.Set<bool>("myBool", true);
-	ASSERT_TRUE(jfile.Get<bool>("myBool"));
-}
-
-TEST_F(TConfigFile, Set_SetBoolFalse_GetBoolReturnsFalse)
-{
-	ConfigFile jfile(EMPTY_STRING);
-	jfile.Set<bool>("myBool", false);
-	ASSERT_FALSE(jfile.Get<bool>("myBool"));
-}
-
-TEST_F(TConfigFile, Set_SetIntMinus2_GetIntReturnsMinus2)
-{
-	ConfigFile jfile(EMPTY_STRING);
-	jfile.Set<s32>("myUInt", -2);
-	ASSERT_EQ(-2, jfile.Get<s32>("myUInt"));
-}
-
-TEST_F(TConfigFile, Set_SetUInt41_GetUIntReturns41)
-{
-	ConfigFile jfile(EMPTY_STRING);
-	jfile.Set<u32>("myInt", 41);
-	ASSERT_EQ(41, jfile.Get<u32>("myInt"));
-}
-
-TEST_F(TConfigFile, Set_SetFloatPI_GetFloatReturnsPI)
-{
-	ConfigFile jfile(EMPTY_STRING);
-	jfile.Set<float>("myFloat", PI);
-	ASSERT_EQ(PI, jfile.Get<float>("myFloat"));
-}
-
-TEST_F(TConfigFile, Set_SetDoubleMax_GetDoubleReturnsMax)
-{
-	ConfigFile jfile(EMPTY_STRING);
-	jfile.Set<double>("myDouble", MAX_DOUBLE);
-	ASSERT_EQ(MAX_DOUBLE, jfile.Get<double>("myDouble"));
-}
-
-TEST_F(TConfigFile, Set_SetStringFoo_GetStringReturnsFoo)
-{
-	ConfigFile jfile(EMPTY_STRING);
-	jfile.Set<std::string>("myString", "Foo");
-	ASSERT_EQ("Foo", jfile.Get<std::string>("myString"));
-}
-
-TEST_F(TConfigFile, Set_SuplyBlankKey_ReturnFalse)
-{
-	ConfigFile jfile(EMPTY_STRING);
-	ASSERT_FALSE(jfile.Set<u32>("", 101));
-}
-
-TEST_F(TConfigFile, Set_OverWriteExistingValue_GetReturnsNewValue)
-{
-	ConfigFile jfile(EMPTY_STRING);
-	jfile.Set<std::string>("myString", "Foo");
-	ASSERT_EQ("Foo", jfile.Get<std::string>("myString"));
-	jfile.Set<std::string>("myString", "Bar");
-	ASSERT_EQ("Bar", jfile.Get<std::string>("myString"));
-}
-
-TEST_F(TConfigFile, Set_ModifyValueSaveImmediate_NewValueSavedToFile)
-{
-	ConfigFile jfile(MODIFIED_FILE);
-	ASSERT_TRUE(jfile.Get<bool>("myBool"));
-	jfile.Set<bool>("myBool", false, true);
-	ASSERT_FALSE(ConfigFile(MODIFIED_FILE).Get<bool>("myBool"));
-}
-
-TEST_F(TConfigFile, Set_NewKeySaveImmediate_NewKeySavedToFile)
-{
-	ConfigFile jfile(MODIFIED_FILE);
-	ASSERT_FALSE(jfile.ContainsKey("newkey"));
-	jfile.Set<int>("newKey", 100, true);
-	ASSERT_EQ(100, ConfigFile(MODIFIED_FILE).Get<int>("newKey"));
-}
-
-TEST_F(TConfigFile, Set_RemoveKeySaveImmediate_KeyRemovedFromFile)
-{
-	ConfigFile jfile(MODIFIED_FILE);
-	ASSERT_TRUE(jfile.ContainsKey("myBool"));
-	jfile.Remove("myBool", true);
-	ASSERT_FALSE(ConfigFile(MODIFIED_FILE).ContainsKey("myBool"));
 }
 
 // ************************************************
@@ -358,6 +268,97 @@ TEST_F(TConfigFile, Get_DoubleAsString_ReturnValidTruncatedString)
 }
 
 // ************************************************
+// ConfigFile::Set<T> Tests
+// ************************************************
+TEST_F(TConfigFile, Set_SetBoolTrue_GetBoolReturnsTrue)
+{
+	ConfigFile jfile(EMPTY_STRING);
+	jfile.Set<bool>("myBool", true);
+	ASSERT_TRUE(jfile.Get<bool>("myBool"));
+}
+
+TEST_F(TConfigFile, Set_SetBoolFalse_GetBoolReturnsFalse)
+{
+	ConfigFile jfile(EMPTY_STRING);
+	jfile.Set<bool>("myBool", false);
+	ASSERT_FALSE(jfile.Get<bool>("myBool"));
+}
+
+TEST_F(TConfigFile, Set_SetIntMinus2_GetIntReturnsMinus2)
+{
+	ConfigFile jfile(EMPTY_STRING);
+	jfile.Set<s32>("myUInt", -2);
+	ASSERT_EQ(-2, jfile.Get<s32>("myUInt"));
+}
+
+TEST_F(TConfigFile, Set_SetUInt41_GetUIntReturns41)
+{
+	ConfigFile jfile(EMPTY_STRING);
+	jfile.Set<u32>("myInt", 41);
+	ASSERT_EQ(41, jfile.Get<u32>("myInt"));
+}
+
+TEST_F(TConfigFile, Set_SetFloatPI_GetFloatReturnsPI)
+{
+	ConfigFile jfile(EMPTY_STRING);
+	jfile.Set<float>("myFloat", PI);
+	ASSERT_EQ(PI, jfile.Get<float>("myFloat"));
+}
+
+TEST_F(TConfigFile, Set_SetDoubleMax_GetDoubleReturnsMax)
+{
+	ConfigFile jfile(EMPTY_STRING);
+	jfile.Set<double>("myDouble", MAX_DOUBLE);
+	ASSERT_EQ(MAX_DOUBLE, jfile.Get<double>("myDouble"));
+}
+
+TEST_F(TConfigFile, Set_SetStringFoo_GetStringReturnsFoo)
+{
+	ConfigFile jfile(EMPTY_STRING);
+	jfile.Set<std::string>("myString", "Foo");
+	ASSERT_EQ("Foo", jfile.Get<std::string>("myString"));
+}
+
+TEST_F(TConfigFile, Set_SuplyBlankKey_ReturnFalse)
+{
+	ConfigFile jfile(EMPTY_STRING);
+	ASSERT_FALSE(jfile.Set<u32>("", 101));
+}
+
+TEST_F(TConfigFile, Set_OverWriteExistingValue_GetReturnsNewValue)
+{
+	ConfigFile jfile(EMPTY_STRING);
+	jfile.Set<std::string>("myString", "Foo");
+	ASSERT_EQ("Foo", jfile.Get<std::string>("myString"));
+	jfile.Set<std::string>("myString", "Bar");
+	ASSERT_EQ("Bar", jfile.Get<std::string>("myString"));
+}
+
+TEST_F(TConfigFile, Set_ModifyValueSaveImmediate_NewValueSavedToFile)
+{
+	ConfigFile jfile(MODIFIED_FILE);
+	ASSERT_TRUE(jfile.Get<bool>("myBool"));
+	jfile.Set<bool>("myBool", false, true);
+	ASSERT_FALSE(ConfigFile(MODIFIED_FILE).Get<bool>("myBool"));
+}
+
+TEST_F(TConfigFile, Set_NewKeySaveImmediate_NewKeySavedToFile)
+{
+	ConfigFile jfile(MODIFIED_FILE);
+	ASSERT_FALSE(jfile.ContainsKey("newkey"));
+	jfile.Set<int>("newKey", 100, true);
+	ASSERT_EQ(100, ConfigFile(MODIFIED_FILE).Get<int>("newKey"));
+}
+
+TEST_F(TConfigFile, Set_RemoveKeySaveImmediate_KeyRemovedFromFile)
+{
+	ConfigFile jfile(MODIFIED_FILE);
+	ASSERT_TRUE(jfile.ContainsKey("myBool"));
+	jfile.Remove("myBool", true);
+	ASSERT_FALSE(ConfigFile(MODIFIED_FILE).ContainsKey("myBool"));
+}
+
+// ************************************************
 // ConfigFile::Remove Tests
 // ************************************************
 TEST_F(TConfigFile, Remove_EmptyKey_ReturnFalse)
@@ -440,5 +441,27 @@ TEST_F(TConfigFile, Clear_LoadPreviouslyClearedConfigFile_ConfigFileEmpty)
 	ASSERT_FALSE(jfile.ContainsKey("myDouble"));
 	ASSERT_FALSE(jfile.ContainsKey("myString"));
 	ASSERT_FALSE(jfile.ContainsKey("myStringInt"));
+}
+
+// ************************************************
+// ConfigFile::GetPath Tests
+// ************************************************
+TEST_F(TConfigFile, GetPath_LoadValidConfigFile_ReturnCorrectPath)
+{
+	ConfigFile jfile(EXISTING_FILE);
+	ASSERT_EQ(EXISTING_FILE, jfile.GetPath());
+}
+
+TEST_F(TConfigFile, GetPath_LoadNoneExistentConfigFile_ReturnCorrectPath)
+{
+	ConfigFile jfile(CREATE_NEW_FILE_2);
+	ASSERT_EQ(CREATE_NEW_FILE_2, jfile.GetPath());
+}
+
+TEST_F(TConfigFile, GetPath_LoadMalformedConfigFile_PathIsResetOnParseFail)
+{
+	ConfigFile jfile(EXISTING_MALFORMED_FILE);
+	ASSERT_FALSE(jfile.IsLoaded());
+	ASSERT_EQ(EMPTY_STRING, jfile.GetPath());
 }
 #endif
