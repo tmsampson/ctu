@@ -32,6 +32,15 @@ TEST_F(TUtils, GetExecutableDirectory_NormalCall_ReturnCurrentDir)
 }
 
 // ************************************************
+//  Utils::GetUserDirectory Tests
+// ************************************************
+TEST_F(TUtils, GetUserDirectory_Call_ValidPathReturned)
+{
+	std::string path = Utils::GetUserDirectory();
+	ASSERT_TRUE(Utils::DirectoryExists(path));
+}
+
+// ************************************************
 //  Utils::FileExists Tests
 // ************************************************
 TEST_F(TUtils, FileExists_PassEmptyString_ReturnFalse)
@@ -156,15 +165,6 @@ TEST_F(TUtils, DirectoryExists_PassExistingFile_ReturnFalse)
 TEST_F(TUtils, DirectoryExists_PassExistingDir_ReturnTrue)
 {
 	ASSERT_TRUE(Utils::DirectoryExists(Utils::GetCurrentDir()));
-}
-
-// ************************************************
-//  Utils::GetUserDirectory Tests
-// ************************************************
-TEST_F(TUtils, GetUserDirectory_Call_ValidPathReturned)
-{
-	std::string path = Utils::GetUserDirectory();
-	ASSERT_TRUE(Utils::DirectoryExists(path));
 }
 
 // ************************************************
