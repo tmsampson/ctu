@@ -16,7 +16,7 @@ namespace CTU
 				virtual std::string GetUsage() const
 				{
 					return std::string("ctu add \"ENTRY\"\r\n\r\n") +
-					       std::string("add the specified entry to the active command list\r\n") +
+					       std::string("add the specified entry to the active task list\r\n") +
 					       std::string("note: quotes may be omited if the entry does not contain spaces\r\n") +
 					       std::string("      to nest quotes use single quotes '' or escaped double quotes \\\"\r\n") +
 					       std::string("      empty entries are classed as incorrect usage\r\n");
