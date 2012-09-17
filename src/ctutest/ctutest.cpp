@@ -14,7 +14,9 @@ const char*  EXISTING_FILE           = "ctutest_resources/existing-file";
 
 int main(int argc, char* argv[])
 {
-    // Initialise and run tests
-    ::testing::InitGoogleTest(&argc, argv);
-    return RUN_ALL_TESTS();
+	Utils::SuppressPrint(); // Silence stdout
+
+	// Initialise and run tests
+	::testing::InitGoogleTest(&argc, argv);
+	return RUN_ALL_TESTS();
 }
