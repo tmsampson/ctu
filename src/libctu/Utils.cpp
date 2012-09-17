@@ -57,8 +57,15 @@ namespace Utils
 		#endif
 	}
 
+	static bool suppressPrint = false;
+	void SuppressPrint(bool bSuppress)
+	{
+		suppressPrint = bSuppress;
+	}
+
 	void Print(const char* formatString, ...)
 	{
+		if(suppressPrint) return;
 		va_list arglist;
 		va_start(arglist, formatString);
 		vfprintf(stdout, formatString, arglist);
@@ -67,6 +74,7 @@ namespace Utils
 
 	void Print(EColour::Enum colour, const char* formatString, ...)
 	{
+		if(suppressPrint) return;
 		SetConsoleColour(colour);
 		va_list arglist;
 		va_start(arglist, formatString);
@@ -77,6 +85,7 @@ namespace Utils
 
 	void PrintLine(const char* formatString, ...)
 	{
+		if(suppressPrint) return;
 		va_list arglist;
 		va_start(arglist, formatString);
 		std::string fs = std::string(formatString) + "\r\n";
@@ -86,6 +95,7 @@ namespace Utils
 
 	void PrintLine(EColour::Enum colour, const char* formatString, ...)
 	{
+		if(suppressPrint) return;
 		SetConsoleColour(colour);
 		va_list arglist;
 		va_start(arglist, formatString);

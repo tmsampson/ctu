@@ -30,6 +30,7 @@ namespace Utils
 		};
 	}
 
+	extern void SuppressPrint(bool bSuppress = true);
 	extern void Print(const char* formatString, ...);
 	extern void Print(EColour::Enum colour, const char* formatString, ...);
 	extern void PrintLine(const char* formatString, ...);
