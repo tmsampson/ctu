@@ -7,8 +7,14 @@
 #include <fstream>
 
 class TTaskList : public ::testing::Test { };
-static const std::string VALID_PATH   = "ctutest_resources/temp";
-static const std::string INVALID_PATH = "";
+static const std::string VALID_PATH                          = "ctutest_resources/temp";
+static const std::string INVALID_PATH                        = "";
+static const std::string TASK_LIST_EMPTY                     = "ctutest_resources/tl-empty";
+static const std::string TASK_LIST_SINGLE_TASK               = "ctutest_resources/tl-single";
+static const std::string TASK_LIST_SINGLE_TASK_NOBULLET      = "ctutest_resources/tl-single-nobullet";
+static const std::string TASK_LIST_SINGLE_TASK_DOUBLE_BULLET = "ctutest_resources/tl-single-double-bullet";
+static const std::string TASK_LIST_MULTIPLE_TASKS            = "ctutest_resources/tl-multiple";
+static const std::string TASK_LIST_MULTIPLE_TASKS_MSB        = "ctutest_resources/tl-multiple-missing-single-bullet";
 
 // ************************************************
 //  TTaskList::Init Tests
@@ -27,6 +33,90 @@ TEST_F(TTaskList, Init_InvalidPathPassed_ReturnsFalse)
 	CTU::TaskList newList;
 
 	ASSERT_FALSE(newList.Init(INVALID_PATH, ""));
+}
+
+// ************************************************
+//  TTaskList::Parse Tests
+// ************************************************
+TEST_F(TTaskList, Parse_Empty_ReturnsTrue)
+{
+	CTU::TaskList newList;
+
+	ASSERT_TRUE(newList.Init(TASK_LIST_EMPTY, ""));
+	ASSERT_TRUE(newList.Parse());
+}
+
+TEST_F(TTaskList, Parse_SingleTask_ReturnsTrue)
+{
+	CTU::TaskList newList;
+
+	ASSERT_TRUE(newList.Init(TASK_LIST_SINGLE_TASK, "> "));
+	ASSERT_TRUE(newList.Parse());
+	ASSERT_EQ(1, newList.GetTaskCount());
+}
+
+TEST_F(TTaskList, Parse_SingleTaskNoBullet_ReturnsTrue)
+{
+	CTU::TaskList newList;
+
+	ASSERT_TRUE(newList.Init(TASK_LIST_SINGLE_TASK_NOBULLET, ""));
+	ASSERT_TRUE(newList.Parse());
+	ASSERT_EQ(1, newList.GetTaskCount());
+}
+
+TEST_F(TTaskList, Parse_SingleTaskMissingBullet_ReturnsFalse)
+{
+	CTU::TaskList newList;
+
+	ASSERT_TRUE(newList.Init(TASK_LIST_SINGLE_TASK_NOBULLET, "> "));
+	ASSERT_FALSE(newList.Parse());
+	ASSERT_EQ(0, newList.GetTaskCount());
+}
+
+TEST_F(TTaskList, Parse_SingleTaskParseBulletRaw_ReturnsTrue)
+{
+	CTU::TaskList newList;
+
+	ASSERT_TRUE(newList.Init(TASK_LIST_SINGLE_TASK, ""));
+	ASSERT_TRUE(newList.Parse());
+	ASSERT_EQ(1, newList.GetTaskCount());
+
+	// Bullet point parsed as raw text?
+	static const std::string SINGLE_TASK_CONTENTS = "> Single Task";
+	ASSERT_EQ(SINGLE_TASK_CONTENTS, newList.GetAllTasks()[0].RawText);
+	ASSERT_EQ(SINGLE_TASK_CONTENTS, newList.GetAllTasks()[0].Contents);
+}
+
+TEST_F(TTaskList, Parse_SingleTaskDoubleBullet_ReturnsTrue)
+{
+	CTU::TaskList newList;
+
+	ASSERT_TRUE(newList.Init(TASK_LIST_SINGLE_TASK_DOUBLE_BULLET, "> "));
+	ASSERT_TRUE(newList.Parse());
+	ASSERT_EQ(1, newList.GetTaskCount());
+
+	// Second bullet point parsed as raw text?
+	static const std::string SINGLE_TASK_CONTENTS = "> Single Task";
+	ASSERT_EQ(SINGLE_TASK_CONTENTS, newList.GetAllTasks()[0].RawText);
+	ASSERT_EQ(SINGLE_TASK_CONTENTS, newList.GetAllTasks()[0].Contents);
+}
+
+TEST_F(TTaskList, Parse_MultipleTasks_ReturnsTrue)
+{
+	CTU::TaskList newList;
+
+	ASSERT_TRUE(newList.Init(TASK_LIST_MULTIPLE_TASKS, "> "));
+	ASSERT_TRUE(newList.Parse());
+	ASSERT_EQ(2, newList.GetTaskCount());
+}
+
+TEST_F(TTaskList, Parse_MultipleTasksSingleMissingBullet_ReturnsTrue)
+{
+	CTU::TaskList newList;
+
+	ASSERT_TRUE(newList.Init(TASK_LIST_MULTIPLE_TASKS_MSB, "> "));
+	ASSERT_FALSE(newList.Parse());
+	ASSERT_EQ(0, newList.GetTaskCount());
 }
 
 // ************************************************
