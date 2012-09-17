@@ -60,7 +60,7 @@ bool CTU::TaskList::ParseLine(const std::string& line, const std::string& bullet
 		return true;
 
 	// Section heading?
-	if(*line.begin() == char("[")  && *line.rbegin() == char("]"))
+	if(*line.begin() == '['  && *line.rbegin() == ']')
 	{
 		std::string sectionName = line.substr(1, line.size() -1);
 		m_currentSection = StringToSection(sectionName);
