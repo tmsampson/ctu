@@ -2,6 +2,14 @@
 #include "Utils.h"
 #include <fstream>
 
+CTU::ESection::Enum StringToSection(const std::string& str)
+{
+	if(str == "HIGH")   { return CTU::ESection::HIGH;   }
+	if(str == "MEDIUM") { return CTU::ESection::MEDIUM; }
+	if(str == "LOW")    { return CTU::ESection::LOW;    }
+	return CTU::ESection::NONE;
+}
+
 bool CTU::TaskList::Init(const std::string& taskListPath, const std::string& bullet)
 {
 	m_taskListPath = taskListPath;
@@ -33,7 +41,9 @@ bool CTU::TaskList::Parse()
 	{
 		if(!ParseLine(line, m_bullet))
 		{
-			Utils::PrintLine(Utils::EColour::RED, "ERROR: task on line %d could not be parsed", uLineNumber);
+			Utils::PrintLine(Utils::EColour::RED,
+			                 "ERROR: task on line %d could not be parsed", uLineNumber + 1);
+			Clear();
 			return false;
 		}
 		++uLineNumber;
@@ -45,8 +55,35 @@ bool CTU::TaskList::Parse()
 
 bool CTU::TaskList::ParseLine(const std::string& line, const std::string& bullet)
 {
+	// Empty line?
+	if(line.empty())
+		return true;
+
+	// Section heading?
+	if(*line.begin() == char("[")  && *line.rbegin() == char("]"))
+	{
+		std::string sectionName = line.substr(1, line.size() -1);
+		m_currentSection = StringToSection(sectionName);
+		if(m_currentSection == CTU::ESection::NONE)
+		{
+			Utils::PrintLine(Utils::EColour::RED,
+			                 "ERROR: Invalid section name: '%s'", sectionName.c_str());
+			return false;
+		}
+		return true;
+	}
+
+	// Task Item?
 	if(line.size() <= bullet.size())
 		return false;
+
+	// Bullet present?
+	if(bullet.size() && line.substr(0, bullet.size()) != bullet)
+	{
+		Utils::PrintLine(Utils::EColour::RED,
+		                 "ERROR: Bullet point '%s' missing", bullet.c_str());
+		return false;
+	}
 
 	std::string rawText = line.substr(bullet.size());
 	return AddTask(rawText);
@@ -92,6 +129,7 @@ bool CTU::TaskList::AddTask(const std::string& rawText)
 	Task task;
 	task.RawText  = rawText;
 	task.Contents = rawText;
+	task.Section  = m_currentSection;
 	m_tasks.push_back(task);
 	return true;
 }

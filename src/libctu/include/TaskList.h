@@ -7,16 +7,23 @@
 
 namespace CTU
 {
+	namespace ESection
+	{
+		enum Enum { NONE = 0, LOW, MEDIUM, HIGH };
+	}
+
 	class Task
 	{
 		public:
 			std::string RawText;
 			std::string Contents;
+			CTU::ESection::Enum Section;
 	};
 
 	class TaskList
 	{
 		public:
+			TaskList() : m_currentSection(CTU::ESection::NONE) { }
 			bool Init(const std::string& taskListPath, const std::string& bullet);
 			bool Parse();
 			bool Save();
@@ -35,6 +42,7 @@ namespace CTU
 			bool ParseLine(const std::string& line, const std::string& bullet);
 			std::string m_taskListPath, m_bullet;
 			std::vector<Task> m_tasks;
+			CTU::ESection::Enum m_currentSection;
 	};
 }
 
