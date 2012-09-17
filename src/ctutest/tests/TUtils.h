@@ -7,7 +7,7 @@
 #include <fstream>
 
 class TUtils : public ::testing::Test { };
-static const char*  TEMP_FILE          = "ctutest_resources/temp";
+const char*  TEMP_FILE                 = "ctutest_resources/temp";
 static const char*  FS_TEST_FILE1      = "ctutest_resources/fs1";
 static const char*  FS_TEST_FILE2      = "ctutest_resources/fs2";
 static const char*  FS_TEST_FILE3      = "ctutest_resources/fs3";
